@@ -1,0 +1,459 @@
+\chapter{Principios del Dibujo}
+
+La sensibilidad es un conjunto de sentimientos que pululan en nuestro subconsciencia armonizadas por nuestro temperamento que acoge nuestro existencia es por eso que se el arte expresa esta armonía con la yuxtaposición adecuada de elementos gráficos es decir es el ritmo que genera un bello lenguaje visual dominarlo es cuestión de nuestro instinto creador conceptual de la realidad anexada a cada ser humano
+\subsection{El ritmo} Permutación de un conjunto de series (aritméticas geométricas cualquier otra que puedas inventar) convergentes o no (divergente, constantes) donde una serie puede depender de otra u otras, estas series pueden esa relacionadas con cantidades numéricas tales como ancho, largo, profundidad, distancias entre los objetos, la dirección de los ejes de los objetos con respecto un punto o otra serie, cantidad de rugosidad etcétera.
+
+
+\begin{figure}
+	\begin{asy}
+	import three;
+	import graph3;
+
+	size(300,0);
+	//create segment
+	path3 g = (0,1.2,0) ..
+	(0,0.6,1.2)..
+	(0,3,1.5)..
+	(0,0.8,2.1);
+	surface lampshade =
+	surface(g, c=O, n=100, axis=Z);
+	draw(lampshade, white);
+	//draw revolved segment for reference
+	draw(g, black);
+	dot(g, black);
+	//draw axes for reference
+	axes3("$x$","$y$","$z$", Arrow3);
+	\end{asy}
+
+	\caption{www}
+\end{figure}
+
+
+
+
+ \begin{asy}
+ size(7.5cm,0);
+ import solids;
+ import graph3;
+
+ currentprojection=orthographic(40,10,10);
+
+ real a=2, r=4, h=5, l=(r/h)^2, m=sqrt(l*h^2-a^2);
+ limits((-r,-r,-h),(2r,r,1.2*h));
+ triple pA1=(0,0,-h), pA2=-pA1, pB1=(r,0,-h), pB2=-pB1,
+ pO=(0,0,0), pI=(a,0,-sqrt(a^2/l));
+ triple F1(real y){return (a,y,sqrt((a^2+y^2)/l));}
+ triple F2(real y){return (a,y,-sqrt((a^2+y^2)/l));}
+ path3 b1=graph(F1,-r,r,operator ..),
+ b2=graph(F2,-r,r,operator ..);
+ triple v1=(0,2m,0),v2=(0,0,2h),p0=(a,-m,-h);
+ path3 pl1=plane(v1,v2,p0);
+
+ draw(cone(pA1,r,h,Z,1),1bp+blue,longitudinalpen=nullpen);
+ draw(cone(pA2,r,h,-Z,1),1bp+blue,longitudinalpen=nullpen);
+
+ // Figure prévue initialement avec transparence du cône (+opacity(.6))
+ // supprimée dans les 2 lignes suivantes pour un meilleur rendu ci-contre.
+ draw(surface(cone(pA1,r,h,Z,1)),lightgray+white);
+ draw(surface(cone(pA2,r,h,-Z,1)),lightgray);
+
+ draw(surface(pl1),green+opacity(.6));
+ draw(pI--pB1^^pA2--pB2);
+ draw(pB1--pA1--pA2^^pI--pO--pB2,dashed);
+ draw(b1^^b2,1bp+red);
+
+ dot(pB1--pA1--pA2^^pI--pO--pB2);
+ dot((a,m,-h)--(a,m,h)--(a,-m,h)--(a,-m,-h));
+ dot(Label("$a$",align=-Y+X),(a,0,0));
+ label("$O$",pO,2E);
+ xaxis3("$x$",Arrow3);
+ yaxis3("$y$",Arrow3);
+ zaxis3("$z$",Arrow3);
+  \end{asy}
+
+
+\begin{asy}
+import solids;
+currentprojection=orthographic(8.5,9.5,8);
+currentlight=(0,5,5);
+
+size(8cm,0);
+
+real R=3, a=1, d=R+2a;
+
+// On définit un tore et on le trace.
+revolution tore=revolution(shift(R*X)*Circle(O,a,Y,32),Z);
+surface s=surface(tore);
+draw(s,white);
+
+// On définit une courbe et on la trace...
+path3 g=d*unit(X+.3Y)..0.5(X-Y)..d*unit(-X-3Y)
+..(-d,0,a)..0.5(Y-X)..d*unit(.5X+Y);
+draw(g,2bp+blue);
+// ... en indiquant en vert les 6 points la définissant.
+dot(g,4bp+green);
+
+// On définit les points d'intersection du tore et de la courbe...
+triple[] points=intersectionpoints(g,s);
+// ... que l'on place en rouge.
+dot(points,6bp+red);
+
+\end{asy}
+
+
+\begin{asy}
+import graph3;
+size(7cm, 0);
+currentprojection = orthographic(3, 4, 5);
+real epsilon = .0001;
+// Returns the derivative f'(t) of a parametrized function f: R -> R^3.
+triple derivative(triple f(real), real t, real dx=epsilon)
+{
+    return (f(t + dx) - f(t - dx)) / 2dx;
+}
+// Returns a vector starting from `start` with a direction `direction`.
+path3 pos(triple start, triple direction)
+{
+    return shift(start) * (O -- direction);
+}
+// Base vector
+triple base(real t){
+    return (3cos(t / sqrt(10)), 3sin(t / sqrt(10)), t / sqrt(10));
+}
+// Tangent vector
+triple tangent(real t){
+    return unit(derivative(base, t));
+}
+// Normal vector
+triple normal(real t){
+    return unit(derivative(tangent, t));
+}
+// Binormal vector
+triple binormal(real t){
+    return cross(tangent(t), normal(t));
+}
+// u-frame vector
+triple uFrame(real t, real u){
+    return cos(u) * normal(t) + sin(u) * binormal(t);
+}
+// u-circle center
+triple uCenter(real t, real u){
+    return base(t) + uFrame(t, u);
+}
+// u-circle
+path3 uCircle(real t, real u, real radius=1){
+    triple n = cross(tangent(t), uFrame(t, u));
+    return circle(uCenter(t, u), radius, normal=n);
+}
+// Parametrized cycloidal surface
+triple paramCycloid(real t, real u){
+    assert(0 <= u && u <= 2pi, "u should be in range [0, 2pi]");
+    return uCenter(t, u) - sin(t) * tangent(t) - cos(t) * uFrame(t, u);
+}
+triple paramCycloid(pair z){
+    return paramCycloid(xpart(z), ypart(z));
+}
+triple principalCycloid(real t){
+    return paramCycloid(t, 0);
+}
+// t range
+real tMin = 0;
+real tMax = pi * sqrt(10);
+// Draw curves
+path3 baseCurve = graph(base, tMin, tMax, operator ..);
+draw(baseCurve, black);
+
+ path3 centerCurve = graph(
+     new triple (real t) { return uCenter(t, 0); },
+     tMin,
+     tMax,
+     operator ..
+ );
+ draw(centerCurve, orange);
+
+path3 principalCycloidCurve = graph(principalCycloid, tMin, tMax, operator ..);
+draw(principalCycloidCurve, yellow);
+
+// Draw TNB frames
+int steps = 5;
+for (int i = 0; i < steps; ++i) {
+    real t = tMin + (tMax - tMin) / steps * i;
+    // Current point on the base curve
+    triple curr = base(t);
+    dot(curr);
+    draw(pos(curr, tangent(t)), red + linewidth(.4pt), arrow=Arrow3());
+    draw(pos(curr, normal(t)), green + linewidth(.4pt), arrow=Arrow3());
+    draw(pos(curr, binormal(t)), blue + linewidth(.4pt), arrow=Arrow3());
+    draw(uCircle(t, 0), red + linewidth(.4pt));
+}
+// Draw the cycloidal surface
+var cycloidalSurface = surface(paramCycloid, (tMin, 0), (tMax, 2pi), Spline);
+var surfacepen = material(
+    blue+opacity(.3),
+    emissivepen=gray(.2),
+    shininess=.5
+);
+draw(cycloidalSurface, surfacepen=surfacepen);
+\end{asy}
+
+\begin{description}
+  \item[a] Considerando  la progresión geometría o aritmética a cualquier otra sucesión de las distancias entre los centros de gravedad de dos objetos adyacentes de mod que guarden alguna sucesión creciente o decreciente de las longitudes entre los elementos.
+
+  \item[b] la metamorfosis de su estructura que estos sufren al converger al foco visual o al divergir de ella.
+
+  \item[c] el color, la textura, el tamaño, etc.
+\end{description}
+
+  Tenemos un ejemplo
+$AB,$ $CD,$ $EF$ y $GH$ son los objetos a los cuales se le aplico una serie en la distancia horizontal de sus longitudes tal com
+
+
+En la siguiente figura se observa cuatro series, la primera es aquella generada por $\alpha$ (serie aritmética $\cdots, 2\theta, cdots$) la segunda por (la serie) geométrica) $\theta$ la tercera generada por la líneas de grosor variable donde también esta serie de compone de otras series tales como la distancia entre los puntos $P'',$ $P',$ $P$ son guiados por la segunda serie anterior es decir horizontalmente coinciden con las líneas  verticales que parten de los extremos $C,$ $D,$ y $F$ respectivamente, la distribución vertical de estos puntos  obedece a otra serie finalmente la ultima
+
+\begin{figure}
+\begin{center}
+\psset{unit=0.5}
+\begin{pspicture}[showgrid=false](-.5,-9)(22.5,9)
+\pstGeonode[CurveType=polygon,unit=1,PosAngle={-110,-90,135,45,135,45,135,0}](0,0)
+{A}(1,0){B}(2,0){C}(4,0){D}(6,0){E}(10,0){F}(13,0){G}(21,0){H}
+\psccurve[linewidth=.25pt](0,0)(0.5,-0.14)(1,0)(0.5,0.14)
+\psccurve[showpoints=true,linewidth=0.5pt](2,0)(3,-0.625)(4,0)(3,0.625)
+\psccurve[showpoints=true,linewidth=1pt](6,0)(7,-0.5)(8,-1.5)(10,0)(8,1.5)(7,0.5)
+\psccurve[showpoints=true,linewidth=2pt](13,0)(15,-1)(17,-3)(21,0)(17,3)(15,1)
+\pcline[offset=-35pt]{|<*->|*}(E)(F)\ncput*{$\beta$}
+\pcline[offset=-30pt]{|<*->|*}(D)(E)\ncput*{$\alpha$}
+\pcline[offset=-125pt]{|<*->|*}(G)(H)\ncput*{$2\beta$}
+\pcline[offset=-30pt]{|<*->|*}(F)(G)\ncput*{$\alpha+1$}
+%\psbrace*[,ref=rC](A)(E){$\beta$}
+\pstGeonode[PointNameSep={1,1,1,1,1,1},PosAngle={-110,-90,0,0,90,110}](10,-3){P}(13,-5){Q}(21,-3){R}(21,3){S}(13,5){T}(10,3){U}
+\pstGeonode[PointNameSep={1,1,1,1,1,1},unit=1,PosAngle={-110,-90,0,0,90,110}](4,-4){P'}(6,-6){Q'}(21,-4){R'}(21,4){S'}(6,6){T'}(4,4){U'}
+\pstGeonode[PointNameSep={1,1,1,1,1,1},unit=1,PosAngle={-110,-90,0,0,90,110}](1,-5){P''}(3,-7){Q''}(21,-5){R''}(21,5){S''}(3,7){T''}(1,5){U''}
+\pcline{<->}(17,-3)(17,3)\mput*{$2\theta$}
+\pcline{<->}(8,-1.5)(8,1.5)\mput*{$\theta$}
+\pscurve[variableLW,startLW=.5pt,endLW=5pt](H)(R)(Q)(P)\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(S)(T)(U)
+\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(R')(Q')(P')\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(S')(T')(U')
+\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(R'')(Q'')(P'')\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(S'')(T'')(U'')
+%\pstLineAB{A}{C}
+%\pstMarkAngle[]{B}{A}{C}{$\alpha^\circ$}
+%\pstTranslation[DistCoef=0.4,PointSymbol=none,PosAngle=180]{A}{B}{B}[x]
+%\pstTranslation[DistCoef=0.4,PointSymbol=none,PosAngle=180]{A}{D}{D}[y]
+%\pstLineAB[nodesepA=-.4, nodesepB=-1,arrows=->]{A}{B}
+%\pstLineAB[nodesepA=-.4, nodesepB=-1,arrows=->]{A}{D}
+ \end{pspicture}
+\end{center}
+\caption{Series en una Composición}\label{Ogw}
+\end{figure}
+
+En el siguiente ejemplo  se ganara el ritmo partir de dos series de circunferencia  concéntricas, en el primer grupo  se ubican los puntos $A, B, C$ luego se obtiene los puntos $P,$ $Q,$ y $R$ al rotar $90^{\circ}$ el punto $O$ centrado en $A,$ $B,$ y $C$ respectivamente; a partir de estos puntos se trazan tangentes sobre la segunda serie de circunferencias, ubicandose los punto $I''$ y $I'$ sobre la circunferencia menor en la serie, con la
+
+\begin{figure}
+\begin{center}
+\psset{unit=0.9}
+\begin{pspicture}(-4,-4)(8,9)
+%\psframe(-4,-4)(7,8)\psgrid[subgriddiv=1,griddots=10]
+\pstGeonode[PosAngle=180](0,0){O}
+\pstGeonode[PosAngle={180,0,90}](1;0){A}(2;30){B}(4;60){C}(5,6){D}
+\pstGeonode[PointSymbol=none, PointName=none](4,4){E}(4,5){F}
+(5,5){G}
+\pstCircleOA[linestyle=dashed]{O}{A}
+\pstCircleOA[linestyle=dashed]{O}{B}
+\pstCircleOA[linestyle=dashed]{O}{C}
+\pstCircleOA[linestyle=dashed]{D}{E}
+\pstCircleOA[linestyle=dashed]{D}{F}
+\pstCircleOA[linestyle=dashed]{D}{G}
+\pstRotation[PosAngle=-90, RotAngle=90, CodeFig=true,
+CodeFigColor=black,DistCoef=4]{A}{O}[P]
+\pstRotation[PosAngle=-90, RotAngle=90, CodeFig=true,
+CodeFigColor=black,DistCoef=4,PointNameSep=.5]{B}{O}[Q]
+\pstRotation[PosAngle=90, RotAngle=90, CodeFig=true,
+CodeFigColor=black,DistCoef=4]{C}{O}[R]
+\pstMiddleAB[PointSymbol=none, PointName=none]{R}{D}{A'}
+\pstInterCC[PosAngleA=180,PosAngleB=0]{A'}{D}{D}{E}{G'}{G''}\pstLineAB[linestyle=dashed]{R}{G'}\pstLineAB[linestyle=dashed]{R}{G''}
+\pstMiddleAB[PointSymbol=none, PointName=none]{Q}{D}{B'}
+\pstInterCC[PosAngleA=180,PosAngleB=-5]{B'}{D}{D}{F}{H'}{H''}\psline[linestyle=dashed](Q)(H')\psline[linestyle=dashed](Q)(H'')
+\pstMiddleAB[PointSymbol=none, PointName=none]{P}{D}{B'}
+\pstInterCC[PosAngleA=90,PosAngleB=-90]{B'}{D}{D}{G}{I'}{I''}\psline[linestyle=dashed](P)(I')\psline[linestyle=dashed](P)(I'')
+%\nccurve[angleA=-135,angleB=90,variableLW,startLW=1pt,endLW=20pt,]{O}{I'}
+\pscurve[,variableLW,startLW=0.5pt,endLW=3pt](G')(G'')(P)(A)
+\pscurve[,variableLW,startLW=0.5pt,endLW=4pt](H')(H'')(Q)(B)%showpoints=true
+\pscurve[,variableLW,startLW=0.5pt,endLW=5pt](I')(I'')(R)(C)
+%\pstCircleOA[Diameter=\pstDistAB{A}{O}]{C}{}
+%\pstCircleOA[linewidth=2\pslinewidth,Diameter=\pstDistAB{B}{O}]{B}{}
+%\pstCircleOA[linewidth=4\pslinewidth,Diameter=\pstDistAB{C}{O}]{A}{}
+\end{pspicture}
+\end{center}
+\caption{series en una composición}\label{Og}
+\end{figure}
+
+
+\begin{pspicture}(-2.8,-3)(2.8,3)
+\pstGeonode[PosAngle={0,90}](2,2){A_0}(-2,2){B_0}%
+\psset{RotAngle=90}
+\pstRotation[PosAngle=270]{A_0}{B_0}[D_0]
+\pstRotation[PosAngle=180]{D_0}{A_0}[C_0]
+\pspolygon(A_0)(B_0)(C_0)(D_0)%
+\psset{PointSymbol=none, PointName=none, HomCoef=.2}
+\multido{\n=1+1,\i=0+1}{20}{%
+\pstHomO[PosAngle=0]{B_\i}{A_\i}[A_\n]
+\pstHomO[PosAngle=90]{C_\i}{B_\i}[B_\n]
+\pstHomO[PosAngle=180]{D_\i}{C_\i}[C_\n]
+\pstHomO[PosAngle=270]{A_\i}{D_\i}[D_\n]
+\pspolygon(A_\n)(B_\n)(C_\n)(D_\n)}% fin multido
+\end{pspicture}
+
+
+\begin{figure}
+\begin{center}
+\psset{unit=1.2}
+\begin{pspicture}[showgrid=true](-4,-2)(4,5)%\psframe(-4,-2)(4,5)
+\psset{viewpoint=20 20 20 rtp2xyz,Decran=30}\psset{solidmemory}
+\psSolid[object=plan, definition=equation,action=none, base=-2.5 2.5 -2.5 2.5,args={[0 0 1 0] 90}, name=monplan]\psset{plan=monplan}\psProjection[object=cercle,args=0 0 2,linewidth=0.5pt,linestyle=dashed,range=0 360]
+\psPoint(2,0,0){A}\uput[d](A){$A$}\psdot(A)
+\psTransformPoint[RotX=0,RotY=0,RotZ=30](2 0 0)(0,0,0){B} \psdot(B)\uput[d](B){$B$}\psdot(B)
+\psTransformPoint[RotX=0,RotY=-30,RotZ=80](2 0 0)(0,0,0){C} \psdot(C)\uput[d](C){$C$}\psdot(C)
+
+\pstMarkAngle[arrows=<->]{A}{O}{B}{$30^{\mathrm{o}}$}
+
+%\psSolid[object=icosahedron,a=2.1,action=draw,linecolor=blue,RotZ=36](0,0,0.9)%
+\axesIIID(2,2,2)(3,2,3)
+
+\pscurve[variableLW,startLW=2pt,endLW=0.5pt](A)(O)(C)
+\composeSolid
+\end{pspicture}
+\end{center}
+  \caption{Icosaedro}\label{ico}
+\end{figure}
+
+
+
+\section{Wwwwww}
+
+\begin{figure}
+	\begin{asy}
+size(300,0);
+import graph3;
+triple F(pair uv) {
+real t = uv.x;
+real r = uv.y;
+return (cos(t) + r*cos(t)*sin(t/2),
+sin(t) + r*sin(t)*sin(t/2),
+r*cos(t/2));
+}
+real r = 0.3;
+surface moeb = surface(F, (0,-r), (2pi,r), Spline);
+draw(moeb, surfacepen=material(blue, emissivepen=0.15 white), meshpen=black+thick());
+	\end{asy}
+\caption{wwwwwww}
+\end{figure}
+
+%
+%\begin{figure}[!htb]
+%\centering\psset{unit=1.2}
+%\psframebox{%
+%\begin{pspicture}(-3,-3)(3,3)
+% \psset{THETA=30,PHI=30,Dobs=100,Decran=10}
+%\SphereThreeD(0,0,0){20}
+%\AxesThreeD{->}(55)
+%\psSolid[object=sphere,r=2,fillcolor=red!25,ngrid=18 18]%
+%%\psset{fillstyle=solid,fillcolor=gray}
+%\PortionSphereThreeD[RotX=30,RotY=20,RotZ=150](0,0,0){20}
+%\pNodeThreeD(2;10;10){C1}
+%\pNodeThreeD(4;10;10){D1}
+%\psline(C1)(D1)
+%\pNodeThreeD(2;10;10){C2}
+%\pNodeThreeD(4;10;10){D2}
+%\psline(C2)(D2)
+%\pNodeThreeD(2;10;10){C3}
+%\pNodeThreeD(4;10;10){D3}
+%\psline(C3)(D3)
+%\pNodeThreeD(2;10;10){C4}
+%\pNodeThreeD(4;10;10){D4}
+%\psline(C4)(D4)
+%\PortionSphereThreeD(0,0,0){40}
+%% PhiCercle=latitude of the cercle
+%% \SphereCercle[PhiCercle=...]{radius}
+%\psset{linecolor=red,PhiCercle=45}
+%\SphereCercleThreeD(0,0,0){2}
+%% ThetaMeridien=longitude of the meridian
+%% \SphereMeridien[ThetaMeridien=...]{radius}
+%\SphereMeridienThreeD[ThetaMeridien=45](0,0,0){2}
+%\pNodeThreeD(2;4;4){A}
+%\pNodeThreeD(5;4;4){B}
+%\psline[linecolor=black]{>}(A)(B)
+%\pNodeThreeD(2;0;90){Nord}
+%\pNodeThreeD(4;0;90){Nord1}
+%\psline[linecolor=green]{>}(Nord)(Nord1)
+%\SphereCercleThreeD[PhiCercle=0](0,0,0){2}
+%\SphereMeridienThreeD[ThetaMeridien=0](0,0,0){2}
+%\CircleThreeD[normaleLongitude=0,normaleLatitude=90,fillstyle=vlines,hatchsep=4mm](0,0,0){50} \end{pspicture}
+%}
+%\caption{\label{circles}circles.}
+%\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-4,-4)(4,4)\psframe(-4,-4)(4,4)
+\psset{SphericalCoor,Decran=23,viewpoint=20 26 15,a=1,lightsrc=50 -40 10}
+%\psset{Decran=30,viewpoint=30 25 15 rtp2xyz,a=1,lightsrc=50 30 20}
+\psSolid[object=grille,base=0 6 0 6,fillcolor=orange!40]%%
+\psSolid[object=grille,base=0 6 0 6,RotY=90,fillcolor=gray!30](0,0,6)%
+\psSolid[object=grille,base=0 6 0 6,RotX=-90,fillcolor=orange!20](0,0,6)%
+
+\psPoint(1,0.5,0.5){c11}
+\psPoint(0.5,0.5,1){c12}
+\psPoint(0.5,1,0.5){c13}
+\psPoint(4.5,4.5,1){c21}
+\psPoint(4,4.5,0.5){c22}
+\psPoint(4.5,4,0.5){c23}
+\psPoint(4,0.5,0.5){c41}
+\psPoint(4.5,0.5,1){c42}
+\psPoint(4.5,1,0.5){c43}
+\psPoint(0.5,4,0.5){c51}
+\psPoint(0.5,4.5,1){c52}
+\psPoint(1,4.5,0.5){c53}
+\psPoint(0.5,0.5,4){c61}
+\psPoint(0.5,1,4.5){c62}
+\psPoint(1,0.5,4.5){c63}
+\psPoint(4,0.5,4.5){c71}
+\psPoint(4.5,1,4.5){c72}
+\psPoint(4.5,0.5,4){c73}
+\axesIIID(1,1,1)(6,6,6)
+{\psset{fillcolor=orange,mode=2}
+\psSolid[object=cube,action=draw](1,0.5,0.5)% c1
+\psSolid[object=sphere,action=draw*](4.5,0.5,0.5)
+\psSolid[object=cube,action=draw*](0.5,4.5,0.5)
+\psSolid[object=cube,action=draw*](0.5,0.5,4.5)
+\psSolid[object=cube,action=draw*](4.5,4.5,4.5)
+\psSolid[object=cube,action=draw*](4.5,0.5,4.5)
+\psSolid[object=cube,action=draw*](4.5,4.5,0.5)
+\psSolid[object=cube,action=draw*](0.5,4.5,4.5)}
+\psSolid[object=grille,base=0 5 0 5,action=draw,linecolor=blue!70,linewidth=.2pt](0,0,5)%
+\psSolid[object=grille,base=0 5 0 5,action=draw,linecolor=blue!70,RotY=90,linewidth=1.2pt](5,0,5)%
+\psSolid[object=grille,base=0 5 0 5,action=draw,RotX=-90,linecolor=blue!70,linewidth=.2pt](0,5,5)%
+\psPoint(4,4,0){H1}
+\psPoint(3,0,0){H2}
+\psPoint(8,9,5){H3}
+\psPoint(0,3,0){H4}
+
+\uput[l](H1){$H_1$}
+\uput[l](H2){$\mathrm{H_2}$}
+\uput[l](H3){$\mathrm{H_3}$}
+\uput[l](H4){$\mathrm{H_4}$}
+
+
+\end{pspicture}
+\end{center}
+  \caption{rrrrrr}\label{rrrr}
+\end{figure}

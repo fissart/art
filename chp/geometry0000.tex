@@ -1,0 +1,46 @@
+\chapter{Canon Griego y Gótico}
+El buen gusto por la perfección exquisitas llevo a los generadores de formas reales o abstractas a concebir cañones y reglas, la analogía de la sección áurea con muchas areas de la ciencia no explica como el numero del promedio entre el caos y el orden los rectángulos estáticos'' no producen divisiones armónicas, no obstante los rectángulos dinámicos producen las mas variadas y satisfactorias subdivisiones  y combinaciones distintas sin encontrar antagonismos entre ellos mas aun viéndolas unirse entre ellas para genera un solo objeto bidimensionales  por ejemplo el $\sqrt{5}$ se compone de muchos de el mismo y del rectángulo $\phi$
+
+
+
+
+
+\begin{asy}
+	 import graph;
+size(300,150,IgnoreAspect);
+
+real f(real x) {return x*sin(x);}
+pair F(real x) {return (x,f(x));}
+
+dotfactor=7;
+
+void subinterval(real a, real b)
+{
+path g=box((a,0),(b,f(b)));
+filldraw(g,orange+opacity(0.5));
+draw(box((a,f(a)),(b,0)));
+}
+
+int a=-9, b=9;
+
+xaxis("$x$",0,b);
+yaxis("$y$",0);
+
+draw(graph(f,a,b,n=200, Hermite));
+
+int n=2;
+
+for(int i=a; i <= b; ++i) {
+if(i < b) subinterval(i,i+1);
+if(i <= n) labelx(i);
+dot(F(i));
+}
+
+int i=n;
+labelx("$\ldots$",++i);
+labelx("$k$",++i);
+labelx("$k+1$",++i);
+labelx("$\ldots$",++i);
+
+//arrow("$f(x)$",F(i-1.5),NE,1.5cm,red,Margin(0,0.5));
+\end{asy}

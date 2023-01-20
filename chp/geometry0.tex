@@ -1,0 +1,819 @@
+
+
+
+\chapter{La Sección Áurea}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+Deduzcamos y averigüemos de donde nace el \texttt{número de oro}; empecemos con la frase celebre que dice mucho, lo genera y esta relacionado con este  número: \textbf{\textit{El todo sobre la parte mayor y la parte mayor sobre la menor}} \cite{Heinz}.
+Sea $f(x)=z$
+\begin{figure}
+\begin{asy}
+import graph3;
+import three;
+settings.render=-1;
+currentprojection=perspective(3,7,2);
+currentlight=light((0,0,3),(0,0,-3));
+size(10cm);
+transform3 ag=scale(1.7,2,0.7);
+triple pA=(-3,0,0), pB=(0,3,0), pC=(0,0,3), pE=(0,0,3);
+transform3 sym=reflect(pA,pB,pC);
+draw(ag*unithemisphere,yellow+opacity(0.7), meshpen=brown+thick());
+draw(sym*ag*unithemisphere,red+opacity(0.7), meshpen=brown+thick());
+triple pS=(0,0,0.7), pE=(0,2,0);
+draw(pS--sym*pS,black);
+draw(pE--sym*pE,black);
+dot((pS+sym*pS)/2);
+dot((pE+sym*pE)/2);
+draw((pS+sym*pS)/2--(pE+sym*pE)/2, dashed);
+dot(pS^^pE^^sym*pS^^sym*pE);
+
+triple ww=unit(cross(sym*pS-pS,sym*pS-sym*pE));
+draw(surface(plane(O=(pE+sym*pE)/2-unit((pS+sym*pS)/2-(pE+sym*pE)/2)-ww, 2*ww, 2*((pS+sym*pS)/2-(pE+sym*pE)/2))), blue + opacity(0.6));
+
+draw("$90^\circ$",arc((pS+sym*pS)/2,(pS+sym*pS)/2-0.3*unit((pS-sym*pS)/2),(pE+sym*pE)/2),align=3*Y,  Arrows3,light=currentlight);
+axes3("$x$","$y$","$z$", Arrows3);
+\end{asy}
+\caption{frennet}
+\end{figure}
+
+\begin{figure}
+\begin{asy}
+import graph3;
+import three;
+
+size3(200,0);
+
+currentprojection=perspective(4,6,3);
+real x(real t) {return 1+cos(2pi*t);}
+real y(real t) {return 1+sin(2pi*t);}
+real z(real t) {return t;}
+
+real x1(real t) {return -2pi*sin(2pi*t);}
+real y1(real t) {return 2pi*cos(2pi*t);}
+real z1(real t) {return 1;}
+real x2(real t) {return -4pi^2*cos(2pi*t);}
+real y2(real t) {return -4pi^2*sin(2pi*t);}
+real z2(real t) {return 0;}
+
+real t=0.7;
+triple pp=(x(t),y(t),z(t));
+triple tt=(x1(t),y1(t),z1(t));
+triple nn=(x2(t),y2(t),z2(t));
+triple ww=cross(tt,nn);
+triple cc=pp+length(ww)/length(tt)^3*unit(nn);
+path3 p=graph(x,y,z,0,1,operator --);
+dot((x(t),y(t),z(t)));
+draw(pp--pp+unit(tt), Arrow3, p=gray(0.6), light=currentlight );
+draw(pp--pp+unit(ww), Arrow3, p=orange, light=currentlight );
+draw(pp--pp+length(ww)/length(tt)^3*unit(nn),Arrow3, p=orange, light=currentlight );
+//draw(pp--pp+unit(nn), orange, Arrow3 );
+
+dot(pp--pp+length(ww)/length(tt)^3*unit(nn), orange );
+draw((plane(O=pp+unit(tt)+unit(nn), -2*unit(tt), -2*unit(nn))), gray + 0.1cyan);
+//draw(surface(pp+unit(tt)-unit(nn)--pp+unit(tt)+unit(nn)--pp-unit(tt)+unit(nn)--pp-unit(tt)-unit(nn)--cycle),orange);
+draw(surface(plane(O=pp+unit(ww)+unit(nn), -2*unit(ww), -2*unit(nn))),blue+opacity(.2));
+draw(surface(plane(O=pp+unit(tt)+unit(ww), -2*unit(tt), -2*unit(ww))),magenta+opacity(.5));
+
+draw(p, Arrow3);
+//path3 g=pp..cc+unit(tt)..cc+unit(nn)..cc-unit(tt)..cycle;
+//draw(g);
+
+path3 g = circle(c=cc, r=length(ww)/length(tt)^3, normal=ww);
+draw(g);
+draw(surface(g), blue+opacity(0.3));
+
+//draw("$\alpha_{i-1}$",arc(cc,cc+unit(tt),cc+unit(tt),ww,CCW));
+//draw(shift(-Z)*surface(circle(pp+length(ww)/length(tt)^3*unit(nn), length(ww)/length(tt)^3)), blue);
+//draw(planeproject(XY*unitsquare3)*p,red,Arrow3);
+//draw(planeproject(YZ*unitsquare3)*p,green,Arrow3);
+//draw(planeproject(ZX*unitsquare3)*p,blue,Arrow3);
+axes3("$x$","$y$","$z$", Arrow3);
+\end{asy}
+
+\caption{curvve}
+\end{figure}
+
+
+\begin{figure}
+\begin{asy}
+import three;
+size(7.5cm,0);
+currentprojection=perspective(3,1,2);
+currentlight=light((0,0,3),(0,0,-3));
+triple vectaxe=(1,0,0);
+transform3 r=rotate(-100,vectaxe);
+triple pA=(1.5,0.9,1), pB=(4,0,1), pC=(1.2,0,4), p1=(2,-0.9,1.5);
+path3 tri=pA--pB--pC--cycle;
+path3 tri1=pA--p1--pC--cycle;
+path3 tri2=p1--pB--pC--cycle;
+path3 tri3=pA--pB--p1--cycle;
+path3 trip=r*tri;
+path3 trip1=r*tri1;
+path3 trip2=r*tri2;
+path3 trip3=r*tri3;
+draw(surface(tri^^tri1^^tri2^^tri3^^trip^^trip1^^trip2^^trip3),orange+opacity(0.5));
+draw(O--X,Arrow3); // En attendant
+draw(O--Y,Arrow3); // d’avoir les axes
+draw(O--Z,Arrow3); // avec graph3.asy
+label("$x$", 2*X, NW);
+label("$y$", 2*Y, SE);
+label("$z$", Z, E);
+dot(p1^^pA^^pB^^pC^^r*pA^^r*pB^^r*pC^^r*p1);
+pen dotteddash=linetype("0 4 4 4"),
+p2=.8bp+blue;
+draw((-1,0,0)--(4,0,0),red);
+draw(pA--(pA.x,0,0)--r*pA,red+dotteddash);
+draw(pB--(pB.x,0,0)--r*pB,red+dotteddash);
+draw(pC--(pC.x,0,0)--r*pC,red+dotteddash);
+draw(arc((pA.x,0,0),pA,r*pA,CCW),p2,Arrow3);
+draw(arc((pB.x,0,0),pB,r*pB,CCW),p2,Arrow3);
+draw(arc((pC.x,0,0),pC,r*pC,CCW),p2,Arrow3);
+\end{asy}
+\caption{sphere}
+\end{figure}
+
+
+\begin{asy}
+size(0,22cm);
+
+texpreamble("
+
+\def\v{}
+\def\grad{\v\nabla}
+\def\cross{{\v\times}}
+\def\curl{\grad\cross}
+\def\del{\nabla}
+");
+
+real margin=1.5mm;
+
+object IC=draw("initial condition $\v U_0$",box,(0,1),
+               margin,black,FillDraw(palegray));
+object Adv0=draw("Lagrangian state $\v U(t)$",ellipse,(1,1),
+                 margin,red,FillDraw(palered));
+object Adv=draw("Lagrangian prediction $\v U(t+\tau)$",ellipse,(1,0),
+                margin,red,FillDraw(palered));
+object AdvD=draw("diffused parcels",ellipse,(1.8,1),
+                 margin,red,FillDraw(palered));
+object Ur=draw("rearranged $\v U$",box,(0,0),
+               margin,orange+gray,FillDraw(paleyellow));
+object Ui=draw("interpolated $\v  U$",box,(1,-1),
+               margin,blue,FillDraw(paleblue));
+object Crank=draw("${\cal L}^{-1}(-\tau){\cal L}(\tau)\v  U$",
+                  box,(0.5,-1),margin,blue,FillDraw(paleblue));
+object CrankR=draw("${\cal L}^{-1}(-\tau){\cal L}(\tau)\v  U$",
+                   box,(0,-1),margin,orange+gray,FillDraw(paleyellow));
+object Urout=draw(minipage("\center{Lagrangian rearranged solution~$\v U_R$}",
+                           100pt),box,(0,-2),margin,orange+gray,
+                  FillDraw(paleyellow));
+object Diff=draw("$\v D\del^2 \v  U$",box,(0.75,-1.5),
+                 margin,blue,FillDraw(paleblue));
+object UIout=draw(minipage("\center{semi-Lagrangian solution~$\v U_I$}",80pt),
+                  box,(0.5,-2),margin,FillDraw(palered+paleyellow));
+object psi=draw("$\psi=\del^{-2}\omega$",box,(1.6,-1),
+                margin,darkgreen,FillDraw(palegreen));
+object vel=draw("$\v v=\v{\hat z} \cross\grad\psi$",box,(1.6,-0.5),
+                margin,darkgreen,FillDraw(palegreen));
+
+add(new void(frame f, transform t) {
+    pair padv=0.5*(point(Adv0,S,t)+point(Adv,N,t));
+    picture pic;
+    draw(pic,"initialize",point(IC,E,t)--point(Adv0,W,t),RightSide,Arrow,
+         PenMargin);
+    draw(pic,minipage("\flushright{advect: Runge-Kutta}",80pt),
+         point(Adv0,S,t)--point(Adv,N,t),RightSide,red,Arrow,PenMargin);
+    draw(pic,Label("Lagrange $\rightarrow$ Euler",0.45),
+         point(Adv,W,t)--point(Ur,E,t),5LeftSide,orange+gray,
+         Arrow,PenMargin);
+    draw(pic,"Lagrange $\rightarrow$ Euler",point(Adv,S,t)--point(Ui,N,t),
+         RightSide,blue,Arrow,PenMargin);
+    draw(pic,point(Adv,E,t)--(point(AdvD,S,t).x,point(Adv,E,t).y),red,
+         Arrow(Relative(0.7)),PenMargin);
+    draw(pic,minipage("\flushleft{diffuse: multigrid Crank--Nicholson}",80pt),
+         point(Ui,W,t)--point(Crank,E,t),5N,blue,MidArrow,PenMargin);
+    draw(pic,minipage("\flushleft{diffuse: multigrid Crank--Nicholson}",80pt),
+         point(Ur,S,t)--point(CrankR,N,t),LeftSide,orange+gray,Arrow,PenMargin);
+    draw(pic,"output",point(CrankR,S,t)--point(Urout,N,t),RightSide,
+         orange+gray,Arrow,PenMargin);
+    draw(pic,point(Ui,S,t)--point(Diff,N,t),blue,MidArrow,PenMargin);
+    draw(pic,point(Crank,S,t)--point(Diff,N,t),blue,MidArrow,PenMargin);
+    label(pic,"subtract",point(Diff,N,t),12N,blue);
+    draw(pic,Label("Euler $\rightarrow$ Lagrange",0.5),
+         point(Diff,E,t)--(point(AdvD,S,t).x,point(Diff,E,t).y)--
+         (point(AdvD,S,t).x,point(Adv,E,t).y),RightSide,blue,
+         Arrow(position=1.5),PenMargin);
+    dot(pic,(point(AdvD,S,t).x,point(Adv,E,t).y),red);
+    draw(pic,(point(AdvD,S,t).x,point(Adv,E,t).y)--point(AdvD,S,t),red,Arrow,
+         PenMargin);
+    draw(pic,"output",point(Crank,S,t)--point(UIout,N,t),RightSide,brown,Arrow,
+         PenMargin);
+    draw(pic,Label("$t+\tau\rightarrow t\cos t$",0.45),
+         point(AdvD,W,t)--point(Adv0,E,t),2.5LeftSide,red,Arrow,PenMargin);
+    draw(pic,point(psi,N,t)--point(vel,S,t),darkgreen,Arrow,PenMargin);
+    draw(pic,Label("self-advection",4.5),point(vel,N,t)--
+         arc((point(vel,N,t).x,point(Adv,E,t).y),5,270,90)--
+         (point(vel,N,t).x,padv.y)--
+         padv,LeftSide,darkgreen,Arrow,PenMargin);
+    draw(pic,Label("multigrid",0.5,S),point(Ui,E,t)--point(psi,W,t),darkgreen,
+         Arrow,PenMargin);
+
+    add(f,pic.fit());
+  });
+\end{asy}
+
+
+\section{Definition of direction of a 2D y 3D vector (line)}
+You're asking a similar question to here:
+
+Analogue of spherical coordinates in $n$-dimensions
+
+For two dimensions, you can use polar coordinates:
+
+For 3 dimensions, you can use spherical coordinates:
+
+For n dimensions, you can use hyperspherical coordinates.
+
+But basically, in any n-dimensional space, you'll have one length coordinate and (n-1) angle coordinates.
+
+\begin{figure}
+\begin{asy}
+import three;
+import math;
+import graph3;
+texpreamble("\usepackage{bm}");
+
+size(300,0);
+
+pen thickp=linewidth(0.5mm);
+real radius=1, theta=37, phi=60;
+
+currentprojection=orthographic((4,1,2));
+
+draw(unitsphere,material(palegray+opacity(0.25)));
+
+real r=1.1;
+pen p=black;
+draw(Label("$x$",1),O--r*X,p,Arrow3);
+draw(Label("$y$",1),O--r*Y,p,Arrow3);
+draw(Label("$z$",1),O--r*Z,p,Arrow3);
+label("$\rm O$",(0,0,0),-1.5Y-X);
+
+triple Q=radius*dir(theta,phi);
+dot("$(x,y,z)$",Q,align=W+N);
+draw(Q--(Q.x,Q.y,0),dashed+blue);
+draw(O--radius*dir(90,phi),dashed+blue);
+draw((0,0,Q.z)--Q,dashed+blue);
+draw("$\theta$",arc(O,0.15*Z,0.15Q),align=2*dir(theta/2,phi),Arrow3);
+draw("$\varphi$",arc(O,0.15*X,0.15*dir(90,phi)),align=-Z,Arrow3);
+draw(plane(O=(Q.x,Q.y,0), 0.07*Z, 0.07*unit(O-(Q.x,Q.y,0))),blue);
+
+real r=sqrt(Q.x^2+Q.y^2);
+draw(arc((0,0,Q.z),(r,0,Q.z),(0,r,Q.z)),dashed+red);
+draw(arc(O,radius*Z,radius*dir(360,phi)),dashed+heavygreen);
+draw(arc(O,radius*Z,radius*X),thickp);
+draw(arc(O,radius*Z,radius*Y),thickp);
+draw(arc(O,radius*X,radius*Y),thickp);
+path3 g = circle(c=O, r=1, normal=Z);
+path3 gg = circle(c=(0,0,Q.z), r=r, normal=Z);
+path3 ggg = circle(c=O, r=1, normal=Y);
+draw(g^^gg, dashed+orange);dot(O);
+draw("$\bm{r}$",O--Q,align=2*dir(360,phi),Arrow3,DotMargin3);
+
+\end{asy}
+\caption{spphere}
+\end{figure}
+
+Sea el segmento $AB$ dividamoslo de la siguiente manera, tomemos $\frac{AB}{2}$ coloquemos este segmento de manera que sea perpendicular a $AB$ en cualquiera de los extremos en este caso sea $B$ interceptemos la linea $AC$ con el arco $BD$ centrado en $C$ la cual nos da el punto $D$ a partir de este punto tracemos el arco $DE$ centrado en $A$ hallando de este modo el punto $E$ que divide al segmento $AB$ en \textsc{extrema y media razón} o \textsc{sección áurea} \cite{Phillips} y \cite{variablei}  .
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}[showgrid=false](-1,-0.5)(5,3.9)
+
+		%\pstArcnOAB[arrows=->]{A}{D}{E}
+		%%\pstArcnOAB[]{B}{A}{C}
+		%\pspolygon[](A)(B)(C)
+
+	\pstGeonode[PosAngle={-180,-35},unit=1cm,CurveType=polyline](-1,0){A}(5,0){B}
+	\pstGoldenMean[PosAngle=60,PointSymbol=*]{A}{B}{C}
+	% geometrical method to draw the golden point
+	\pstMiddleAB[PosAngle=90]{A}{B}{M}
+	\pstRotation[RotAngle=-90,PosAngle=90]{B}{M}[N]
+	\pstLineAB[linestyle=dashed,linecolor=gray!100]{A}{N}
+	\pstLineAB[linestyle=dashed,linecolor=gray!100]{B}{N}
+	\pstInterLC[PointNameA=,PointSymbolA=none,PosAngleB=80]{N}{A}{N}{B}{F}{E}
+	\pstCircleOA[linecolor=green!60,linestyle=dashed]{N}{B}[190][280]
+	\pstCircleOA[linecolor=orange!100,arrows=|<->|,linestyle=dashed]{A}{E}[0][90]
+	\pstLineAB[]{A}{B}
+	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=20pt,linecolor=	blue!50]{A}{N}{$\frac{AB}{2}$}
+	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{A}{C}{$\frac{\sqrt{5}-1}{2}$}
+	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{C}{B}{$\frac{3-\sqrt{5}}{2}$}
+\end{pspicture}
+\end{center}
+\caption{Prototipo  para el comportamiento geométrico de $\phi $}
+\label{Hw}
+\end{figure}
+
+ Es decir podemos empezar diciendo que $\frac{AB}{AE}=\frac{AE}{EB}=1.61833....=\phi $ es el numero de oro \cite{surhone2010shapiro}  \cite{jackson2012research}. ``\usebibentry{jackson2012research}{title}''
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Table using booktabs.}
+		\vspace{0.5cm}
+		\label{tab:tablew1}
+		\begin{tabular}{lSr}
+			\toprule % <-- Toprule here
+			\textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+				\midrule % <-- Midrule here
+			$\phi$ & $\frac{\phi}{2}$ & $\gamma$ \\
+			\midrule % <-- Midrule here
+			$\phi^2$ & 1110.1 & a\\
+			$\phi^3$ & 10.1 & b\\
+			$\phi^4$ & 23.113231 & c\\
+			$\phi^4$ & $\ldots$ & c\\
+			\bottomrule % <-- Bottomrule here
+		\end{tabular}
+	\end{center}
+\end{table}
+
+
+
+
+\begin{longtable}[c]{lSr} % <-- Replaces \begin{table}, alignment must be specified here (no more tabular)
+		\caption{Multipage table.}
+		\label{tab:tableww1}\\
+		\toprule
+		\textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+		$\alpha$ & $\beta$ & $\gamma$ \\
+		\midrule
+		\endfirsthead % <-- This denotes the end of the header, which will be shown on the first page only
+		\toprule
+		\textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+		$\alpha$ & $\beta$ & $\gamma$ \\
+		\midrule
+		\endhead % <-- Everything between \endfirsthead and \endhead will be shown as a header on every page
+		1 & 1110.1 & a\\
+		$\frac{x}{x-1}=\frac{x-1}{1}\Longleftrightarrow x^2-3x+1=0$ & 10.1 & b\\
+		% ...
+		% ... Many rows in between
+		% ...
+		3 & 23.113231 & c\\
+		\bottomrule
+	\end{longtable}
+
+
+\begin{longtable}{|l|l|l|}
+	\caption{A sample long table.} \label{tab:long} \\
+
+	\hline \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline
+	\endfirsthead
+
+	\multicolumn{3}{c}%
+	{{\bfseries \tablename\ \thetable{} -- continued from previous pagewwwwww}} \\
+	\hline \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline
+	\endhead
+
+	\hline \multicolumn{3}{|r|}{{Continued on next pagewwwwwwwwwwwwwww}} \\ \hline
+	\endfoot
+
+	\hline
+	\endlastfoot
+
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+\end{longtable}
+
+
+
+
+
+Existen 6 posibilidades donde la constante $1$ las variables $x,$ y $x-1$ o $-x+1$ conmutan de lugar veamos.
+
+Lo importante de este análisis es determinar que que cualquiera se e
+
+
+
+\section{Análisis de la sección áurea}
+Tomando la figura y recordando que si se tiene la ecuaion $$ax^2+bx+c=0$$ la raices que satisfacen esta ecuacion son $x=\frac{-b\pm\sqrt{b^2-4\pa{a}\pa{c}}}{2a}$
+
+
+
+\begin{itemize}
+  \item Cuando todo el segmento permanece constante y el segmento menor es \index{constante} constante para simplificar consideremos esa constante igual 1 luego según la figura  se tiene que $\theta=1$
+        \begin{equation}\label{ecu1}
+        \frac{x}{x-1}=\frac{x-1}{1}\Longleftrightarrow x^2-3x+1=0
+        \end{equation}
+y las raíces   de esta ecuación son $x=\frac{3\pm\sqrt{5}}{2}$ las cuales ambas son positivas como se observa en la figura .
+
+  \item Cuando todo el segmento permanece constante y el segmento mayor es constante, luego según la figura  se tiene que
+\begin{equation}\label{ecu3}
+\frac{x+1}{x}=\frac{x}{1}\Longleftrightarrow x^2-x-1=0
+\end{equation}
+y las raíces   de esta ecuación son $x=\frac{1\pm\sqrt{5}}{2}$ donde una negativa y otra es positiva segun la figura.
+
+
+  \item Cuando todo el segmento permanece constante y el  \index{segmento} mayor es constante, luego según la figura se tiene que
+\begin{equation}\label{ecu4}
+\frac{1}{x}=\frac{x}{1-x}\Longleftrightarrow x^2+x-1=0
+\end{equation}
+y las raíces   de esta ecuación son $x=\frac{-1\pm\sqrt{5}}{2}$ donde una negativa y otra es positiva según la figura.
+
+  \item Cuando todo el segmento permanece constante y el segmento mayor es constante, luego según la figura  se tiene que
+\begin{equation}\label{ecu5}
+\frac{1+x}{1}=\frac{1}{x}\Longleftrightarrow x^2+x-1=0
+\end{equation}
+y las raíces   de esta ecuación son $x=\frac{-1\pm\sqrt{5}}{2}$ donde una negativa y otra es positiva según la figura .
+
+
+
+  \item Cuando todo el segmento permanece constante y el segmento mayor es constante, luego según la figura ... se tiene que
+\begin{equation}\label{ecu6}
+\frac{1}{1-x}=\frac{1-x}{x}\Longleftrightarrow x^2-3x+1=0
+\end{equation}
+y las raíces   de esta ecuación son $x=\frac{3\pm\sqrt{5}}{2}$ donde ambas raices son positivas segun la Figura .
+
+\end{itemize}
+
+finalmente las Ecuaciones \ref{ecu1} y \ref{ecu4} coincide con las ecuaciones \ref{ecu6}, \ref{ecu3} y \ref{ecu5} respectivamente; si se reemplaza cada una des us raíces sobre sus correspondientes  \index{ecuaciones} se obtiene $\frac{1\pm\sqrt{5}}{2}$ en efecto solamente tenemos tres ecuaciones ya que ellos coinciden
+
+$x^2-3x+1=0$ y sus raíces $x=\frac{3\pm\sqrt{5}}{2}$, $x^2-x-1=0$ y sus raíces $x=\frac{1\pm\sqrt{5}}{2}$ y $x^2+x-1=0$ y sus raíces $x=\frac{-1\pm\sqrt{5}}{2}$,
+
+\begin{figure}
+\begin{center}
+\psset{unit=2}
+\begin{pspicture}[showgrid=false](-1,-1.5)(2,1.4)%\psframe(-1,-1.5)(2,1.4)
+\psaxes[labels=none]{->}(0,0)(-1,-1.5)(2,1.4)
+ \psset{PointSymbol=*}
+ % \psaxes[labelFontSize=\scriptstyle, dx=2,Dx=2,dy=2,Dy=2]{->}(0,0)(-1,-1)(8,5)
+\pstGeonode[PosAngle={-135,-90,45,135,-90}](0,0){O}(1,0){A}(1,1){B}(0,1){C}
+(0.5,-1.25){V}
+\psline[linestyle=dashed](V|0,0)(V)(0,0|V)
+%\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
+\pstMiddleAB[PosAngle=-70,PointName=none]{ O}{A}{A'}\uput*[d](A'){E}
+\pstInterLC[PosAngle=-70,PointSymbolA=none, PointNameA=]{O}{A}{A'}{B}{s'}{S}
+\pstInterLC[PosAngle=-120,PointSymbolB=none, PointNameB=]{O}{A}{A'}{B}{S'}{s}
+\pstProjection{C}{B}{S}[I']%%%%% M
+\pstArcnOAB[arrows=->>]{A'}{B}{S}
+\pstArcOAB[arrows=->>]{A'}{C}{S'}
+\pstLineAB[arrows=->>]{A'}{B}
+\pstLineAB[arrows=->>]{A'}{C}
+\pstLineAB[linestyle=dashed]{A}{B}
+\pstProjection{C}{B}{S'}[I]
+\pspolygon[linestyle=dashed](S')(S)(I')(I)%=vlines
+\pcline[offset=10pt]{|<*->|*}(C)(B)
+\ncput*{$k$}
+\pcline[offset=15pt]{|<*->|*}(O)(C)
+\ncput*{ $k$}
+\pcline[offset=-30pt]{|<*->|*}(O)(A')
+\ncput*{ $\dfrac{k}{2}$}
+\pcline[offset=20pt]{|<*->|*}(A')(V)
+\ncput*{ $\dfrac{5}{4}k$}
+\def\F{ x 2 exp x sub 1 sub}
+\psplot[linewidth=1\pslinewidth, linecolor=black]{-1}{2}{\F}
+ \end{pspicture}\,\,\,
+\begin{pspicture}[showgrid=false](-1,-1.5)(2,1.4)%\psframe(-1,-1.5)(2,1.4)
+\psaxes[labels=none]{->}(-1,0)(-1,-1.5)(2,1.4)
+ % \psaxes[labelFontSize=\scriptstyle, dx=2,Dx=2,dy=2,Dy=2]{->}(0,0)(-1,-1)(8,5)
+\pstGeonode[PosAngle={-135,-90,45,135,-90}](0,0){O}(1,0){A}(1,1){B}(0,1){C}
+(0.5,-1.25){V}\pstGeonode[PosAngle=45,PointNameA=none](-1,0){O'}
+\psline[linestyle=dashed](V|0,0)(V)(-1,0|V)
+%\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
+\pstMiddleAB[PosAngle=-70,PointName=none, PointSymbol=none]{ O}{A}{A'}\uput*[d](A'){A'}
+\pstInterLC[PosAngle=-70,PointSymbolA=none, PointNameA=]{O}{A}{A'}{B}{s'}{S}
+\pstInterLC[PosAngle=-120,PointSymbolB=none, PointNameB=]{O}{A}{A'}{B}{S'}{s}
+\pstProjection{C}{B}{S}[I']%%%%% M
+\pstArcnOAB[linecolor=black,arrows=->> ]{A'}{B}{S}
+\pstArcOAB[linecolor=black,arrows=->>]{A'}{C}{S'}
+\pstLineAB[linecolor=black,arrows=->>]{A'}{B}
+\pstLineAB[linecolor=black,arrows=->>]{A'}{C}
+\pstLineAB[linestyle=dashed]{A}{B}\pstLineAB[linestyle=dashed]{O}{C}
+\pstProjection{C}{B}{S'}[I]
+\pspolygon[linestyle=dashed](S')(S)(I')(I)%=vlines
+\pcline[offset=10pt]{|<*->|*}(C)(B)
+\ncput*{$k$}
+\pcline[offset=15pt]{|<*->|*}(O)(C)
+\ncput*{ $k$}
+\pcline[offset=20pt]{|<*->|*}(A')(V)
+\ncput*{ $\dfrac{5}{4}k$}
+\def\F{ x 2 exp x sub 1 sub}
+\psplot[linewidth=1\pslinewidth, linecolor=black]{-1}{2}{\F}
+\pcline[offset=-30pt]{|<*->|*}(O')(A')
+\ncput*{ $3\dfrac{k}{2}$}
+%\rput(0,-3.5){{$x^2-kx-k^2=y$}}
+ \end{pspicture}
+ \begin{pspicture}[showgrid=false](-1,-1.5)(2,1.4)%\psframe(-1,-1.5)(2,1.4)
+\psaxes[labels=none]{->}(1,0)(-1,-1.5)(2,1.4)
+ \psset{PointSymbol=*}
+ % \psaxes[labelFontSize=\scriptstyle, dx=2,Dx=2,dy=2,Dy=2]{->}(0,0)(-1,-1)(8,5)
+\pstGeonode[PosAngle={-135,-45,45,135,-90}](0,0){O}(1,0){A}(1,1){B}(0,1){C}
+(0.5,-1.25){V}
+\psline[linestyle=dashed](V|1,0)(V)(1,0|V)
+\pstMiddleAB[PosAngle=-70,PointName=none]{ O}{A}{A'}\uput*[d](A'){E}
+\pstInterLC[PosAngle=-70,PointSymbolA=none, PointNameA=]{O}{A}{A'}{B}{s'}{S}
+\pstInterLC[PosAngle=-120,PointSymbolB=none, PointNameB=]{O}{A}{A'}{B}{S'}{s}
+\pstProjection{C}{B}{S}[I']%%%%% M
+\pstArcnOAB[linecolor=black,arrows=->>]{A'}{B}{S}
+\pstArcOAB[linecolor=black,arrows=->>]{A'}{C}{S'}
+\pstLineAB[linecolor=black,arrows=->>]{A'}{B}
+\pstLineAB[linecolor=black,arrows=->>]{A'}{C}
+\pstLineAB[linestyle=dashed]{A}{B}
+\pstProjection{C}{B}{S'}[I]
+\pspolygon[linestyle=dashed](S')(S)(I')(I)%=vlines
+\pcline[offset=10pt]{|<*->|*}(C)(B)
+\ncput*{$k$}
+\pcline[offset=15pt]{|<*->|*}(O)(C)
+\ncput*{ $k$}
+\pcline[offset=-30pt]{|<*->|*}(A')(A)
+\ncput*{ $\dfrac{k}{2}$}
+\pcline[offset=-20pt]{|<*->|*}(A')(V)
+\ncput*{ $\dfrac{5}{4}k$}
+\def\F{ x 2 exp x sub 1 sub}
+\psplot[]{-1}{2}{\F}
+\pstLineAB{O}{C}
+ \end{pspicture}
+\end{center}
+  \caption{La Parabola $x^2-kx-k^2=y$ y los puntos $S$ y $S'$}\label{ec1}
+\end{figure}
+
+
+\section{Propiedades del numero $\phi$}
+
+ La sección áurea, la proporción geométrica definidas en el capitulo precedente, $\dfrac{1+\sqrt{5}}{2}=1.618...$ la raíz positiva de la ecuación $x^2=x+1,$ tiene una cierto número de propiedades  algebraicas  y geométricas   donde podemos hacer en los remarkable la propiedad algebraica  en alguna manera  com $\pi$ (el radio entre alguna circunferencia y su diámetro) y $e=\lim_{n\longrightarrow \infty}\pa{1+\dfrac{1}{n}}^n$ donde $n\in \mathbb{N}$ son los numeros trascendentes  mas rescatables  .
+  Si  se sigue nosotros llamamos este numero, radio, o proporción $\qw,$  y tenemos las siguientes propiedades interesantes:
+
+  $$\phi=\frac{2+\sqrt{5}}{2}=1.61803398875...$$
+  (así que $1.618\ldots $ es una aproximación  muy cercana)
+
+  $\qw^2=2.618...=\dfrac{\sqrt{5}+3}{2}$
+   $\dfrac{1}{\qw}=0.618...=\dfrac{\sqrt{5}-1}{2}$
+
+\begin{itemize}
+  \item  Se sabe que la ecuacion $\qw^2-\qw-1=0$ se satisface luego podemos operar de infinitas maneras  esta ecuación trasmutando, dividiendo y multiplicando términos \begin{align*}
+    \qw^2&=\qw+1=\qw+1\\
+    \qw^3&=\qw^2+\qw=\qw+1+\qw=2\qw+1\\
+    \qw^4&=\qw^3+\qw^2=2\qw+1+\qw+1=3\qw+2\\
+    \ldots &=\ldots\ldots\\
+    \qw^n&=\qw^{n-1}+\qw^{n-2}==i\qw+j\\
+    \qw^{n+1}&=\qw^{n}+\qw^{n-1}=m\qw+n\\
+    \qw^{n+2}&=\qw^{n+1}+\qw^{n}=\pa{i+m}\qw+\pa{j+n}
+  \end{align*}
+   Esto también es valido para exponentes negativos $\qw=1+\dfrac{1}{\qw}=\qw^0+\qw^{-1},$  luego
+
+  \item \begin{align*}
+  \dfrac{1}{\qw^{2}}=\qw^{-2}&=\qw^{-3}+\qw^{-4}=\dfrac{1}{\qw^{3}}+\dfrac{1}{\qw^{4}}\\
+  \dfrac{1}{\qw^{3}}=\qw^{-3}&=\qw^{-4}+\qw^{-5}=\dfrac{1}{\qw^{4}}+\dfrac{1}{\qw^{5}}\\
+  \ldots&=\ldots\\
+  \dfrac{1}{\qw^{n}}=\qw^{-n}&=\qw^{-\pa{n+1}}+\qw^{-\pa{n+2}}=\dfrac{1}{\qw^{\pa{n+1}}}+\dfrac{1}{\qw^{\pa{n+2}}}\\
+\end{align*}
+
+  \item $2=\qw+\dfrac{1}{\qw^2}$ pues de $\qw^{3}=\qw^{2}+\qw=\pa{\qw+1}+\qw=2\qw+1$ porque $\qw^{2}=\qw+1$ luego $\qw^{3}=2\qw+1\Longleftrightarrow 2=\qw^2-\dfrac{1}{\qw}=\qw+1-\dfrac{1}{\qw}=\qw+\dfrac{\qw\pa{\qw-1}}{\qw^2}=\qw+\dfrac{1}{\qw^2}$
+
+  \item $\qw=\dfrac{1}{\qw-1}$ en efecto de $\qw^2-\qw-1=0$ al factorizar $\qw$ y despejar 1 se obtiene $\phi\pa{\phi-1}=1$ (recuerde que $\qw\neq 0\Longrightarrow \qw-1\neq 0$) ambos miembros de la igualdad y despejar $\qw$ es decir $\qw=\dfrac{1}{\qw-1}$
+
+
+  \item $$\qw=1+\cfrac{1}{1+\cfrac{1}{1+\cfrac{1}{1+\cfrac{1}{1+\ldots}}}}$$
+Pues $\qw={\qw}^0+{\qw}^{-1}=1+\dfrac{1}{\qw}$ por la ecuación obtenida anteriormente, es decir al reemplazar $\qw=1+\dfrac{1}{\qw}$ en el denominador del lado derecho de ésta ecuación se obtiene $\qw=1+\dfrac{1}{1+\dfrac{1}{\qw}}$ luego al iterar llegamos al resultado deseado
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  la progresión geométrica  de la serie $1,\qw,\qw^2,\qw^3,\ldots,\qw^n,\ldots$ cada termino es la suma de los numeros anteriores; esta promediad viene al mismo tiempo aditivo y geométrico es característica de esta serie y es una razón para su rol en la evolución de los organismos, especialmente en la botánica.
+   en la progresión diminuta  $$1,\dfrac{1}{\qw},\dfrac{1}{\qw^2},\dfrac{1}{\qw^3},\ldots,\dfrac{1}{\qw^m}$$ tenemos  $\dfrac{1}{\qw^m}=\dfrac{1}{\qw^{m+1}}-\dfrac{1}{\qw^{m+2}}$ (cada termino es la suma de los dos siguientes  unos) y $$\qw=\dfrac{1}{\qw}+\dfrac{1}{\qw}+\dfrac{1}{\qw}+\ldots+\dfrac{1}{\qw}+\ldots$$ donde $m$ se genera indefinidamente.
+   La construcción rigurosa  del radio o proporción de $\qw$ es muy simple, porque de su valor $\dfrac{1+\sqrt{5}}{2}.$ La Figura~\ref{KK} muestra como, empezando de un segmento mayor  $AB,$ para construir el segmento  menor $BC$ tal que $\dfrac{AB}{BC}=\qw,$ y como inversamente, empezando de un segmento completo $AC,$ para colocar el punto  $B$ dividiendo  su en el dos segmentos $AB$ y $BC$ relativo por la sección áurea  (otro construcción en la figura 3). Este mas lógico asimétricas division de una linea, o de un superficie, es también el mas satisfactorio para los ojos; este tiene un significado
+
+
+
+
+
+
+
+   El principio aplica siempre e un de un designio la presencia de una proporción característica  de un cadena  de un proporción relacionada (esto es una noción impropio  donde sera ilustrado después) produce la recurrencia de forma similar, pesero la sugestión subconsciente mencionada anteriormente especialmente asociada con la Sección Áurea porque de la propiedad de algún a progresión geométrica de radio $\qw$ o $\dfrac{1}{\qw}$ (como $a,a\qw,a\qw^2,a\qw^3,\ldots,a\qw^n,\ldots$  ó $a, \dfrac{a}{\qw},\dfrac{a}{\qw^2},\dfrac{a}{\qw^3},\ldots,\dfrac{a}{\qw^n},\ldots$)
+
+
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-0.6,-0.6)(5.1,3.5)
+ %\psframe(-0.5,-0.5)(5.1,3.5)\psgrid[subgriddiv=1,griddots=10]
+\pstGeonode[unit=1.5cm,PosAngle={-135,-45,90,135}](0,0){O}(2,0){A}(2,2){B}(0,2){C}
+\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
+\pstMiddleAB[PosAngle=135]{ O}{A}{A'}
+\pstMiddleAB[PosAngle=90]{C}{B}{B'}
+\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{O}{A}{A'}{B}{S'}{S}
+\pstProjection{C}{B}{S}[S']%%%%% M
+\pstArcnOAB[linecolor=black,arrows=->>]{A'}{B}{S}
+\pstLineAB[linecolor=black,arrows=->>]{A'}{B}
+\ncput*{$\sqrt{2}$}
+\pspolygon[linestyle=dashed](O)(S)(S')(C)%=vlines
+
+	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{O}{A}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{C}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{A'}{$\dfrac{\alpha}{2}$}
+
+ \end{pspicture}
+\end{center}
+  \caption{Construcción del segmento menor $BC$ a partir del segmento mayor $AB$}\label{KK}
+\end{figure}
+
+
+
+Concentrándonos en el triángulo  $A'BA,$   al rotar esta figura obtenemos la siguiente  y  se observa que $AA'=\dfrac{AB}{2}$ este método de obtener la sección áurea se vio al principio es decir el punto $Y$ es la sección áurea con respecto a la linea $AB$ como lo es el punto $A$ con respecto a la linea $OS$
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-0.6,-0.6)(7.5,5)
+%\psframe(-0.6,-0.6)(7.5,5)\psgrid[subgriddiv=1,griddots=10]
+\pstGeonode[unit=1.5cm,PosAngle={-135,-45,90,135}](0,0){O}(3,0){A}(3,3){B}(0,3){C}
+\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
+\pstMiddleAB[PosAngle=135]{ O}{A}{A'}
+%\pstMiddleAB[PosAngle=-45]{C}{B}{B'}
+\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{O}{A}{A'}{B}{S'}{S}
+\pstProjection{C}{B}{S}[S']%%%%% M
+\pstArcnOAB[arrows=->>]{A'}{B}{S}
+	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{A'}{B}{$\alpha\frac{\sqrt{5}-1}{2}$}
+\pstLineAB[linecolor=black,arrows=->>]{A'}{B}
+\pspolygon[linecolor=orange!100,linestyle=dashed](O)(S)(S')(C)
+	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{O}{A}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{C}{$\alpha$}
+\pstInterLC[PosAngle=-85,PointNameA=,PointSymbolA=none]{A'}{B}{A'}{A}{D'}{D}
+\pstArcnOAB[arrows=->>]{A'}{D}{A}
+\pstInterLC[PosAngle=0,PointNameB=,PointSymbolB=none]{A}{B}{B}{D}{Y}{Y'}
+\pstInterLC[PosAngle=180,PointNameA=,PointSymbolA=none]{A}{B}{A}{S}{U'}{U}
+\pstArcOAB[arrows=->>]{B}{D}{Y}
+\pstArcOAB[arrows=->>]{A}{S}{B}
+	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{A}{Y}{$\alpha\frac{\sqrt{5}-1}{2}$}
+
+ \end{pspicture}
+\end{center}
+  \caption{Construcción del segmento menor $BY$ a partir del segmento mayor $AB,$ $AY=UB$; $\dfrac{OA}{AS}=\dfrac{OS}{OA}=\dfrac{AU}{UB}=\dfrac{\sqrt{5}+1}{2}$}\label{H}
+\end{figure}
+
+
+
+\begin{figure}
+\begin{center}
+\psset{unit=.9}
+\begin{pspicture}*(-5.9,-9.7)(5.8,0.8)
+%\psframe(-5.9,-9.6)(5.8,0.8)\psgrid[subgriddiv=1,griddots=10]
+\rput{-90}{%
+\pstGeonode[unit=1.5,PosAngle={-135,-45,90,90,0,0,180,0}](0,0){O}(3,0){A}(3,3){B}
+(0,3){C}(6,3){B''}(6,0){A''}(0,-3){F}(6,-3){E}
+\pspolygon[linestyle=dashed](O)(A'')(B'')(C)%=vlines
+\pstMiddleAB[PosAngle=270]{ O}{A}{A'}
+\pstMiddleAB[PosAngle=90]{C}{B}{B'}
+\pstInterLC[PosAngle=-90]{O}{A}{A'}{B}{S'}{S}
+\pstProjection{C}{B}{S}[S']%%%%% M
+\pstArcnOAB[linecolor=black,arrows=->>]{A'}{B}{S}
+}
+\pstLineAB[arrows=-> ]{B}{A'}
+\psbrace[bracePos=0.55,nodesepB=-2pt
+,rot=0,ref=lC,braceWidthInner=26pt](B)(A'){$\alpha\frac{\sqrt{5}}{2}$}
+%\pspolygon[linestyle=dashed](O)(S)(S')(C)%=vlines
+%\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
+	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=25pt,linecolor=	blue!50]{C}{B}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{C}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=25pt,linecolor=	blue!50]{B}{B''}{$\alpha$}
+
+\pstInterLC[PosAngle=90,PointNameA=,PointSymbolA=none]{A'}{B}{A'}{A}{D'}{D}
+\pstArcnOAB[arrows=<-]{A'}{D}{A}
+\pstInterLC[PosAngle=-70]{A}{B}{B}{D}{Y}{Y'}
+\pstArcOAB[linecolor=black,arrows=->>]{B}{D}{Y}
+\pstInterLC[PosAngle=-90]{B''}{A''}{B''}{O}{P}{P'}
+\pstInterLC[PosAngle=-10]{C}{A''}{C}{O}{Q'}{Q}
+\pstInterLC[PosAngle=45]{O}{A''}{A''}{Q}{R'}{R}
+\pstArcOAB[ArrowInside=->,linecolor=black,arrows=->, arrowscale=2]{B''}{O}{P'}
+\pstArcOAB[arrows=->]{A''}{Q}{P'}
+\pstArcOAB[arrows=->]{C}{O}{Q}
+\pstLineAB[linestyle=dashed]{A''}{C}
+\pstLineAB[linestyle=dashed]{O}{B''}
+\pstLineAB[linestyle=dashed]{P'}{A''}
+\pstLineAB[linestyle=dashed]{A}{B}
+\psbrace[bracePos=0.5,nodesepB=-2pt
+,rot=0,ref=lC,braceWidthInner=6pt](A)(Y){ $\alpha\frac{\sqrt{5}-1}{2}$}
+\pstProjection{F}{E}{R'}[E']
+\pstLineAB[linestyle=dashed]{O}{F}
+\pstLineAB[linestyle=dashed]{F}{E}
+\pstLineAB[linestyle=dashed]{E}{A''}
+\pstLineAB[linestyle=dashed,nodesepB=-3,]{E'}{R'}
+\pstInterLL[]{E'}{R'}{C}{B}{E''}
+	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=35pt,linecolor=	blue!50]{A'}{O}{$\dfrac{\alpha}{2}$}
+		\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=35pt,linecolor=	blue!50]{A}{A'}{$\dfrac{\alpha}{2}$}
+ \end{pspicture}
+\end{center}
+  \caption{$\dfrac{AB}{YB}=\dfrac{A''R'}{R'O}=\phi.$ Se unió los procedimientos anteriores}\label{j}
+\end{figure}
+
+En la figura \ref{sed} se prueba que $\dfrac{AB}{BC}=\dfrac{BC}{CD}=\dfrac{AC}{AB}=\phi$
+
+
+\begin{figure}
+\begin{center}
+\psset{unit=1.1}
+\begin{pspicture}(-0.3,-1.8)(8,3.1)
+\pstGeonode[PosAngle={-180,-90,135}](0,0){A}(3,0){B}(6,0){D}
+\pstGeonode[PosAngle={0}](6,-1.5){f}
+\pstArcOAB[linestyle=dashed]{B}{D}{A}
+\pstInterLC[PosAngle=-135,PointNameA=,PointSymbolA=none]{f}{B}{f}{D}{P'}{d}
+\pstInterLC[PosAngle=135,PointNameA=,PointSymbolA=none]{B}{D}{B}{d}{EG}{C}
+\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{B}{D}{C}{B}{DG}{E}
+\pstArcOAB[linestyle=dashed]{C}{E}{B}
+\pspolygon[linestyle=dashed](B)(f)(D)%=vlines
+\pstArcOAB[arrows=->>]{B}{d}{C}
+\pstArcOAB[arrows=->>]{f}{D}{d}
+\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{B}{D}{D}{C}{DGF}{F}
+\pstArcOAB[linestyle=dashed]{D}{F}{C}
+\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{B}{D}{E}{D}{DGF}{G}
+\pstArcOAB[linestyle=dashed]{E}{G}{D}
+\pstInterLC[PosAngle=0,PointNameA=,PointSymbolA=none]{B}{D}{F}{E}{DGF}{H}
+\pstArcOAB[linestyle=dashed]{F}{H}{E}
+\pstLineAB[]{A}{H}
+ \end{pspicture}
+\end{center}
+  \caption{$\dfrac{AB}{BC}=\dfrac{BC}{CD}=\dfrac{AC}{AB}=\phi$}\label{sed}
+\end{figure}
