@@ -1,4 +1,4 @@
-\babel@toc {spanish}{}\relax 
+\babel@toc {spanish}{}\relax                                                                                                                                                      
 \contentsline {chapter}{Índice general}{\es@scroman {i}}{}%
 \contentsline {chapter}{Lista de figuras}{\es@scroman {iii}}{}%
 \contentsline {chapter}{Lista de tablas}{\es@scroman {vi}}{}%
