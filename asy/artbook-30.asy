@@ -10,38 +10,33 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=2;
+settings.render=1;
 
+import graph3;
 import three;
-size(8cm,0);
-currentprojection=obliqueX;
-currentlight=(0,2,1);
+settings.render=-1;
+currentprojection=perspective(3,7,2);
+currentlight=light((0,0,3),(0,0,-3));
+size(300,0);
+transform3 ag=scale(1.7,2,0.7);
+triple pA=(-3,0,0), pB=(0,3,0), pC=(0,0,3), pE=(0,0,3);
+transform3 sym=reflect(pA,pB,pC);
+draw(ag*unithemisphere,yellow+opacity(0.7), meshpen=brown+thick());
+draw(sym*ag*unithemisphere,red+opacity(0.7), meshpen=brown+thick());
+triple pS=(0,0,0.7), pE=(0,2,0);
+draw(pS--sym*pS,paleblue);
+draw(pE--sym*pE,paleblue);
+dot((pS+sym*pS)/2);
+dot((pE+sym*pE)/2);
+draw((pS+sym*pS)/2--(pE+sym*pE)/2, dashed);
+dot(pS^^pE^^sym*pS^^sym*pE);
+label("$P$", pS, 2NW);
+label("$Q$", pE, SW);
+label("$P'$", sym*pS, NW);
+label("$Q'$", sym*pE, SE);
+triple ww=unit(cross(sym*pS-pS,sym*pS-sym*pE));
+draw(surface(plane(O=(pE+sym*pE)/2-unit((pS+sym*pS)/2-(pE+sym*pE)/2)-ww, 2*ww, 2*((pS+sym*pS)/2-(pE+sym*pE)/2))), blue + opacity(0.6));
 
-//~~~~~~~~~ DEFINITIONS ~~~~~~~~~
-// On définit le plan.
-triple v1=(10,0,0),
-v2=(0,10,0),
-pO=(-2,-3,0);
-path3 pl1=plane(v1,v2,pO);
-// On définit un vecteur donnant la direction de projection
-triple V=(1,-1,4);
-// On définit un chemin
-path3 ch=(5,3,4)--(5,4,8)--(1,4,4)--(4,-2,3)--cycle;
+draw("$90^\circ$",arc((pS+sym*pS)/2,(pS+sym*pS)/2-0.3*unit((pS-sym*pS)/2),(pE+sym*pE)/2),align=3*Y, Arrows3,light=currentlight);
+axes3("$x$","$y$","$z$", Arrows3);
 
-// projection sur le plan pl1 suivant la direction de V
-transform3 proj=planeproject(pl1,V);
-// et on définit le projetté de ch :
-path3 chproj=proj*ch;
-
-//~~~~~~~~~ CONSTRUCTIONS ~~~~~~~~~
-// On trace le plan.
-draw(surface(pl1),paleblue+opacity(.5),blue);
-// On représente le vecteur.
-draw((0,0,0)--V,Arrow3);
-// On trace le chemin défini
-draw(ch,blue);
-// et son projeté
-draw(chproj,red);
-
-for (int i=0; i < length(ch); ++i)
-draw(point(ch,i)--point(chproj,i), .5bp+blue+dotted);

@@ -1,7 +1,15 @@
 This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: artbook.aux
+A level-1 auxiliary file: chp/chp1.aux
+A level-1 auxiliary file: chp/chp2.aux
+A level-1 auxiliary file: chp/chp3.aux
+A level-1 auxiliary file: chp/chp4.aux
+A level-1 auxiliary file: chp/chp5.aux
+A level-1 auxiliary file: chp/chp6.aux
+A level-1 auxiliary file: chp/chp7.aux
 The style file: apacite.bst
+A level-1 auxiliary file: chp/chp8.aux
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=200001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=4) to 20 items from 10.
@@ -18,7 +26,7 @@ apacite.bst [2013/07/21 v6.03 APA bibliography style]
 Warning--No journal in www
 You've used 8 entries,
             6951 wiz_defined-function locations,
-            1318 strings with 12053 characters,
+            1326 strings with 12149 characters,
 and the built_in function-call counts, 14685 in all, are:
 = -- 1855
 > -- 115

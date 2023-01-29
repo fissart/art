@@ -1,0 +1,721 @@
+\chapter{Sistemas de coordenadas}
+
+\section{Coordenas cartesianas}
+
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+  import graph3;
+  import three;
+
+  //size(300,0);
+  size3(300,IgnoreAspect);
+
+  currentprojection=perspective(2,1,1);
+  triple P=(1,1,1);
+  scale(Linear,Linear,Linear);
+  dot("$P=(x,y,z)$",(1,1,1),dir(-35));
+  dot("$W=(x,y,0)$",(1,1,0),dir(-45));
+  dot("$Q=(x,y,0)$",(1,0,0),dir(165));
+  dot("$R=(x,y,0)$",(0,1,0),dir(35));
+  draw(box(O,P),dashed);
+  xaxis3("$x$",0,1.5,red,OutTicks(2,2));
+  yaxis3("$y$",0,1.5,red,OutTicks(2,5));
+  zaxis3("$z$",0,1.5,red,OutTicks(2,2));
+
+  \end{asy}
+  \caption{}
+\end{figure}
+\section{Coordenas esfericas}
+
+
+El sistema de coordenadas esféricas se basa en la misma idea que las coordenadas\index{coordenadas} index{coordenadas!polares} polares y se utiliza para determinar la posición espacial de un punto mediante una distancia y dos ángulos. En consecuencia, un punto P queda representado por un conjunto de tres magnitudes: el radio r, el ángulo polar o colatitud $\theta$  y el azimutal $\varphi$.
+
+Algunos autores utilizan la latitud, en lugar de colatitud, en cuyo caso su margen es de -90 a 90 (de $-\pi/2$ a $\pi/2$ radianes), siendo el cero el plano $XY$. También puede variar la medida del azimutal, según se mida el ángulo en sentido reloj o contrarreloj, y de 0 a 360 (0 a $2\pi$ en radianes) o de -180 a +180 ($-\pi$ a $-\pi$).
+
+La mayoría de los físicos, ingenieros y matemáticos no norteamericanos escriben:
+
+\begin{enumerate}
+  \item $\varphi$ , el azimutal  : de 0 a 360
+  \item $\theta$ , la colatitud : de 0 a 180
+\end{enumerate}
+Esta es la convención que se sigue en este artículo. En el sistema internacional, los rangos de variación de las tres coordenadas son:
+$0\leq r<\infty \qquad 0\leq \theta \leq \pi \qquad 0\leq \varphi <2\pi$
+
+La coordenada radial es siempre positiva. Si reduciendo el valor de $r$ llega a alcanzarse el valor 0, a partir de ahí, $r$; vuelve a aumentar, pero $\theta$  pasa a valer $\pi-\theta$  y $\varphi$  aumenta o disminuye en $\pi$ radianes.
+
+\begin{figure}[!ht]
+	\begin{asy}
+import three;
+import math;
+import solids;
+
+
+size(300,0);
+
+pen thickp=linewidth(0.5mm);
+real radius=1, lambda=37, aux=60;
+
+currentprojection=perspective(1,1,0.5);
+
+
+revolution sphere=sphere(1);
+draw(surface(sphere),green+opacity(0.2));
+draw(sphere,m=7,blue);
+
+// Planes
+//pen bg=gray(0.9)+opacity(0.5);
+//draw(surface((1.2,0,0)--(1.2,0,1.2)--(0,0,1.2)--(0,0,0)--cycle),bg);
+//draw(surface((0,1.2,0)--(0,1.2,1.2)--(0,0,1.2)--(0,0,0)--cycle),bg);
+//draw(surface((1.2,0,0)--(1.2,1.2,0)--(0,1.2,0)--(0,0,0)--cycle),bg);
+
+real r=1.1;
+pen p=rgb(0,0.7,0);
+draw(Label("$x$",1),O--r*X,p,Arrow3);
+draw(Label("$y$",1),O--r*Y,p,Arrow3);
+draw(Label("$z$",1),O--r*Z,p,Arrow3);
+label("$O$",(0,0,0),W);
+draw(unitsphere, orange+opacity(0.5));
+// Point Q
+triple pQ=radius*dir(lambda,aux);
+draw(O--radius*dir(90,aux),dashed);
+label("$ Q$",pQ,N+3*W);
+draw("$\lambda$",arc(O,0.15pQ,0.15*Z),N+0.3E);
+
+
+// Particle
+triple m=pQ-(0.26,-0.4,0.28);
+real width=5;
+dot("$m$",m,SE,linewidth(width));
+draw("${\rho}$",(0,0,0)--m,Arrow3,PenMargin3(0,width));
+draw("${r}$",pQ--m,Arrow3,PenMargin3(0,width));
+
+// Spherical octant
+real r=sqrt(pQ.x^2+pQ.y^2);
+draw(arc((0,0,pQ.z),(r,0,pQ.z),(0,r,pQ.z)),dashed);
+draw(arc(O,radius*Z,radius*dir(90,aux)),dashed);
+draw(arc(O,radius*Z,radius*X),thickp);
+draw(arc(O,radius*Z,radius*Y),thickp);
+draw(arc(O,radius*X,radius*Y),thickp);
+
+// Moving axes
+triple i=dir(90+lambda,aux);
+triple k=unit(pQ);
+triple j=cross(k,i);
+
+draw(Label("$x$",1),pQ--pQ+0.2*i,2W,red,Arrow3);
+draw(Label("$y$",1),pQ--pQ+0.32*j,red,Arrow3);
+draw(Label("$z$",1),pQ--pQ+0.26*k,red,Arrow3);
+
+draw("${R}$",O--pQ,Arrow3,PenMargin3);
+draw("$\omega{K}$",arc(0.9Z,0.2,90,-120,90,160,CW),1.2N,Arrow3);
+	\end{asy}
+	\caption{Coordenadas esféricas}
+\end{figure}
+
+
+
+
+\section{Coordenas cilindricas}
+
+El sistema de coordenadas cilíndricas es muy conveniente en aquellos casos en que se tratan problemas que tienen simetría de tipo cilíndrico o azimutal. Se trata de una versión en tres dimensiones de las coordenadas polares de la geometría analítica plana.
+
+Un punto $P$ en coordenadas cilíndricas se representa por $(\rho ,\varphi ,z)$ donde:
+\begin{enumerate}
+  \item $\rho$ : Coordenada radial, definida como la distancia del punto $P$ al eje $z$, o bien la longitud de la proyección del radiovector sobre el plano $XY$
+   \item  $\varphi$ : Coordenada azimutal, definida como el ángulo que forma con el eje $X$ la proyección del radiovector sobre el plano $XY$.
+   \item  $z$: Coordenada vertical o altura, definida como la distancia, con signo, desde el punto P al plano $XY$.
+
+\end{enumerate}
+Los rangos de variación de las tres coordenadas son $0\leq \rho <\infty, 0\leq \varphi <2\pi, -\infty <z<\infty.$
+
+La coordenada azimutal $\varphi$  se hace variar en ocasiones desde $-\phi$ a $\pi$. La coordenada radial es siempre positiva. Si reduciendo el valor de $\rho$  llega a alcanzarse el valor 0, a partir de ahí, $\rho$  vuelve a aumentar, pero $\varphi$  aumenta o disminuye en $\pi$ radianes.
+
+Teniendo en cuenta la definición del ángulo $\varphi$ , obtenemos las siguientes relaciones entre las coordenadas cilíndricas y las cartesianas: $x=\rho \cos \varphi , y=\rho \sin \varphi ,z=z$
+
+
+\begin{figure}[!ht]
+\begin{asy}
+import three;
+import math;
+import solids;
+
+currentprojection=perspective(2,1,1);
+size(300,0);
+
+//pen thickp=linewidth(0.5mm);
+real rho=1, phi=60, z=1.5/2;
+//draw(unitcylinder,material(palegray+opacity(0.25),shininess=0.5));
+
+real r=1.1;
+pen p=black;
+draw(Label("$x$",1),O--r*X,p,Arrow3);
+draw(Label("$y$",1),O--r*Y,p,Arrow3);
+draw(Label("$z$",1),O--r*Z,p,Arrow3);
+label("$\rm O$",(0,0,0),-1.5Y-X);
+
+triple Q=(rho*Cos(phi),rho*Sin(phi),z);
+dot("$(x,y,z)$",Q);
+draw(Q--(Q.x,Q.y,0),dashed+blue);
+draw(O--rho*dir(90,phi),dashed+blue);
+draw((0,0,Q.z)--Q,dashed+blue);
+draw("$\varphi$",arc(O,0.15*X,0.15*dir(90,phi)),align=6*dir(90,phi/3)+Z,Arrow3);
+draw("$\rho$",(0,0,0)--(Q.x,Q.y,0),align=-Y+2X,DotMargin3);
+draw("$r$",O--Q,align=2*dir(90,phi),Arrow3,DotMargin3);
+
+revolution hyperboloid=revolution(graph(new triple(real z) {
+      return (1,0,z);},0,1.5,20,operator ..),axis=Z);
+draw(surface(hyperboloid),yellow+opacity(0.3),render(compression=Low,merge=true));
+draw(hyperboloid,3,white+0.15mm,longitudinalpen=nullpen);
+
+\end{asy}
+\end{figure}
+
+\section{Transformacion de coordenas}
+
+\section{Dirección de una linea 2D y 3D}
+
+
+Analogue of spherical coordinates in $n$-dimensions
+
+\begin{enumerate}
+\item Recta en dos bidimensiones two dimensions, you can use polar coordinates:
+\item Recta en 3 bidimensiones, you can use spherical coordinates:
+\item Recta en $n$ bidimensiones, you can use hyperspherical coordinates.
+\end{enumerate}
+
+But basically, in any n-dimensional space, you'll have one length coordinate and (n-1) angle coordinates.
+
+\chapter{Recta y plano}
+
+
+\section{Vector}
+
+\begin{asy}
+import graph3;
+import three;
+
+size3(12cm,IgnoreAspect);
+
+currentprojection=perspective(2,1,1);
+triple P=(1,1,1);
+triple P1=(-1,1.5,0.5);
+scale(Linear,Linear,Linear);
+dot("$P=(x,y,z)$",P,dir(45));
+dot("$W=(x,y,0)$",(1,1,0),dir(-45));
+dot("$P_1=(x,y,0)$",P1,dir(45));
+dot("$Q=(x,y,0)$",(1,0,0),dir(165));
+dot("$R=(x,y,0)$",(0,1,0),dir(35));
+draw(box(O,P),dashed);
+xaxis3("$x$",0,1.5,red,OutTicks(2,2));
+yaxis3("$y$",0,1.5,red,OutTicks(2,5));
+zaxis3("$z$",0,1.5,red,OutTicks(2,2));
+
+draw(Label("$\mathcal{L}_1$",Relative(.9),align=dir(90)), P+2*unit(P-P1)--P1+2*unit(P1-P));
+draw(Label("$\vec{v}_1$",Relative(.5),align=dir(90)),shift(0.05*P) * (P-0.3*unit(P-P1)--P1+0.3*unit(P-P1)), orange, arrow=Arrow3());
+draw(O--2X ^^ O--2Y ^^ O--2Z);
+triple circleCenter = (Y+Z)/sqrt(2) + X;
+path3 mycircle =circle(c=circleCenter, r=1,normal=Y+Z);
+draw(plane(O=sqrt(2)*Z, 2X, 2*unit(Y-Z)), gray + 0.1cyan);
+draw(mycircle, blue);
+draw(shift(circleCenter)*(O -- Y+Z), green, arrow=Arrow3());
+
+\end{asy}
+
+\section{Recta}
+
+\section{Plano}
+
+
+\chapter{La forma y elementos}
+
+\section{Centro de masa}
+
+\section{Eje de una forma}
+
+\section{Volumen}
+
+\section{Simplicaciones de la forma}
+
+
+\chapter{Transformaciones}
+
+\section{Transformaciones elementales}
+\subsection{Traslacion}
+
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	import solids;
+	import  obj;
+	settings.render=-1;
+	size3(200,0);
+	size(300);
+	currentprojection=perspective(3,3,-1);
+	currentlight=Headlamp;
+	triple t=(0,3 ,0);
+	triple vectaxe=(1,0,0);
+
+	triple pA=(-3,0,0), pB=(0,3,0), pC=(0,0,3), pE=(0,0,3);
+	transform3 sym=reflect(X,Z,O);
+	transform3 r=rotate(0,vectaxe);
+	triple p1=(1.3125,-0.531249,0.054691);
+	triple p2=(0.328125,0.398431,-0.914065);
+	draw(p1--shift(t)*p1,blue+dashed, Arrow3);
+	draw(p2--shift(t)*p2,blue+dashed, Arrow3);
+	dot(p1^^p2^^shift(t)*p1^^shift(t)*p2);
+
+	dot(Label("$A$",align=dir(-90)),p1);
+	dot(Label("$C$",align=dir(-90)),p2);
+	dot(Label("$B$",align=dir(-90)),shift(t)*p1);
+	dot(Label("$D$",align=dir(-90)),shift(t)*p2);
+
+	draw(obj("www.obj",paleyellow+opacity(0.9)));
+	draw(shift(t)*obj("www.obj",paleblue+opacity(0.9)));
+	axes3("$x$","$y$","$z$", Arrow3);
+	/*
+	//close(in);
+	write(vert[334]);
+	//for(int i=300; i<400;++i){
+	//write(i);
+	//write(vert[i]);
+	//dot(Label((string) i, fontsize(3pt)),vert[i]);
+	};
+	*/
+	\end{asy}
+	\caption{Traslation}
+\end{figure}
+
+ \subsection{Rotation}
+
+ Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+ Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	import three;
+	size(300,0);
+	currentprojection=perspective(3,1,2);
+	currentlight=light((0,0,3),(0,0,-3));
+	triple vectaxe=(1,0,0);
+	transform3 r=rotate(-100,vectaxe);
+	triple pA=(1.5,0.9,1), pB=(4,0,1), pC=(1.2,0,4), p1=(2,-0.9,1.5);
+	path3 tri=pA--pB--pC--cycle;
+	path3 tri1=pA--p1--pC--cycle;
+	path3 tri2=p1--pB--pC--cycle;
+	path3 tri3=pA--pB--p1--cycle;
+	path3 trip=r*tri;
+	path3 trip1=r*tri1;
+	path3 trip2=r*tri2;
+	path3 trip3=r*tri3;
+	draw(surface(tri^^tri1^^tri2^^tri3^^trip^^trip1^^trip2^^trip3),orange+opacity(0.5));
+	draw(O--X,Arrow3); // En attendant
+	draw(O--Y,Arrow3); // d’avoir les axes
+	draw(O--Z,Arrow3); // avec graph3.asy
+	label("$x$", 2*X, NW);
+	label("$y$", 2*Y, SE);
+	label("$z$", Z, E);
+	dot(p1^^pA^^pB^^pC^^r*pA^^r*pB^^r*pC^^r*p1);
+	pen dotteddash=linetype("0 4 4 4"),
+	p2=.8bp+blue;
+	draw((-1,0,0)--(4,0,0),red);
+	draw(pA--(pA.x,0,0)--r*pA,red+dotteddash);
+	draw(pB--(pB.x,0,0)--r*pB,red+dotteddash);
+	draw(pC--(pC.x,0,0)--r*pC,red+dotteddash);
+	draw(arc((pA.x,0,0),pA,r*pA,CCW),p2,Arrow3);
+	draw(arc((pB.x,0,0),pB,r*pB,CCW),p2,Arrow3);
+	draw(arc((pC.x,0,0),pC,r*pC,CCW),p2,Arrow3);
+	\end{asy}
+	\caption{Rotation}
+\end{figure}
+
+\subsection{Simetry}
+
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	import graph3;
+	import three;
+	settings.render=-1;
+	currentprojection=perspective(3,7,2);
+	currentlight=light((0,0,3),(0,0,-3));
+	size(300,0);
+	transform3 ag=scale(1.7,2,0.7);
+	triple pA=(-3,0,0), pB=(0,3,0), pC=(0,0,3), pE=(0,0,3);
+	transform3 sym=reflect(pA,pB,pC);
+	draw(ag*unithemisphere,yellow+opacity(0.7), meshpen=brown+thick());
+	draw(sym*ag*unithemisphere,red+opacity(0.7), meshpen=brown+thick());
+	triple pS=(0,0,0.7), pE=(0,2,0);
+	draw(pS--sym*pS,paleblue);
+	draw(pE--sym*pE,paleblue);
+	dot((pS+sym*pS)/2);
+	dot((pE+sym*pE)/2);
+	draw((pS+sym*pS)/2--(pE+sym*pE)/2, dashed);
+	dot(pS^^pE^^sym*pS^^sym*pE);
+	label("$P$", pS, 2NW);
+	label("$Q$", pE, SW);
+	label("$P'$", sym*pS, NW);
+	label("$Q'$", sym*pE, SE);
+	triple ww=unit(cross(sym*pS-pS,sym*pS-sym*pE));
+	draw(surface(plane(O=(pE+sym*pE)/2-unit((pS+sym*pS)/2-(pE+sym*pE)/2)-ww, 2*ww, 2*((pS+sym*pS)/2-(pE+sym*pE)/2))), blue + opacity(0.6));
+
+	draw("$90^\circ$",arc((pS+sym*pS)/2,(pS+sym*pS)/2-0.3*unit((pS-sym*pS)/2),(pE+sym*pE)/2),align=3*Y,  Arrows3,light=currentlight);
+	axes3("$x$","$y$","$z$", Arrows3);
+
+	\end{asy}
+	\caption{Simetry}
+\end{figure}
+\subsection{Homotecia}
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	import graph3;
+	import three;
+	size3(200,0);
+	currentprojection=perspective(4,6,-3);
+	//triple pA=(-3,0,0), pB=(0,3,0), pC=(0,0,3), pE=(0,0,3);
+	//path3 gg=pA--pB--pC--cycle;
+	//draw(surface(gg),orange);
+	triple p1=(3,1,1.5);
+	transform3 t=shift(p1);
+	transform3 g=scale(1.5,1.5,1.5);
+
+	draw(g*unithemisphere,blue);
+	draw(surface(t*g*unithemisphere),orange);
+	draw(surface(t*g*g*unithemisphere),yellow);
+	draw(surface(t*g*g*g*unithemisphere),yellow);
+	axes3("$x$","$y$","$z$", Arrows3);
+	\end{asy}
+	\caption{Escala - Homotecia}
+\end{figure}
+
+
+
+\section{Transformaciones topológicas}
+Coloquialmente, se presenta a la topología como la geometría de la página de goma (chicle). Esto hace referencia a que, en la geometría euclídea, dos objetos serán equivalentes mientras podamos transformar uno en otro mediante isometrías (rotaciones, traslaciones, reflexiones, etc.), es decir, mediante transformaciones que conservan las medidas de ángulo, área, longitud, volumen y otras.
+
+En topología, dos objetos son equivalentes en un sentido mucho más amplio. Han de tener el mismo número de trozos, huecos, intersecciones, etc. En topología está permitido doblar, estirar, encoger, retorcer, etc., los objetos, pero siempre que se haga sin romper ni separar lo que estaba unido, ni pegar lo que estaba separado. Por ejemplo, un triángulo es topológicamente lo mismo que una circunferencia, ya que podemos transformar uno en otra de forma continua, sin romper ni pegar. Pero una circunferencia no es lo mismo que un segmento, ya que habría que partirla (o pegarla) por algún punto.
+
+Esta es la razón de que se la llame la geometría de la página de goma, porque es como si estuviéramos estudiando geometría sobre un papel de goma que pudiera contraerse, estirarse, etc.
+
+
+Una taza transformándose en una rosquilla (toro).
+Un chiste habitual entre los topólogos (los matemáticos que se dedican a la topología) es que un topólogo es una persona incapaz de distinguir una taza de una rosquilla. Pero esta visión, aunque muy intuitiva e ingeniosa, es sesgada y parcial. Por un lado, puede llevar a pensar que la topología trata solo de objetos y conceptos geométricos, siendo más bien al contrario, es la geometría la que trata con un cierto tipo de objetos topológicos. Por otro lado, en muchos casos es imposible dar una imagen o interpretación intuitiva de problemas topológicos o incluso de algunos conceptos. Es frecuente entre los estudiantes primerizos escuchar que no entienden la topología y que no les gusta esa rama; generalmente se debe a que se mantienen en esta actitud gráfica. Por último, la topología se nutre también en buena medida de conceptos cuya inspiración se encuentra en el análisis matemático. Se puede decir que casi la totalidad de los conceptos e ideas de esta rama son conceptos e ideas topológicas.
+
+\begin{figure}[!ht]
+	\centering
+\begin{asy}
+import tube;
+import graph3;
+size(300,0);
+currentprojection = orthographic(4,4,14);
+triple f(real x){
+  return (x, x*x, 0);
+}
+path3 p = graph(f, -1, 1, operator ..);
+
+transform T(real t){
+    return scale(t*(1-t)/500);
+}
+draw(tube(p, unitcircle, T), purple);
+
+draw(shift(relpoint(p,0))*scale3(0.1)*unitsphere, black);
+draw(shift(relpoint(p,1))*scale3(0.1)*unitsphere, green);
+\end{asy}
+\caption{Secciones y rebanadas}
+\end{figure}
+
+
+\begin{figure}[!ht]
+\centering
+\begin{asy}
+settings.render=-1;
+import graph3;
+import solids;
+size(300,0);
+currentprojection=perspective(3,3,1);
+
+pen color1=green+opacity(0.25);
+pen color2=red;
+real alpha=350;
+
+real f(real x) {return 2x^2-x^3;}
+pair F(real x) {return (x,f(x));}
+triple F3(real x) {return (x,f(x),0);}
+
+ngraph=12;
+
+real x1=0.7476;
+real x2=1.7787;
+real x3=1.8043;
+
+path[] p={graph(F,x1,x2,Spline),
+          graph(F,0.7,x1,Spline)--graph(F,x2,x3,Spline)&cycle,
+          graph(F,0,0.7,Spline)--graph(F,x3,2,Spline)};
+
+pen[] pn=new pen[] {color1,color2,color1};
+
+render render=render(compression=0);
+
+for(int i=0; i < p.length; ++i) {
+  revolution a=revolution(path3(p[i]),Y,0.5,alpha);
+  draw(surface(a),pn[i],render);
+
+  surface s=surface(p[i]--cycle);
+  draw(s,pn[i],render);
+  draw(rotate(alpha,Y)*s,pn[i],render);
+}
+
+draw((4/3,0,0)--F3(4/3),dashed);
+xtick("$\frac{4}{3}$",(4/3,0,0));
+
+xaxis3(Label("$x$",1),Arrow3);
+zaxis3(Label("$z$",1),Arrow3);
+yaxis3(Label("$y$",1),ymax=1.25,dashed,Arrow3);
+arrow("$y=2x^2-x^3$",F3(1.6),X+Y,0.75cm,red);
+draw(arc(1.1Y,0.3,90,0,7.5,180),Arrow3);
+\end{asy}
+\caption{Secciones y rebanadas}
+\end{figure}
+
+
+
+
+\subsection{Homeomorfismo}
+\subsection{Isometria}
+
+
+
+
+
+\begin{figure}[!ht]
+	\centering
+\begin{asy}
+import three;
+import graph3;
+size(300,0);
+currentprojection=perspective(1,1,1);
+int N=5;
+real f=3+1/N;
+for(int k=1; k < N; ++k) {
+  for(int m=1; m < N; ++m) {
+    for(int n=1; n < N; ++n) {
+      //if(m!=2){
+      transform3 gg=shift((n,m,k)*f)*scale3(3/length((n,m,k)));
+      //transform3 gg=rotate(longitude((n,m,k)),X)*scale3(length((n,m,k)))*shift((n,m,k)*f);
+      //draw(gg*unitcone,m==3?white+opacity(0.9):orange+opacity(0.9));
+      //draw(gg*unitcircle3,m==3?white+opacity(0.9):orange+opacity(0.9));
+      draw(gg*scale3(2)*unitplane,m==3?white+opacity(0.9):orange+opacity(0.9));
+      draw(gg*unitsphere,m==3?white+opacity(0.9):n==2?orange+opacity(0.9):n>1?blue+opacity(0.9):magenta);
+        //draw(O--(n,m,k)*f,green);
+      //}else{
+        //draw(O--gg*(n,m,k));
+
+      //}
+  }
+}
+}
+axes3("$x$","$y$","$z$", Arrow3);
+\end{asy}
+\caption{Array}
+\end{figure}
+
+
+\chapter{Proyecciones}
+\subsection{Ortogonal }
+
+\begin{asy}
+import three;
+size(8cm,0);
+currentprojection=obliqueX;
+currentlight=(0,2,1);
+
+//~~~~~~~~~ DEFINITIONS ~~~~~~~~~
+// On définit le plan.
+triple v1=(10,0,0),
+v2=(0,10,0),
+pO=(-2,-3,0);
+path3 pl1=plane(v1,v2,pO);
+// On définit un chemin
+path3 ch=(5,3,4)..(5,4,8)..(1,4,4)..(4,-2,3)..cycle;
+
+// On définit la projection orthogonale sur pl1 :
+transform3 proj=planeproject(pl1);
+// et on définit le projetté de ch :
+path3 chproj=proj*ch;
+
+//~~~~~~~~~ CONSTRUCTIONS ~~~~~~~~~
+// On trace le plan.
+draw(surface(pl1),paleblue+opacity(.5),blue);
+// On trace le chemin défini
+draw(ch,blue);
+// et son projeté
+draw(chproj,red);
+
+for (int i=0; i < length(ch); ++i)
+draw(point(ch,i)--point(chproj,i), .5bp+blue+dotted);
+\end{asy}
+
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	import graph3;
+
+	size(300,0);
+
+	currentprojection=perspective(1,1,1);
+
+	real x(real t) {return 1+cos(2pi*t);}
+	real y(real t) {return 1+sin(2pi*t);}
+	real z(real t) {return t;}
+
+	path3 p=graph(x,y,z,0,1,operator ..);
+
+	draw(p,Arrow3);
+	draw(planeproject(XY*unitsquare3)*p,red,Arrow3);
+	draw(planeproject(YZ*unitsquare3)*p,green,Arrow3);
+	draw(planeproject(ZX*unitsquare3)*p,blue,Arrow3);
+
+	axes3("$x$","$y$","$z$");
+	\end{asy}
+		\caption{Ortogonal}
+\end{figure}
+
+\subsection{Oblicua}
+
+\begin{asy}
+import three;
+size(8cm,0);
+currentprojection=obliqueX;
+currentlight=(0,2,1);
+
+//~~~~~~~~~ DEFINITIONS ~~~~~~~~~
+// On définit le plan.
+triple v1=(10,0,0),
+v2=(0,10,0),
+pO=(-2,-3,0);
+path3 pl1=plane(v1,v2,pO);
+// On définit un vecteur donnant la direction de projection
+triple V=(1,-1,4);
+// On définit un chemin
+path3 ch=(5,3,4)--(5,4,8)--(1,4,4)--(4,-2,3)--cycle;
+
+// projection sur le plan pl1 suivant la direction de V
+transform3 proj=planeproject(pl1,V);
+// et on définit le projetté de ch :
+path3 chproj=proj*ch;
+
+//~~~~~~~~~ CONSTRUCTIONS ~~~~~~~~~
+// On trace le plan.
+draw(surface(pl1),paleblue+opacity(.5),blue);
+// On représente le vecteur.
+draw((0,0,0)--V,Arrow3);
+// On trace le chemin défini
+draw(ch,blue);
+// et son projeté
+draw(chproj,red);
+
+for (int i=0; i < length(ch); ++i)
+draw(point(ch,i)--point(chproj,i), .5bp+blue+dotted);
+\end{asy}
+
+\subsection{Estereografica}
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+import graph3;
+import solids;
+
+currentlight=White;
+defaultrender.merge=true;
+
+size(10cm,0);
+
+pair k=(1,0.2);
+real r=abs(k);
+real theta=angle(k);
+
+real x(real t) { return 1-r^t*cos(t*theta); }
+real y(real t) { return r^t*sin(t*theta); }
+real z(real t) { return 0; }
+
+real u(real t) { return x(t)/(x(t)^2+y(t)^2+1); }
+real v(real t) { return y(t)/(x(t)^2+y(t)^2+1); }
+real w(real t) { return (x(t)^2+y(t)^2)/(x(t)^2+y(t)^2+1); }
+
+real nb=2;
+//for (int i=0; i<12; ++i) draw((0,0,0)--nb*(Cos(i*30),Sin(i*30),0),yellow);
+for (int i=0; i<=nb; ++i) draw(circle((0,0,0),i),lightgreen+white);
+
+
+path3 p=graph(x,y,z,-200,40,operator ..);
+path3 q=graph(u,v,w,-200,40,operator ..);
+
+revolution sph=sphere((0,0,0.5),0.5);
+draw(surface(sph),green+white+opacity(0.2));
+
+draw(p,blue);
+draw(q,white);
+
+triple
+A=(0,0,1),
+B=(u(40),v(40),w(40)),
+C=(x(40),y(40),z(40));
+
+path3 L=A--C;
+draw(L);
+
+pen p=orange;
+
+dot("$(0,0,1)$",A,N);
+dot("$(u,v,w)$",B,NE,orange);
+dot("$(x,y,0)$",C,dir(-90));
+axes3("$x$","$y$","$z$", extend=true, min=(0,0,0),max=(2,1,0.5), p, Arrow3);
+	\end{asy}
+	\caption{Estereografica}
+\end{figure}
+
+\begin{figure}[!ht]
+
+\begin{asy}
+size(7cm,7cm,IgnoreAspect);
+
+// Un premier tableau d'entiers de taille (3,4) rempli "manuellement"
+int[][] x={{2,3,5,7},
+{11,13,17,19},
+{23,29,31,37}};
+// Un second tableau d'entiers de taille (7,5) rempli avec une boucle
+int[][] y=new int[7][5];
+for (int i=0; i<7; ++i)
+for (int j=0; j<5; ++j)
+y[i][j]=i+j;
+
+// Affichage du tableau x
+for (int i=0; i<3; ++i)
+for (int j=0; j<4; ++j)
+label(format("%i",x[i][j]),(j,-i));
+// Affichage du tableau y
+for (int i=0; i<7; ++i)
+for (int j=0; j<5; ++j)
+label(format("%i",y[i][j]),(j,-i-4));
+
+shipout(bbox(.5cm,Fill(white)));
+\end{asy}
+\caption{www}
+\end{figure}

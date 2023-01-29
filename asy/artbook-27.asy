@@ -10,30 +10,33 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=2;
+settings.render=1;
 
-import three;
 import graph3;
-size(300,0);
-currentprojection=perspective(1,1,1);
-int N=5;
-real f=3+1/N;
-for(int k=1; k < N; ++k) {
-for(int m=1; m < N; ++m) {
-for(int n=1; n < N; ++n) {
-//if(m!=2){
-transform3 gg=shift((n,m,k)*f)*scale3(3/length((n,m,k)));
-//transform3 gg=rotate(longitude((n,m,k)),X)*scale3(length((n,m,k)))*shift((n,m,k)*f);
-//draw(gg*unitcone,m==3?white+opacity(0.9):orange+opacity(0.9));
-//draw(gg*unitcircle3,m==3?white+opacity(0.9):orange+opacity(0.9));
-draw(gg*scale3(2)*unitplane,m==3?white+opacity(0.9):orange+opacity(0.9));
-draw(gg*unitsphere,m==3?white+opacity(0.9):n==2?orange+opacity(0.9):n>1?blue+opacity(0.9):magenta);
-//draw(O--(n,m,k)*f,green);
-//}else{
-//draw(O--gg*(n,m,k));
+import three;
 
-//}
-}
-}
-}
-axes3("$x$","$y$","$z$", Arrow3);
+size3(12cm,IgnoreAspect);
+
+currentprojection=perspective(2,1,1);
+triple P=(1,1,1);
+triple P1=(-1,1.5,0.5);
+scale(Linear,Linear,Linear);
+dot("$P=(x,y,z)$",P,dir(45));
+dot("$W=(x,y,0)$",(1,1,0),dir(-45));
+dot("$P_1=(x,y,0)$",P1,dir(45));
+dot("$Q=(x,y,0)$",(1,0,0),dir(165));
+dot("$R=(x,y,0)$",(0,1,0),dir(35));
+draw(box(O,P),dashed);
+xaxis3("$x$",0,1.5,red,OutTicks(2,2));
+yaxis3("$y$",0,1.5,red,OutTicks(2,5));
+zaxis3("$z$",0,1.5,red,OutTicks(2,2));
+
+draw(Label("$\mathcal{L}_1$",Relative(.9),align=dir(90)), P+2*unit(P-P1)--P1+2*unit(P1-P));
+draw(Label("$\vec{v}_1$",Relative(.5),align=dir(90)),shift(0.05*P) * (P-0.3*unit(P-P1)--P1+0.3*unit(P-P1)), orange, arrow=Arrow3());
+draw(O--2X ^^ O--2Y ^^ O--2Z);
+triple circleCenter = (Y+Z)/sqrt(2) + X;
+path3 mycircle =circle(c=circleCenter, r=1,normal=Y+Z);
+draw(plane(O=sqrt(2)*Z, 2X, 2*unit(Y-Z)), gray + 0.1cyan);
+draw(mycircle, blue);
+draw(shift(circleCenter)*(O -- Y+Z), green, arrow=Arrow3());
+

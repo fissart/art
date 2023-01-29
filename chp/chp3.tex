@@ -1,0 +1,238 @@
+
+\chapter{Perspectiva cónica}
+
+\section{Elementos}
+
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+    size(12cm,0);
+    //import markers;
+    import geometry;
+    //import math;
+    path g=scale(1)*unitcircle;
+    path gg=scale(1.5)*unitcircle;
+    path ggg=scale(2.1)*unitcircle;
+    draw(g);
+    pair A=(0,0);
+    pair V=unit((1,.2));
+    pair V1=rotate(90)*(V);
+    path l=-2*V--2*V;
+    dot(intersectionpoints(l,g));
+    pair[] I=intersectionpoints(l,g);
+
+    pair P=(0.3,-0.5), Q=1.5*(V1-A)/2+P;
+    pair P1=(length(V)*cos(-2),length(V)*sin(-2)), Q1=4.5*(V1-A)/2+P1;
+    pair P2=(2,-1), Q2=4.5*(V1-A)/2+P2;
+
+    dot(midpoint(l)^^V1^^P^^P1^^P2);
+    draw(I[0]--I[0]+0.6*(P-I[0])--I[1]^^I[1]--I[1]+0.6*(P-I[1])--I[0], 1*orange+linewidth(0.2mm));
+
+    draw(I[0]--P--I[1]^^Q--I[1]--I[0]--cycle, 1*blue);
+    draw(I[0]--P1--I[1]^^Q1--I[1]--I[0]--cycle, 0.8*orange);
+    draw(I[0]--P2--I[1]^^Q2--I[1]--I[0]--cycle, 0.8*paleblue);
+    line l1=line(-2*V,2*V);
+    line l1=line(-2*V,2*V);
+    draw(Label("$\mathcal{L}_1$",Relative(.99),align=dir(-45)), l1,
+         1bp+dashed+.8red);
+    line l2=perpendicular(A,l1);
+    draw(Label("$\mathcal{L}_2$",Relative(.99),align=dir(-90)), l2,
+         1bp+dashed+0.5*orange);
+    line d2=parallel(I[0],l2);
+    draw(d2,.8green);
+    distance("$www$",offset=10mm,joinpen=dashed,A,I[0],orange);
+    draw(I[1]--A,StickIntervalMarker(1,3,size=15,angle=45,blue));
+    draw(I[0]--A,StickIntervalMarker(1,3,size=15,angle=45,blue));
+    label("$PP$",A,SE,UnFill);
+    label("$V$",V1,2*NE,UnFill);
+    label("$P_1$",I[0],3*dir(-110),UnFill);
+    label("$P_2$",I[1],2*NE,UnFill);
+
+    //show(currentcoordsys);
+    perpendicular(A,NE,V1-A,Fill(blue));
+    markangle(Label("$\alpha$",Relative(0.5),UnFill),n=3,radius=15,I[1],P,I[0],ArcArrow(5mm,2mm),red);
+    markangle(Label("$\alpha_2$",Relative(0.25)),n=3,radius=-5,I[1],Q,I[0],p=0.5blue);
+
+    markangle(Label("$\alpha_1$",Relative(0.5)),n=3,radius=15,I[1],P1,I[0],ArcArrow(5mm,2mm),red);
+    markangle(Label("$\gamma_1$",Relative(0.5)),n=3,radius=-15,I[1],Q1,I[0],p=0.5blue);
+
+    markangle(Label("$\alpha_3$",Relative(0.25)),n=3,radius=15,I[1],P2,I[0],ArcArrow(5mm,2mm),red);
+    markangle(Label("$\omega$",Relative(0.5)),n=3,radius=-15,I[1],Q2,I[0],p=0.5blue);
+  \end{asy}
+  \caption{}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+size(12cm,0);
+//import markers;
+import geometry;
+//import math;
+path g=scale(1)*unitcircle;
+path gg=scale(1.5)*unitcircle;
+path ggg=scale(2.1)*unitcircle;
+draw(g);
+pair A=(0,0);
+pair V=unit((1,.2));
+pair V1=rotate(90)*(V);
+pair V2=rotate(-90)*(V);
+pair V3=rotate(-90)*(V)+0.9*(V2-V1);
+path l=-2*V--2*V;
+pair[] I=intersectionpoints(l,g);
+dot(I);
+
+pair T=(0.3,-1.2), R=T+0.3*(3,-0.2);
+dot(midpoint(l));
+dot(V1^^T^^R);
+
+line l1=line(-2*V,2*V);
+
+draw(Label("$\mathcal{L}_1$",Relative(.99),align=dir(-45)), l1,
+     1bp+dashed+.8red);
+line l2=perpendicular(A,l1);
+draw(Label("$\mathcal{L}_2$",Relative(0),align=dir(90)), l2, 1bp+dashed+0.5*orange);
+line l3=parallel(V2,l1);draw(l3,green);line l4=parallel(V3,l1);draw(l4,green);
+label("$PP$",A,3*NW,UnFill);
+label("$V$",V1,W,UnFill);
+label("$P_1$",I[0],3*dir(-110),UnFill);
+label("$P_2$",I[1],2*NE,UnFill);
+
+transform proj=projection(l4);
+point Mp=proj*T;
+point Mp1=proj*R;
+dot(Mp^^Mp1);
+dot(Label("$P_T$",Mp,dir(-90),UnFill),orange);
+dot(Label("$P_R$",Mp1,dir(-90),UnFill),orange);
+dot(Label("$T$",T,W,UnFill));
+dot(Label("$R$",R,N,UnFill));
+circle C=circle(Mp,length(Mp-T));
+circle C1=circle(Mp1,length(Mp1-R));
+draw(C^^C1,dashed);
+pair[] II=intersectionpoints(l4,C);
+dot(II);
+pair[] II1=intersectionpoints(l4,C1);
+dot(II1);
+
+transform proj1=projection(l3);
+point w1=proj1*II[0], w2=proj1*II[1];
+point ww1=proj1*II1[0], ww2=proj1*II1[1];
+point T1=proj1*T, R1=proj1*R;
+dot(w1^^w2^^ww1^^ww2^^T1^^R1);
+dot("$W_1$",w1,dir(90));
+dot("$W_2$",w2,dir(-135));
+dot("$W_3$",ww1,dir(-120));
+dot("$W_4$",ww2,dir(90));
+dot("$T_1$",T1,dir(90));
+dot("$R_1$",R1,dir(90));
+draw(II[0]--w1^^II[1]--w2^^II1[0]--ww1^^II1[1]--ww2^^T--T1^^R--R1, dashed);
+draw(I[1]--w1^^I[0]--w2^^I[1]--ww1^^I[0]--ww2^^A--T1^^A--R1, dashed);
+draw(T--R, orange+linewidth(0.5mm));
+pair[] T3=intersectionpoints(T1--A,w2--I[0]);
+pair[] R3=intersectionpoints(R1--A,ww1--I[1]);
+
+dot(R3[0]);
+dot(T3[0]);
+draw(T3[0]--R3[0], orange+linewidth(0.5mm));
+pair R5=rotate(90)*(T-R)+T;
+pair RW=rotate(90)*(T-R)+R;
+dot("$R_W$",RW,E,UnFill);
+dot("$R_5$",R5,W,UnFill);
+draw(T--R5--RW--R--cycle, orange+linewidth(0.5mm));
+//draw(T--R5, orange+linewidth(0.5mm));
+point S1=proj1*R5;
+point S2=proj*R5;
+dot(S1^^S2);
+dot("$S_1$",S1,N);
+dot("$S_2$",S2,N);
+circle CC=circle(S2,length(R5-S2));
+draw(CC,dashed);
+pair[] I5=intersectionpoints(l4,CC);
+point j=proj1*I5[1], k=proj1*I5[0];
+dot(I5);
+dot(j);
+dot(k);
+draw(j--I5[1]^^k--I5[0]^^S1--R5,dashed);
+draw(j--I[0]^^k--I[1]^^S1--A,dashed);
+pair[] R9=intersectionpoints(S1--A,j--I[0]);
+dot(R9[0]);
+
+line l5=line(T3[0],R9[0]);
+line l6=line(T3[0],R3[0]);
+draw(l5^^l6,dashed+orange);
+
+//line l5=line(T3[0],R9[0]);
+line l7=line(intersectionpoint(l5,l1),R3[0]);
+line l8=line(intersectionpoint(l6,l1),R9[0]);
+draw(T3[0]--R9[0]--intersectionpoint(l7,l8)--R3[0]--cycle, orange+linewidth(0.5mm));
+draw(l7^^l8,dashed+orange);
+dot("$T_3$",intersectionpoint(l6,l1),N);
+dot("$T_8$",intersectionpoint(l7,l1),N);
+
+//show(currentcoordsys);
+
+perpendicular(A,NE,V1-A,Fill(blue));
+
+  \end{asy}
+  \caption{La hiperbola $y=\frac{\lVert PP-PD\rVert^2}{x}$}
+\end{figure}
+
+La hiperbola $$y=\frac{\lVert PP-PD\rVert^2}{x}$$
+wwwwwwwwwwwwwwwww
+
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+  size(12cm,0);
+  import geometry;
+  pair A=(0,0);
+  pair V=(1,.1);
+
+  pair V1=rotate(90)*(V);
+  pair V2=rotate(-90)*(V);
+  pair V3=rotate(-90)*(V)+0.9*(V2-V1);
+
+  path g=scale(length(A-V))*unitcircle;
+  draw(g);
+  path l=-2*V--2*V;
+  pair[] I=intersectionpoints(l,g);
+
+  pair T=(0.3,-0.8), f1=A-0.6*(A-V), f2=A+((length(A-V))^2/length(f1-A))*unit(A-V);
+  line l1=line(-2*V,2*V);
+  line l2=perpendicular(A,l1);
+  draw(Label("$\mathcal{L}_1$",Relative(.99),align=dir(-45)), l1, 1bp+dashed+.8red);
+  draw(Label("$\mathcal{L}_2$",Relative(0),align=dir(90)), l2, 1bp+dashed+0.5*orange);
+  dot("$P_1$",I[0],N);
+  dot("$P_2$",I[1],N);
+  dot("$F_1$",f1,N);
+  dot("$F_2$",f2,N);
+  dot("$PP$",A,NW);
+  dot("$V$",V1,W);
+  dot("$T$",T,dir(-90));
+  draw(T--f1^^T--f2);
+
+  pair T1=T+0.5*unit(V1-A);
+  pair T2=T+0.2*unit(f1-T);
+  dot("$T_1$",T1,dir(90));
+  dot("$T_2$",T2,dir(-50));
+  pair T3=intersectionpoint(T1--f1,T2--T2+unit(V1-A));
+  dot("$T_3$",T3,dir(50));
+  pair T4=T+0.4*unit(f2-T);
+  dot("$T_4$",T4,dir(-90));
+  pair T5=intersectionpoint(T1--f2,T4--T4+unit(V1-A));
+  dot("$T_5$",T5,N);
+  draw(T1--f1^^T1--f2,blue+dashed);
+  draw(T3--f2^^T5--f1^^T2--f2^^T4--f1,orange+dashed);
+  draw(T3--T2^^T5--T4^^intersectionpoint(T3--f2,T5--f1)--intersectionpoint(T2--f2,T4--f1)^^T--T1,yellow);
+  fill(T2--T3--intersectionpoint(T3--f2,T5--f1)--intersectionpoint(T2--f2,T4--f1)--cycle,blue);
+  fill(T4--T5--intersectionpoint(T3--f2,T5--f1)--intersectionpoint(T2--f2,T4--f1)--cycle,orange);
+  fill(T3--T2--T--T1--cycle,orange);
+  dot("$T_7$",intersectionpoint(T3--f2,T5--f1),N);
+  dot("$T_8$",intersectionpoint(T2--f2,T4--f1),N);
+
+  \end{asy}
+  \caption{}
+\end{figure}
+
+\section{Tipos}
+\section{Sombras}

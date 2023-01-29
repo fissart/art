@@ -10,29 +10,49 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=2;
+settings.render=1;
 
-import solids;
-currentprojection=orthographic(8.5,9.5,8);
-currentlight=(0,5,5);
-
+import three;
+import graph3;
 size(300,0);
+currentprojection=perspective((1,2,1.2));
+currentlight=Headlamp;
+real radius=0.5;
+triple w1=radius*dir(90,45);
+triple w2=radius*dir(90,135);
+triple w3=radius*dir(90,180+45);
+triple w4=radius*dir(90,180+135);
+triple w5=O+abs(O-w1)*Z;
+triple w6=O-abs(O-w1)*Z;
 
-real R=3, a=1, d=R+2a;
+dot(Label("$E$"),w5,W+N);
+dot(Label("$F$"),w6,SE);
+dot(Label("$A$"),w1,S);
+dot(Label("$B$"),w2,S);
+dot(Label("$C$"),w3,E);
+dot(Label("$D$"),w4,W);
+draw(surface(
+w1--w2--w5--cycle
+^^w2--w3--w5--cycle
+^^w3--w4--w5--cycle
+^^w4--w1--w5--cycle
+^^w1--w2--w6--cycle
+^^w2--w3--w6--cycle
+^^w3--w4--w6--cycle
+^^w4--w1--w6--cycle
+), surfacepen=material(palegreen+opacity(0.9)));
+draw(
+w1--w2--w5--cycle
+^^w2--w3--w5--cycle
+^^w3--w4--w5--cycle
+^^w4--w1--w5--cycle
+^^w1--w2--w6--cycle
+^^w2--w3--w6--cycle
+^^w3--w4--w6--cycle
+^^w4--w1--w6--cycle
+, white);
+draw("$OA$",O--0.5Z,W,Arrows3);
 
-// On définit un tore et on le trace.
-revolution tore=revolution(shift(R*X)*Circle(O,a,Y,32),Z);
-surface s=surface(tore);
-draw(s,white);
-
-// On définit une courbe et on la trace...
-path3 g=d*unit(X+.3Y)..0.5(X-Y)..d*unit(-X-3Y)
-..(-d,0,a)..0.5(Y-X)..d*unit(.5X+Y);
-draw(g,2bp+blue);
-// ... en indiquant en vert les 6 points la définissant.
-dot(g,4bp+green);
-
-// On définit les points d'intersection du tore et de la courbe...
-triple[] points=intersectionpoints(g,s);
-// ... que l'on place en rouge.
-dot(points,6bp+red);
+draw(Label("$x$",position=EndPoint,align=dir(-90)),O--0.1X,Arrow3);draw(O--0.3X);
+draw(Label("$y$",position=EndPoint,align=N),O--0.1Y,Arrow3);draw(O--0.3Y);
+draw(Label("$z$",position=EndPoint,align=W),O--0.1Z,Arrow3);draw(O--0.3Z);

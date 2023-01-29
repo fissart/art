@@ -1,0 +1,3690 @@
+\documentclass[a4paper]{book}
+%\usepackage[inline]{asymptote}
+\usepackage{asymptote}
+\usepackage{numprint}
+\usepackage{tabularx}
+\usepackage{spreadtab}
+\usepackage{expl3}
+\ExplSyntaxOn
+% make an internal function available to the user
+\cs_set_eq:NN \fpeval \fp_eval:n
+\ExplSyntaxOff
+\def\asydir{asy}
+%latexmk main.tex -ps -pdf- -dvi- -pvc
+%live-server www.html in folder//npm install -g live-server ///
+%while true; do inotifywait -e CLOSE_WRITE www.asy; asy -f html  www.asy; done; ///
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%https://github.com/fissart/artbook/raw/main/artbook.pdf
+\usepackage[spanish]{babel}
+\usepackage[centertags]{amsmath}
+\usepackage{amsfonts}
+\usepackage{pst-solides3d}
+\usepackage{pst-3dplot}
+\usepackage{pst-eucl}
+\usepackage{pst-node}
+\usepackage{pstricks}
+\usepackage{pst-fractal}
+\usepackage{pst-fun}
+\usepackage{pstricks-add}
+\usepackage{graphicx}\usepackage{longtable}
+\usepackage{booktabs}
+%\usepackage{ulem}
+%\usepackage{textcomp}
+%\usepackage{showframe}
+%\usepackage[utf8]{inputenc}
+%\usepackage{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[apaciteclassic, nosectionbib, tocbib]{apacite}
+\usepackage{usebib}
+\bibinput{bb}
+\usepackage{makeidx}
+\makeindex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{comen}{Comentario}[chapter]
+\newtheorem{thm}{Teorema}[chapter]
+\newtheorem{defn}[thm]{Definición}
+\newtheorem{lem}{Lema}[thm]
+\newtheorem{cor}{Corolario}[thm]
+\newtheorem{prop}{Proposicion}[thm]
+\newtheorem{rem}{Remark}[thm]
+\newtheorem{ill}{Illustration}[thm]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\qw}{\phi}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\pa}[1]{\left(#1\right)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{asydef}
+settings.prc=false;
+defaultpen(fontsize(11 pt));
+defaultpen(linewidth(0.7pt));
+settings.render=1;
+\end{asydef}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\psset{dotscale=0.9}
+\psset{RightAngleSize=0.18}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\thispagestyle{empty}
+{
+\centering
+\vspace{3cm}
+\bf{\huge ARTE Y MATEMÁTICAS}\\
+\bf{\large ARTE Y MATEMÁTICAS}\\
+\vspace{0.5cm}
+\bf{RICARDO}\\
+\vspace{5cm}
+
+\begin{asy}
+import graph3;
+size(300,0);
+currentprojection=perspective(8,-8,8);
+triple f(pair t) {
+  real u=t.x;
+  real v=t.y;
+  real r=2-cos(u);
+  real x=3*cos(u)*(1+sin(u))+r*cos(v)*(u < pi ? cos(u) : -1);
+  real y=8*sin(u)+(u < pi ? r*sin(u)*cos(v) : 0);
+  real z=r*sin(v);
+  return (x,y,z);
+}
+surface s=surface(f,(0,0),(2pi,2pi),16,8,Spline);
+draw(s,blue+opacity(0.7), meshpen=black+0.6bp,render(merge=true));
+
+string lo="$\alpha=\sum_1^\infty$";
+string hi="$\beta=\rho^3$";
+real h=0.05;
+begingroup3("parametrization");
+//draw(surface(scale(0.08)*lo,s,0,1,h,bottom=false),"[0,0.5pi]");
+//draw(surface(scale(0.08)*rotate(90)*hi,s,2,1,h,bottom=false),"[pi,2pi]");
+endgroup3();
+//axes3("$x$","$y$","$z$", Arrows3);
+\end{asy}
+\vfill
+%ps://asy.marris.fr/
+Departmento de mathemática y física, FIMGC USNCH\\
+\emph{E-mail}: \texttt{ricardomallqui@gmail.com}\\
+URL: \textsf{www.fractales.com}
+
+}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ {
+ 	\thispagestyle{empty}
+ 	\noindent\bf{Arte y Matemáticas}\\
+ 	\bf{Ricardo Michel Mallqui Baños}\\
+ 	\vspace{3cm}
+
+\noindent Un libro basado en codigo asymptote LaTeX y pstricks\\
+
+\noindent Bibliografia.\\
+\noindent Incluye Indice.\\
+1. Geometry, Differential. 2. Curves. 3. Surfaces. \\
+ 	\vfill
+ 	\noindent
+ 		\begin{asy}
+ 	size(300);
+ 	path ltrans(path p,int d)
+ 	{
+ 	path a=rotate(65)*scale(0.4)*p;
+ 	return shift(point(p,(1/d)*length(p))-point(a,0))*a;
+ 	}
+ 	path rtrans(path p, int d)
+ 	{
+ 	path a=reflect(point(p,0),point(p,length(p)))*rotate(65)*scale(0.35)*p;
+ 	return shift(point(p,(1/d)*length(p))-point(a,0))*a;
+ 	}
+
+ 	void drawtree(int depth, path branch)
+ 	{
+ 	if(depth == 0) return;
+ 	real breakp=(1/depth)*length(branch);
+ 	draw(subpath(branch,0,breakp),blue);
+ 	drawtree(depth-1,subpath(branch,breakp,length(branch)));
+ 	drawtree(depth-1,ltrans(branch,depth));
+ 	drawtree(depth-1,rtrans(branch,depth));
+ 	return;
+ 	}
+
+ 	path start=(0,0)..controls (-1/10,1/3) and (-1/20,2/3)..(1/20,1);
+ 	drawtree(7,start);
+ 	\end{asy}
+
+%\noindent \texttt{\textregistered\;\textcopyright\; 2023 pa-esfa, Inc. UNSCH, Huamanga}\\
+\noindent %\texttt{\textregistered\;\textcopyright}\\
+\texttt{Todos los derechos reservados. Ninguna parte de esto
+libro puede ser reproducido en cualquier forma,
+o por cualquier medio, sin permiso
+por escrito del editor.}\\
+Departmento de mathemática y física, FIMGC USNCH\\
+\emph{E-mail}: \texttt{ricardomallqui@gmail.com}\\
+URL: \textsf{www.fractales.com}
+
+ }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\renewcommand\listfigurename{Índice general}
+\pagenumbering{roman}
+\setcounter{page}{1}
+\addcontentsline{toc}{chapter}{Índice general}
+\tableofcontents
+\renewcommand\listfigurename{Lista de figuras}
+\addcontentsline{toc}{chapter}{Lista de figuras}
+\listoffigures
+
+\renewcommand\listtablename{Lista de tablas}
+\addcontentsline{toc}{chapter}{Lista de tablas}
+\listoftables
+\newpage
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Presentación}
+\addcontentsline{toc}{chapter}{Presentación}
+
+%\underline{\underline{Double underlined text}}
+%{Double underlined text}
+%\textsl{\underline{Slanted underlined}}
+%\textsc{\underline{Small caps underlined}}
+
+Matemáticas en el arte plástico nace del intento de poner en orden, la
+noción intuitiva que se tiene sobre la estructura compositiva en el arte plás-
+tico y hacerla un tanto rigurosa en un aspecto lógico de formas, sobre una
+base estructural geométrica.
+
+El número áureo, es uno de los fractales más interesantes, el objetivo es
+hacer reconocer, de que modo, este número esta relacionado con los fracta-
+les y generalizarlo, a conceptos mucho más elaborados, para poder aplicar-
+las en el arte plástico. El universo tiene un lenguaje, basado en los números,
+que la describe casi por completo, lo cual implica que está presente, en todos
+los fenómenos de la realidad.
+
+Se sabe que a pesar de lo discutible de su conocimiento sobre el número
+áureo, Platón se ocupa de estudiar el origen y la estructura del cosmos,
+caso que intentó, usando los cinco sólidos platónicos, Para Platón los sólidos
+corresponden a una de las partículas que conformaban cada uno de los
+elementos es decir la tierra lo asocia con el cubo, el fuego con el tetraedro,
+el aire con el octaedro, el agua con el icosaedro y finalmente el universo,
+como un todo asociado con el dodecaedro las cuales se tratan en el Capítulo
+3.
+
+Se analizo el libro del teólogo y matemático Lucca Paccioli que trata
+sore la sección áurea en base al legado dejado por Platón y Euclides, en
+su libro La Divina Proporción donde describe la construcción de los cinco
+sólidos platónicos, el nombre Platónico debido la descripción constructiva
+de estos sólidos por Platón, asociados a la estética, la mística, la cósmica
+y la teológica, que conmovió a todas las generaciones, desde los pueblos
+neolíticos hasta nuestros dias.
+
+Lucca Pacioli publica su libro La Divina proporción en 1509, donde plan-
+tea cinco razones por la que estima apropiado considerar divino al número
+de oro, primero la unicidad del número de oro, la compara con la unici-
+dad de dios, segundo el hecho de que esté definido con tres segmentos de
+recta lo relaciona con la trinidad, tercero la inconmensurabilidad del nú-
+mero de oro y la inconmensurabilidad de Dios son equivalentes, cuarto la
+utosimilitud asociada al número de oro lo compara con la omnipotencia e
+invariabilidad, finalmente el quinto, de la misma manera en que Dios dio ser
+al universo a través de la quinta esencia, representada por el dodecaedro,
+el número de oro, dio ser al dodecaedro.
+
+Pero si bien ejemplos y contraejemplos constituyen una trascendencia
+importante, en algún proceso, se trato de evitar que el lector, se quede con
+la idea de que los números están trivialmente en alguna aplicación, por
+ello se ha procurado presentar de manera ordenada en el cuerpo básico del
+texto, de manera que exista una secuencia de conceptos implicados unos
+con otros.
+
+Cinco capítulos son los que forman el libro, el primero sobre la sección
+áurea, el segundo sobre formas geométricas en el plano, el tercero sobre los
+sólidos platónicos, el cuarto sobre los fractales, el quinto sobre los principios
+de la composición plástica, el sexto sobre superficies esto con el objetivo de
+establecer algunos términos en la escultura y reconocer sus propiedades
+para ser aplicada adecuadamente y finalmente un pequeño apéndice.
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Curvas}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+En este capítulo se observara la definición y las caracterisiticas de las curvas (lineas).
+
+\begin{defn}[Curva]
+Es una coleccion de puntos en el espacio. En matemática (inicialmente estudiado en geometría elemental y, de forma más rigurosa, en geometría diferencial), la curva (o línea curva) es una línea continua de una dimensión, que varía de dirección paulatinamente. \cite{hilbert2020geometry}. ``\usebibentry{hilbert2020geometry}{title}''
+\end{defn}
+
+Ejemplos sencillos de curvas cerradas simples son la elipse o la circunferencia o el óvalo, el cicloide; ejemplos de curvas abiertas, la parábola, la hipérbola y la catenaria y una infinidad de curvas estudiadas en la geometría analítica plana. La recta asume el caso límite de una circunferencia de radio de curvatura infinito y de curvatura 0; además, una recta es la imagen homeomorfa de un intervalo abierto. Todas las curvas tienen dimensión topológica igual a 1. La noción curva, conjuntamente con la de superficie, es uno de los objetos primordiales de la geometría diferencial, ciertamente con profusa aplicación de las herramientas del cálculo diferencial
+
+\section{Tangente en un punto de una curva}
+\begin{defn}[Tangente] In the definition of defn you need to use the first optional argument of  newtheorem to indicate that \cite{hilbert2020geometry}. ``\usebibentry{hilbert2020geometry}{title}''  this environment shares the counter of the previously defined thm environment.\end{defn}
+\cite{reyes} \index{wwwww}\cite{www}
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	import graph3;
+	import three;
+	size3(200,0);
+	currentprojection=perspective(4,6,3);
+	real x(real t) {return 1+cos(2pi*t);}
+	real y(real t) {return 1+sin(2pi*t);}
+	real z(real t) {return t;}
+	real x1(real t) {return -2pi*sin(2pi*t);}
+	real y1(real t) {return 2pi*cos(2pi*t);}
+	real z1(real t) {return 1;}
+	real x2(real t) {return -4pi^2*cos(2pi*t);}
+	real y2(real t) {return -4pi^2*sin(2pi*t);}
+	real z2(real t) {return 0;}
+	real t=0.7;
+	triple pp=(x(t),y(t),z(t));
+	triple tt=(x1(t),y1(t),z1(t));
+	triple nn=(x2(t),y2(t),z2(t));
+	triple ww=cross(tt,nn);
+	triple cc=pp+length(ww)/length(tt)^3*unit(nn);
+	path3 p=graph(x,y,z,0,1,operator --);
+	dot((x(t),y(t),z(t)));
+	draw(pp--pp+unit(tt), Arrow3, p=gray(0.6), light=currentlight );
+	draw(pp--pp+unit(ww), Arrow3, p=orange, light=currentlight );
+	draw(pp--pp+length(ww)/length(tt)^3*unit(nn),Arrow3, p=orange, light=currentlight );
+	//draw(pp--pp+unit(nn), orange, Arrow3 );
+	dot(pp--pp+length(ww)/length(tt)^3*unit(nn), orange );
+	draw((plane(O=pp+unit(tt)+unit(nn), -2*unit(tt), -2*unit(nn))), gray + 0.1cyan);
+	//draw(surface(pp+unit(tt)-unit(nn)--pp+unit(tt)+unit(nn)--pp-unit(tt)+unit(nn)--pp-unit(tt)-unit(nn)--cycle),orange);
+	draw(surface(plane(O=pp+unit(ww)+unit(nn), -2*unit(ww), -2*unit(nn))),blue+opacity(.2));
+	draw(surface(plane(O=pp+unit(tt)+unit(ww), -2*unit(tt), -2*unit(ww))),magenta+opacity(.5));
+	draw(p, Arrow3);
+	//path3 g=pp..cc+unit(tt)..cc+unit(nn)..cc-unit(tt)..cycle;
+	//draw(g);
+	path3 g = circle(c=cc, r=length(ww)/length(tt)^3, normal=ww);
+	draw(g);
+	draw(surface(g), blue+opacity(0.3));
+	axes3("$x$","$y$","$z$", Arrow3);
+	\end{asy}
+	\caption{Curva 3D con las rectas: tangente normal y binormal (Triedro de Frenet-Serret) además los planos: osculador, rectificante y normal}
+\end{figure}
+
+Curva 3D con las rectas: tangente normal y binormal además los planos: osculador, rectificante y normal
+
+
+\begin{prop}[wwwwwwwwwwwwwwwwwwwwwwww] In the definition of defn you need to use the first optional argument of  newtheorem to indicate that this environment shares the counter of the previously defined thm environment.\end{prop}
+
+
+
+\begin{defn}[wwwwwwwwwwwwwwwwwwwwwwww] In the definition of defn you need to use the first optional argument of  newtheorem to indicate that \cite{hilbert2020geometry}. ``\usebibentry{hilbert2020geometry}{title}''  this environment shares the counter of the previously defined thm environment.\end{defn}
+	\cite{reyes} \index{wwwww}  \cite{www}   \usebibentry{reyes}{title}
+
+
+\begin{figure}[!ht]
+\centering
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
+\caption{geometry}
+\end{figure}
+
+
+
+
+If the optional boolean argument check is false, no check will be made that the file exists. If the file does not exist or is not readable, the function bool error(file) will return true. The first character of the string comment specifies a comment character. If this character is encountered in a data file, the remainder of the line is ignored. When reading strings, a comment character followed immediately by another comment character is treated as a single literal comment character. If Asymptote is compiled with support for libcurl, name can be a URL.
+
+Unless the -noglobalread command-line option is specified, one can change the current working directory for read operations to the contents of the string s with the function string cd(string s), which returns the new working directory. If string s is empty, the path is reset to the value it had at program startup.
+
+When reading pairs, the enclosing parenthesis are optional. Strings are also read by assignment, by reading characters up to but not including a newline. In addition, Asymptote provides the function string getc(file) to read the next character (treating the comment character as an ordinary character) and return it as a string.
+
+
+
+
+\section{La Sección Áurea}
+
+Sea el segmento $AB$ dividamoslo de la siguiente manera, tomemos $\frac{AB}{2}$ coloquemos este segmento de manera que sea perpendicular a $AB$ en cualquiera de los extremos en este caso sea $B$ interceptemos la linea $AC$ con el arco $BD$ centrado en $C$ la cual nos da el punto $D$ a partir de este punto tracemos el arco $DE$ centrado en $A$ hallando de este modo el punto $E$ que divide al segmento $AB$ en \textsc{extrema y media razón} o \textsc{sección áurea} \cite{Phillips} y \cite{variablei}.
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}[showgrid=false](-1,-0.5)(5,3.9)
+			\pstGeonode[PosAngle={-180,-35},unit=1cm,CurveType=polyline](-1,0){A}(5,0){B}
+			\pstGoldenMean[PosAngle=45,PointSymbol=*]{A}{B}{C}
+			\pstMiddleAB[PosAngle=90]{A}{B}{M}
+			\pstRotation[RotAngle=-90,PosAngle=90]{B}{M}[N]
+			\pstLineAB[linestyle=dashed,linecolor=gray!100]{A}{N}
+			\pstLineAB[linestyle=dashed,linecolor=gray!100]{B}{N}
+			\pstInterLC[PointNameA=,PointSymbolA=none,PosAngleB=80]{N}{A}{N}{B}{F}{E}
+			\pstArcnOAB[arrows=->>]{N}{B}{E}
+			\pstArcnOAB[arrows=->>]{A}{E}{C}
+			%\pstCircleOA[linecolor=green!60,linestyle=dashed]{N}{B}[200][270]
+			%\pstCircleOA[linecolor=orange!100,arrows=|<->|,linestyle=dashed]{A}{E}[0][30]
+			\pstLineAB[]{A}{B}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=20pt,linecolor=	blue!50]{A}{N}{$\frac{AB}{2}$}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{A}{C}{$\frac{\sqrt{5}-1}{2}$}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{C}{B}{$\frac{3-\sqrt{5}}{2}$}
+		\end{pspicture}
+	\end{center}
+	\caption{Sección áurea de un segmento}
+	\label{Hw}
+\end{figure}
+
+Es decir podemos empezar diciendo que $\frac{AB}{AE}=\frac{AE}{EB}=1.61833....=\phi $ es el numero de oro \cite{surhone2010shapiro}  \cite{jackson2012research}. ``\usebibentry{jackson2012research}{title}''
+
+Deduzcamos y averigüemos de donde nace el \texttt{número de oro}; empecemos con la frase celebre que dice mucho, lo genera y esta relacionado con este  número: \textbf{\textit{El todo sobre la parte mayor y la parte mayor sobre la menor}} \cite{Heinz}. \cite{hilbert2020geometry}. ``\usebibentry{hilbert2020geometry}{title}''
+
+\subsection{Análisis de la sección áurea}
+Tomando la figura \ref{ec1} y recordando que si se tiene la ecuaion $$ax^2+bx+c=0$$ la raices que satisfacen esta ecuacion son $x=\frac{-b\pm\sqrt{b^2-4\pa{a}\pa{c}}}{2a}$
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\psset{unit=2}
+		\begin{pspicture}[showgrid=false](-1,-1.5)(2,1.4)%\psframe(-1,-1.5)(2,1.4)
+			\psaxes[labels=none]{->}(0,0)(-1,-1.5)(2,1.4)
+			\psset{PointSymbol=*}
+			% \psaxes[labelFontSize=\scriptstyle, dx=2,Dx=2,dy=2,Dy=2]{->}(0,0)(-1,-1)(8,5)
+			\pstGeonode[PosAngle={-135,-90,45,135,-90}](0,0){O}(1,0){A}(1,1){B}(0,1){C}
+			(0.5,-1.25){V}
+			\psline[linestyle=dashed](V|0,0)(V)(0,0|V)
+			%\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
+			\pstMiddleAB[PosAngle=-70,PointName=none]{ O}{A}{A'}\uput*[d](A'){E}
+			\pstInterLC[PosAngle=-70,PointSymbolA=none, PointNameA=]{O}{A}{A'}{B}{s'}{S}
+			\pstInterLC[PosAngle=-120,PointSymbolB=none, PointNameB=]{O}{A}{A'}{B}{S'}{s}
+			\pstProjection{C}{B}{S}[I']%%%%% M
+			\pstArcnOAB[arrows=->>]{A'}{B}{S}
+			\pstArcOAB[arrows=->>]{A'}{C}{S'}
+			\pstLineAB[arrows=->>]{A'}{B}
+			\pstLineAB[arrows=->>]{A'}{C}
+			\pstLineAB[linestyle=dashed]{A}{B}
+			\pstProjection{C}{B}{S'}[I]
+			\pspolygon[linestyle=dashed](S')(S)(I')(I)%=vlines
+			\pcline[offset=10pt]{|<*->|*}(C)(B)
+			\ncput*{$k$}
+			\pcline[offset=15pt]{|<*->|*}(O)(C)
+			\ncput*{ $k$}
+			\pcline[offset=-30pt]{|<*->|*}(O)(A')
+			\ncput*{ $\frac{k}{2}$}
+			\pcline[offset=20pt]{|<*->|*}(A')(V)
+			\ncput*{ $\frac{5}{4}k$}
+			\def\F{ x 2 exp x sub 1 sub}
+			\psplot[linewidth=1\pslinewidth, linecolor=black]{-1}{2}{\F}
+		\end{pspicture}\,\,\,
+		\begin{pspicture}[showgrid=false](-1,-1.5)(2,1.4)%\psframe(-1,-1.5)(2,1.4)
+			\psaxes[labels=none]{->}(-1,0)(-1,-1.5)(2,1.4)
+			% \psaxes[labelFontSize=\scriptstyle, dx=2,Dx=2,dy=2,Dy=2]{->}(0,0)(-1,-1)(8,5)
+			\pstGeonode[PosAngle={-135,-90,45,135,-90}](0,0){O}(1,0){A}(1,1){B}(0,1){C}
+			(0.5,-1.25){V}\pstGeonode[PosAngle=45,PointNameA=none](-1,0){O'}
+			\psline[linestyle=dashed](V|0,0)(V)(-1,0|V)
+			%\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
+			\pstMiddleAB[PosAngle=-70,PointName=none, PointSymbol=none]{ O}{A}{A'}\uput*[d](A'){A'}
+			\pstInterLC[PosAngle=-70,PointSymbolA=none, PointNameA=]{O}{A}{A'}{B}{s'}{S}
+			\pstInterLC[PosAngle=-120,PointSymbolB=none, PointNameB=]{O}{A}{A'}{B}{S'}{s}
+			\pstProjection{C}{B}{S}[I']%%%%% M
+			\pstArcnOAB[linecolor=black,arrows=->> ]{A'}{B}{S}
+			\pstArcOAB[linecolor=black,arrows=->>]{A'}{C}{S'}
+			\pstLineAB[linecolor=black,arrows=->>]{A'}{B}
+			\pstLineAB[linecolor=black,arrows=->>]{A'}{C}
+			\pstLineAB[linestyle=dashed]{A}{B}\pstLineAB[linestyle=dashed]{O}{C}
+			\pstProjection{C}{B}{S'}[I]
+			\pspolygon[linestyle=dashed](S')(S)(I')(I)%=vlines
+			\pcline[offset=10pt]{|<*->|*}(C)(B)
+			\ncput*{$k$}
+			\pcline[offset=15pt]{|<*->|*}(O)(C)
+			\ncput*{ $k$}
+			\pcline[offset=20pt]{|<*->|*}(A')(V)
+			\ncput*{ $\frac{5}{4}k$}
+			\def\F{ x 2 exp x sub 1 sub}
+			\psplot[linewidth=1\pslinewidth, linecolor=black]{-1}{2}{\F}
+			\pcline[offset=-30pt]{|<*->|*}(O')(A')
+			\ncput*{ $3\frac{k}{2}$}
+			%\rput(0,-3.5){{$x^2-kx-k^2=y$}}
+		\end{pspicture}
+		\begin{pspicture}[showgrid=false](-1,-1.5)(2,1.4)%\psframe(-1,-1.5)(2,1.4)
+			\psaxes[labels=none]{->}(1,0)(-1,-1.5)(2,1.4)
+			\psset{PointSymbol=*}
+
+			\pstGeonode[PosAngle={-135,-45,45,135,-90}](0,0){O}(1,0){A}(1,1){B}(0,1){C}
+			(0.5,-1.25){V}
+			\psline[linestyle=dashed](V|1,0)(V)(1,0|V)
+			\pstMiddleAB[PosAngle=-70,PointName=none]{ O}{A}{A'}\uput*[d](A'){E}
+			\pstInterLC[PosAngle=-70,PointSymbolA=none, PointNameA=]{O}{A}{A'}{B}{s'}{S}
+			\pstInterLC[PosAngle=-120,PointSymbolB=none, PointNameB=]{O}{A}{A'}{B}{S'}{s}
+			\pstProjection{C}{B}{S}[I']%%%%% M
+			\pstArcnOAB[linecolor=black,arrows=->>]{A'}{B}{S}
+			\pstArcOAB[linecolor=black,arrows=->>]{A'}{C}{S'}
+			\pstLineAB[linecolor=black,arrows=->>]{A'}{B}
+			\pstLineAB[linecolor=black,arrows=->>]{A'}{C}
+			\pstLineAB[linestyle=dashed]{A}{B}
+			\pstProjection{C}{B}{S'}[I]
+			\pspolygon[linestyle=dashed](S')(S)(I')(I)%=vlines
+			\pcline[offset=10pt]{|<*->|*}(C)(B)
+			\ncput*{$k$}
+			\pcline[offset=15pt]{|<*->|*}(O)(C)
+			\ncput*{ $k$}
+			\pcline[offset=-30pt]{|<*->|*}(A')(A)
+			\ncput*{ $\frac{k}{2}$}
+			\pcline[offset=-20pt]{|<*->|*}(A')(V)
+			\ncput*{ $\frac{5}{4}k$}
+			\def\F{ x 2 exp x sub 1 sub}
+			\psplot[]{-1}{2}{\F}
+			\pstLineAB{O}{C}
+		\end{pspicture}
+	\end{center}
+	\caption{La Parabola $x^2-kx-k^2=y$ y los puntos $S$ y $S'$}\label{ec1}
+\end{figure}
+
+
+Cuando todo el segmento permanece constante y el segmento menor es \index{constante} constante para simplificar consideremos esa constante igual 1 luego según la figura  se tiene que $\theta=1$
+ wwwwwwwwwwwwwwwwwwwwwwwwwwww
+\begin{longtable}{ccc>{\color{blue}}c>{\color{blue}}c}
+	\caption{Combinaciones de los tres segmentos de la seccion aurea.}
+	\label{tab:w1wwwww}\\
+	\toprule
+	\textbf{Ecuación} & \textbf{Simplicación} & \textbf{Raices}& \multicolumn{2}{c}{\textbf{Raices simplicación}}\\\midrule
+	 &  &  & $x_1$ & $x_2$ \\
+	\midrule
+	\endfirsthead % <-- This denotes the end of the header, which will be shown on the first page only
+ \multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continua de la página anterior}} \\
+	\toprule
+	\textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}& \multicolumn{2}{c}{\textbf{Raices}}\\\midrule
+	$\alpha$ & $\beta$ & $\gamma$ & $x_1$ \\
+	\midrule
+	\endhead
+	\multicolumn{4}{c}{{Continúa en la proxima página}} \\ \midrule
+	\endfoot
+	\bottomrule
+	\endlastfoot
+	$\frac{x}{x-1}=\frac{x-1}{1}$&$ x^2-3x+1=0 $ & $x=\frac{3\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\\midrule
+	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((-1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\\midrule
+	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((3+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\\midrule
+	$\frac{1}{x}  =\frac{x}{1-x}$&$ x^2+x-1=0 $  &  $x=\frac{-1\pm\sqrt{5}}{2}$& $x_1=\fpeval{round((-3+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\\midrule
+	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\\midrule
+	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\
+\end{longtable}
+
+
+Las Ecuaciones coincide dos a dos; si se reemplaza cada una des us raíces sobre sus correspondientes  \index{ecuaciones} se obtiene $\frac{1\pm\sqrt{5}}{2}$ en efecto solamente tenemos tres ecuaciones ya que ellos coinciden
+
+\begin{longtable}{ccccc}
+	\caption{Combinaciones de los tres segmentos de la seccion aurea.}
+	\label{tab:w1wwwww}\\
+	\toprule
+	\textbf{Ecuación} & \textbf{Simplicación} & \textbf{Raices}& \multicolumn{2}{c}{\textbf{Raices simplicación}}\\\midrule
+	 &  &  & $x_1$ & $x_2$ \\
+	\midrule
+	\endfirsthead % <-- This denotes the end of the header, which will be shown on the first page only
+ \multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continua de la página anterior}} \\
+	\toprule
+	\textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}& \multicolumn{2}{c}{\textbf{Raices}}\\\midrule
+	$\alpha$ & $\beta$ & $\gamma$ & $x_1$ \\
+	\midrule
+	\endhead
+	\multicolumn{4}{c}{{Continúa en la proxima página}} \\ \midrule
+	\endfoot
+	\bottomrule
+	\endlastfoot
+	$\frac{x}{x-1}=\frac{x-1}{1}$&$ x^2-3x+1=0 $ & $x=\frac{3\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((3+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((3-sqrt(5))/2,3)}$\\\midrule
+	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{-1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((-1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((-1-sqrt(5))/2,3)}$\\\midrule
+	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\
+\end{longtable}
+
+
+\subsection{Propiedades del numero $\phi$}
+
+La sección áurea, la proporción geométrica definidas en el capitulo precedente, $\frac{1+\sqrt{5}}{2}=1.618...$ la raíz positiva de la ecuación $x^2=x+1,$ tiene una cierto número de propiedades  algebraicas  y geométricas   donde podemos hacer en los remarkable la propiedad algebraica  en alguna manera  com $\pi$ (el radio entre alguna circunferencia y su diámetro) y $e=\lim_{n\longrightarrow \infty}\pa{1+\frac{1}{n}}^n$ donde $n\in \mathbb{N}$ son los numeros trascendentes  mas rescatables  .
+Si  se sigue nosotros llamamos este numero, radio, o proporción $\qw,$  y tenemos las siguientes propiedades interesantes:
+
+$$\phi=\frac{2+\sqrt{5}}{2}=1.61803398875...$$
+(así que $1.618\ldots $ es una aproximación  muy cercana)
+
+$\qw^2=2.618...=\frac{\sqrt{5}+3}{2}$ y
+$\frac{1}{\qw}=0.618...=\frac{\sqrt{5}-1}{2}$
+
+
+La sección áurea, la proporción geométrica definidas en el capitulo precedente, $\frac{1+\sqrt{5}}{2}=1.618...$ la raíz positiva de la ecuación $x^2=x+1,$ tiene una cierto número de propiedades  algebraicas  y geométricas   donde podemos hacer en los remarkable la propiedad algebraica  en alguna manera  com $\pi$ (el radio entre alguna circunferencia y su diámetro) y $e=\lim_{n\longrightarrow \infty}\pa{1+\frac{1}{n}}^n$ donde $n\in \mathbb{N}$ son los numeros trascendentes  mas rescatables  .
+Si  se sigue nosotros llamamos este numero, radio, o proporción $\qw,$  y tenemos las siguientes propiedades interesantes:
+
+\begin{longtable}{llll}
+	\caption{Convergencia de la sucesión de Fibonacci al número áureo }
+	\label{tab:w1wwwww}\\
+	\toprule
+	\textbf{N} & \textbf{$F_n$} & \textbf{$\frac{F_n}{F_{n-1}}$}&\textbf{$\phi-\frac{F_n}{f_{n-1}}$}\\\midrule
+	 %w& w & w  \\
+	%\midrule
+	\endfirsthead % <-- This denotes the end of the header, which will be shown on the first page only
+ \multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continua de la página anterior}} \\
+	\toprule
+	\textbf{N} & \textbf{$F_n$} & \textbf{$\frac{F_n}{F_{n-1}}$}&\textbf{$\phi-\frac{F_n}{f_{n-1}}$}\\\midrule
+	 %w& w & w  \\
+	%\midrule
+	\endhead
+	\midrule\multicolumn{4}{c}{{Continúa en la proxima página}} \\\midrule
+	\endfoot
+	\bottomrule
+	\endlastfoot
+1	&	1	&		&		\\
+2	&	1	&	1	&	0.618033988749895	\\
+3	&	2	&	2	&	-0.381966011250105	\\
+4	&	3	&	1.5	&	0.118033988749895	\\
+5	&	5	&	1.66666666666667	&	-0.0486326779167718	\\
+6	&	8	&	1.6	&	0.0180339887498948	\\
+7	&	13	&	1.625	&	-0.0069660112501051	\\
+8	&	21	&	1.61538461538462	&	0.00264937336527948	\\
+9	&	34	&	1.61904761904762	&	-0.00101363029772417	\\
+10	&	55	&	1.61764705882353	&	0.000386929926365465	\\
+11	&	89	&	1.61818181818182	&	-0.000147829431923263	\\
+12	&	144	&	1.61797752808989	&	5.6460660007307E-05	\\
+13	&	233	&	1.61805555555556	&	-2.15668056606777E-05	\\
+14	&	377	&	1.61802575107296	&	8.23767693347577E-06	\\
+15	&	610	&	1.61803713527851	&	-3.14652861965747E-06	\\
+16	&	987	&	1.61803278688525	&	1.20186464891425E-06	\\
+17	&	1597	&	1.61803444782168	&	-4.59071787028975E-07	\\
+18	&	2584	&	1.61803381340013	&	1.75349769593325E-07	\\
+19	&	4181	&	1.61803405572755	&	-6.69776591966098E-08	\\
+20	&	6765	&	1.61803396316671	&	2.55831884565794E-08	\\
+21	&	10946	&	1.6180339985218	&	-9.77190839357434E-09	\\
+22	&	17711	&	1.61803398501736	&	3.73253694618825E-09	\\
+23	&	28657	&	1.6180339901756	&	-1.4257022229458E-09	\\
+24	&	46368	&	1.61803398820533	&	5.44569944693762E-10	\\
+25	&	75025	&	1.6180339889579	&	-2.08007167046276E-10	\\
+26	&	121393	&	1.61803398867044	&	7.94517784896698E-11	\\
+27	&	196418	&	1.61803398878024	&	-3.03477243335237E-11	\\
+28	&	317811	&	1.6180339887383	&	1.15918386001113E-11	\\
+29	&	514229	&	1.61803398875432	&	-4.42756942220512E-12	\\
+30	&	832040	&	1.6180339887482	&	1.69131375571396E-12	\\
+31	&	1346269	&	1.61803398875054	&	-6.45927755726916E-13	\\
+32	&	2178309	&	1.61803398874965	&	2.4669155607171E-13	\\
+33	&	3524578	&	1.61803398874999	&	-9.41469124882133E-14	\\
+34	&	5702887	&	1.61803398874986	&	3.59712259978551E-14	\\
+35	&	9227465	&	1.61803398874991	&	-1.37667655053519E-14	\\
+36	&	14930352	&	1.61803398874989	&	0	\\
+37	&	24157817	&	1.6180339887499	&	0	\\
+\end{longtable}
+
+\begin{itemize}
+	\item  Se sabe que la ecuacion $\qw^2-\qw-1=0$ se satisface luego podemos operar de infinitas maneras  esta ecuación trasmutando, dividiendo y multiplicando términos \begin{align*}
+		\qw^2&=\qw+1=\qw+1\\
+		\qw^3&=\qw^2+\qw=\qw+1+\qw=2\qw+1\\
+		\qw^4&=\qw^3+\qw^2=2\qw+1+\qw+1=3\qw+2\\
+		\ldots &=\ldots\ldots\\
+		\qw^n&=\qw^{n-1}+\qw^{n-2}==i\qw+j\\
+		\qw^{n+1}&=\qw^{n}+\qw^{n-1}=m\qw+n\\
+		\qw^{n+2}&=\qw^{n+1}+\qw^{n}=\pa{i+m}\qw+\pa{j+n}
+	\end{align*}
+	Esto también es valido para exponentes negativos $\qw=1+\frac{1}{\qw}=\qw^0+\qw^{-1},$  luego
+
+	\item Las series \begin{align*}
+		\frac{1}{\qw^{2}}=\qw^{-2}&=\qw^{-3}+\qw^{-4}=\frac{1}{\qw^{3}}+\frac{1}{\qw^{4}}\\
+		\frac{1}{\qw^{3}}=\qw^{-3}&=\qw^{-4}+\qw^{-5}=\frac{1}{\qw^{4}}+\frac{1}{\qw^{5}}\\
+		\ldots&=\ldots\\
+		\frac{1}{\qw^{n}}=\qw^{-n}&=\qw^{-\pa{n+1}}+\qw^{-\pa{n+2}}=\frac{1}{\qw^{\pa{n+1}}}+\frac{1}{\qw^{\pa{n+2}}}\\
+	\end{align*}
+
+	\item $2=\qw+\frac{1}{\qw^2}$ pues de $\qw^{3}=\qw^{2}+\qw=\pa{\qw+1}+\qw=2\qw+1$ porque $\qw^{2}=\qw+1$ luego $\qw^{3}=2\qw+1\Longleftrightarrow 2=\qw^2-\frac{1}{\qw}=\qw+1-\frac{1}{\qw}=\qw+\frac{\qw\pa{\qw-1}}{\qw^2}=\qw+\frac{1}{\qw^2}$
+
+	\item $\qw=\frac{1}{\qw-1}$ en efecto de $\qw^2-\qw-1=0$ al factorizar $\qw$ y despejar 1 se obtiene $\phi\pa{\phi-1}=1$ (recuerde que $\qw\neq 0\Longrightarrow \qw-1\neq 0$) ambos miembros de la igualdad y despejar $\qw$ es decir $\qw=\frac{1}{\qw-1}$
+
+
+	\item La sucesión $$\qw=1+\cfrac{1}{1+\cfrac{1}{1+\cfrac{1}{1+\cfrac{1}{1+\ldots}}}}$$
+	Pues $\qw={\qw}^0+{\qw}^{-1}=1+\frac{1}{\qw}$ por la ecuación obtenida anteriormente, es decir al reemplazar $\qw=1+\frac{1}{\qw}$ en el denominador del lado derecho de ésta ecuación se obtiene $\qw=1+\frac{1}{1+\frac{1}{\qw}}$ luego al iterar llegamos al resultado deseado
+\end{itemize}
+
+
+\iffalse
+
+\STautoround{9}
+\nprounddigits{15}
+\let\PC\%
+\newcommand\Mystrut{\rule[-1.5ex]{0pt}{0.5ex}}
+\begin{spreadtab}{{tabularx}{0.5\linewidth}{c c<\PC}}
+\toprule
+\multicolumn{2}{c}{Convergence at $x=\color{red}:={0.5}$}\\[1.5ex]
+@$n$ & e^a1\SThidecol & @ $\displaystyle e^{\numprint{<<a1>>}}-\sum_{k=0}^n\frac{\numprint{<<a1>>}^k}{k!}$\\[3ex]\midrule
+$\color{red}:={1}$& a1^[-1,0]/fact([-1,0]) & \STcopy{v}{b!2-b3}\\
+$\phi^\STcopy{v}{a3+1}$& \STcopy{v}{a!1^a4/fact(a4)+b3}& \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$&\color{red}:={} & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\color{red}\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+$\phi^:={}$& & \\
+\end{spreadtab}
+
+\begin{table}
+  \caption{Sucecion de Fibonacci}
+  \vspace{0.5cm}
+  % \label{}
+\centering
+  \begin{spreadtab}{{tabularx}{0.8\linewidth}{c >\Mystrut>{\color{orange}}c N{1}{15} N{2}{15}}}
+  \toprule
+  @$n$ & @$F_n$ & @\color{blue}\hfill{$\dfrac{F_n}{F_{n-1}}$}\hfill\null& @ \color{yellow}\hfill{$\varphi-\dfrac{F_n}{F_{n-1}}$}\hfill\null\\[2ex]\midrule
+  \color{orange}:=1    & \color{magenta}:=1    &                      & \\
+  \STcopy{v}{a2+1} & \color{red}:=1 & \STcopy{v}{b3/b2} & (1+5^0.5)/2-[-1,0] \\
+                    & \STcopy{v}{b2+b3} &                      & \STcopy{v}{d!3+1-c4} \\
+  & & & \\
+  & & & \\
+  & & & \\
+  & & & \\
+  & & & \\
+  & & & \\
+  & & & \\
+  & & & \\
+ &&  & \\
+  & & & \\
+  & & & \\
+  & & & \\
+  & & & \\
+   & & & \\
+  \bottomrule
+  \end{spreadtab}
+
+\end{table}
+\fi
+la progresión geométrica  de la serie $$1,\qw,\qw^2,\qw^3,\ldots,\qw^n,\ldots$$ cada termino es la suma de los numeros anteriores; esta promediad viene al mismo tiempo aditivo y geométrico es característica de esta serie y es una razón para su rol en la evolución de los organismos, especialmente en la botánica.
+en la progresión diminuta  $$1,\frac{1}{\qw},\frac{1}{\qw^2},\frac{1}{\qw^3},\ldots,\frac{1}{\qw^m}$$ tenemos  $\frac{1}{\qw^m}=\frac{1}{\qw^{m+1}}-\frac{1}{\qw^{m+2}}$ (cada termino es la suma de los dos siguientes  unos) y $$\qw=\frac{1}{\qw}+\frac{1}{\qw}+\frac{1}{\qw}+\ldots+\frac{1}{\qw}+\ldots$$ donde $m$ se genera indefinidamente.
+La construcción rigurosa  del radio o proporción de $\qw$ es muy simple, porque de su valor $\frac{1+\sqrt{5}}{2}.$ La Figura~\ref{KK} muestra como, empezando de un segmento mayor  $AB,$ para construir el segmento  menor $BC$ tal que $\frac{AB}{BC}=\qw,$ y como inversamente, empezando de un segmento completo $AC,$ para colocar el punto  $B$ dividiendo  su en el dos segmentos $AB$ y $BC$ relativo por la sección áurea  (otro construcción en la figura 3). Este mas lógico asimétricas division de una linea, o de un superficie, es también el mas satisfactorio para los ojos; este tiene un significado
+
+
+
+
+
+
+
+El principio aplica siempre e un de un designio la presencia de una proporción característica  de un cadena  de un proporción relacionada (esto es una noción impropio  donde sera ilustrado después) produce la recurrencia de forma similar, pesero la sugestión subconsciente mencionada anteriormente especialmente asociada con la Sección Áurea porque de la propiedad de algún a progresión geométrica de radio $\qw$ o $\frac{1}{\qw}$ es decir $$a,a\qw,a\qw^2,a\qw^3,\ldots,a\qw^n,\ldots$$  ó $$a, \frac{a}{\qw},\frac{a}{\qw^2},\frac{a}{\qw^3},\ldots,\frac{a}{\qw^n},\ldots$$
+
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}(-0.6,-0.6)(5.1,3.5)
+			%\psframe(-0.5,-0.5)(5.1,3.5)\psgrid[subgriddiv=1,griddots=10]
+			\pstGeonode[unit=1.5cm,PosAngle={-135,-45,90,135}](0,0){O}(2,0){A}(2,2){B}(0,2){C}
+			%\pspolygon[](O)(A)(B)(C)%=vlines
+			\pstMiddleAB[PosAngle=135]{ O}{A}{A'}
+			\pstMiddleAB[PosAngle=90]{C}{B}{B'}
+			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{O}{A}{A'}{B}{S'}{S}
+			\pstProjection{C}{B}{S}[S']%%%%% M
+			\pstArcnOAB[linestyle=dashed,linecolor=black,arrows=->>]{A'}{B}{S}
+			\pstLineAB[linestyle=dashed,linecolor=black]{A}{B}
+			\pstLineAB[linestyle=dashed,linecolor=black,arrows=->>]{A'}{B}
+			\ncput*{$\sqrt{2}$}
+			\pspolygon[](O)(S)(S')(C)%=vlines
+
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{O}{A}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{C}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{A'}{$\frac{\alpha}{2}$}
+
+		\end{pspicture}
+	\end{center}
+	\caption{Construcción del segmento menor $BC$ a partir del segmento mayor $AB$}\label{KK}
+\end{figure}
+
+Concentrándonos en el triángulo  $A'BA,$   al rotar esta figura obtenemos la siguiente  y  se observa que $AA'=\frac{AB}{2}$ este método de obtener la sección áurea se vio al principio es decir el punto $Y$ es la sección áurea con respecto a la linea $AB$ como lo es el punto $A$ con respecto a la linea $OS$
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}(-0.6,-0.6)(7.5,5)
+			%\psframe(-0.6,-0.6)(7.5,5)\psgrid[subgriddiv=1,griddots=10]
+			\pstGeonode[unit=1.5cm,PosAngle={-135,-45,90,135}](0,0){O}(3,0){A}(3,3){B}(0,3){C}
+			\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
+			\pstMiddleAB[PosAngle=135]{ O}{A}{A'}
+			%\pstMiddleAB[PosAngle=-45]{C}{B}{B'}
+			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{O}{A}{A'}{B}{S'}{S}
+			\pstProjection{C}{B}{S}[S']%%%%% M
+			\pstArcnOAB[linestyle=dashed,arrows=->>]{A'}{B}{S}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{A'}{B}{$\alpha\frac{\sqrt{5}-1}{2}$}
+			\pstLineAB[linestyle=dashed,arrows=->>]{A'}{B}
+			\pspolygon[linecolor=orange!100,linestyle=dashed](O)(S)(S')(C)
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{O}{A}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{C}{$\alpha$}
+			\pstInterLC[PosAngle=-85,PointNameA=,PointSymbolA=none]{A'}{B}{A'}{A}{D'}{D}
+			\pstArcnOAB[linestyle=dashed,arrows=->>]{A'}{D}{A}
+			\pstInterLC[PosAngle=0,PointNameB=,PointSymbolB=none]{A}{B}{B}{D}{Y}{Y'}
+			\pstInterLC[PosAngle=180,PointNameA=,PointSymbolA=none]{A}{B}{A}{S}{U'}{U}
+			\pstArcOAB[linestyle=dashed,arrows=->>]{B}{D}{Y}
+			\pstArcOAB[linestyle=dashed,arrows=->>]{A}{S}{B}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{A}{Y}{$\alpha\frac{\sqrt{5}-1}{2}$}
+
+		\end{pspicture}
+	\end{center}
+	\caption{Construcción del segmento menor $BY$ a partir del segmento mayor $AB,$ $AY=UB$; $\frac{OA}{AS}=\frac{OS}{OA}=\frac{AU}{UB}=\frac{\sqrt{5}+1}{2}$}\label{H}
+\end{figure}
+
+
+\emph{}
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\psset{unit=.9}
+		\begin{pspicture}*(-5.9,-9.7)(5.8,0.8)
+			%\psframe(-5.9,-9.6)(5.8,0.8)\psgrid[subgriddiv=1,griddots=10]
+			\rput{-90}{%
+				\pstGeonode[unit=1.5,PosAngle={-135,-45,90,90,0,0,180,0}](0,0){O}(3,0){A}(3,3){B}
+				(0,3){C}(6,3){B''}(6,0){A''}(0,-3){F}(6,-3){E}
+				\pspolygon[linestyle=dashed](O)(A'')(B'')(C)%=vlines
+				\pstMiddleAB[PosAngle=270]{ O}{A}{A'}
+				\pstMiddleAB[PosAngle=90]{C}{B}{B'}
+				\pstInterLC[PosAngle=-90]{O}{A}{A'}{B}{S'}{S}
+				\pstProjection{C}{B}{S}[S']%%%%% M
+				\pstArcnOAB[linecolor=black,arrows=->>]{A'}{B}{S}
+			}
+			\pstLineAB[arrows=-> ]{B}{A'}
+			\psbrace[bracePos=0.55,nodesepB=-2pt
+			,rot=0,ref=lC,braceWidthInner=26pt](B)(A'){$\alpha\frac{\sqrt{5}}{2}$}
+			%\pspolygon[linestyle=dashed](O)(S)(S')(C)%=vlines
+			%\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=25pt,linecolor=	blue!50]{C}{B}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{C}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=25pt,linecolor=	blue!50]{B}{B''}{$\alpha$}
+
+			\pstInterLC[PosAngle=90,PointNameA=,PointSymbolA=none]{A'}{B}{A'}{A}{D'}{D}
+			\pstArcnOAB[linestyle=dashed,linestyle=dashed,arrows=<-]{A'}{D}{A}
+			\pstInterLC[PosAngle=-70]{A}{B}{B}{D}{Y}{Y'}
+			\pstArcOAB[linestyle=dashed,linecolor=black,arrows=->>]{B}{D}{Y}
+			\pstInterLC[PosAngle=-90]{B''}{A''}{B''}{O}{P}{P'}
+			\pstInterLC[PosAngle=-10]{C}{A''}{C}{O}{Q'}{Q}
+			\pstInterLC[PosAngle=45]{O}{A''}{A''}{Q}{R'}{R}
+			\pstArcOAB[linestyle=dashed,ArrowInside=->,linecolor=black,arrows=->, arrowscale=2]{B''}{O}{P'}
+			\pstArcOAB[linestyle=dashed,arrows=->]{A''}{Q}{P'}
+			\pstArcOAB[linestyle=dashed,arrows=->]{C}{O}{Q}
+			\pstLineAB[linestyle=dashed]{A''}{C}
+			\pstLineAB[linestyle=dashed]{O}{B''}
+			\pstLineAB[linestyle=dashed]{P'}{A''}
+			\pstLineAB[linestyle=dashed]{A}{B}
+			\psbrace[bracePos=0.5,nodesepB=-2pt
+			,rot=0,ref=lC,braceWidthInner=6pt](A)(Y){ $\alpha\frac{\sqrt{5}-1}{2}$}
+			\pstProjection{F}{E}{R'}[E']
+			\pstLineAB[linestyle=dashed]{O}{F}
+			\pstLineAB[linestyle=dashed]{F}{E}
+			\pstLineAB[linestyle=dashed]{E}{A''}
+			\pstLineAB[linestyle=dashed,nodesepB=-3,]{E'}{R'}
+			\pstInterLL[]{E'}{R'}{C}{B}{E''}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=35pt,linecolor=	blue!50]{A'}{O}{$\frac{\alpha}{2}$}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=35pt,linecolor=	blue!50]{A}{A'}{$\frac{\alpha}{2}$}
+		\end{pspicture}
+	\end{center}
+	\caption{$\frac{AB}{YB}=\frac{A''R'}{R'O}=\phi.$ Se unió los procedimientos anteriores}\label{j}
+\end{figure}
+
+En la figura \ref{sed} se prueba que $\frac{AB}{BC}=\frac{BC}{CD}=\frac{AC}{AB}=\phi$
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\psset{unit=1.1}
+		\begin{pspicture}(-0.3,-1.8)(8,3.1)
+			\pstGeonode[PosAngle={-180,-90,135}](0,0){A}(3,0){B}(6,0){D}
+			\pstGeonode[PosAngle={0}](6,-1.5){f}
+			\pstArcOAB[linestyle=dashed]{B}{D}{A}
+			\pstInterLC[PosAngle=-135,PointNameA=,PointSymbolA=none]{f}{B}{f}{D}{P'}{d}
+			\pstInterLC[PosAngle=135,PointNameA=,PointSymbolA=none]{B}{D}{B}{d}{EG}{C}
+			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{B}{D}{C}{B}{DG}{E}
+			\pstArcOAB[linestyle=dashed]{C}{E}{B}
+			\pspolygon[linestyle=dashed](B)(f)(D)%=vlines
+			\pstArcOAB[arrows=->>]{B}{d}{C}
+			\pstArcOAB[arrows=->>]{f}{D}{d}
+			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{B}{D}{D}{C}{DGF}{F}
+			\pstArcOAB[linestyle=dashed]{D}{F}{C}
+			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{B}{D}{E}{D}{DGF}{G}
+			\pstArcOAB[linestyle=dashed]{E}{G}{D}
+			\pstInterLC[PosAngle=0,PointNameA=,PointSymbolA=none]{B}{D}{F}{E}{DGF}{H}
+			\pstArcOAB[linestyle=dashed]{F}{H}{E}
+			\pstLineAB[]{A}{H}
+		\end{pspicture}
+	\end{center}
+	\caption{$\frac{AB}{BC}=\frac{BC}{CD}=\frac{AC}{AB}=\phi$}\label{sed}
+\end{figure}
+
+
+
+\section{Rectángulos dinámicos estructurales}
+
+
+Los rectángulos dinámicos se caracterizan por  tener proporciones no racionales es decir irracionales en la Figura \ref{dynamics} observamos que los rectángulo $\sqrt{2},\sqrt{3}, \sqrt{5},$... son dinámicos, excepto el $\sqrt{4}=2$ que es un número racional también se observa que a partir de un cuadrado Figura~\ref{dynamics} se pueden construir sucesivamente estos rectángulo en algunos  casos obviamente mediante este proceso se podrán hallar rectángulos  no dinámicos.
+
+La principal aplicación esta siempre en el diseño y la presencia en el arte plástico es una característica proporcionado por la geometría derivada de la sección áurea o de una cadena de proporciones relacionadas (este es una noción importante donde será ilustrado después), donde se produce la recurrencia de formas similares, pero la sugestión mencionad arriba es especialmente asociada con la Sección Áurea porque ella posee propiedades muy interesantes con la infinita variedad de progresión geométrica de radio
+La principal aplicación esta siempre en el diseño y la presencia en el arte plástico es una característica proporcionado por la geometría derivada de la sección áurea o de una cadena de proporciones relacionadas (este es una noción importante donde será ilustrado después), donde se produce la recurrencia de formas similares, pero la sugestión mencionad arriba es especialmente asociada con la Sección Áurea porque ella posee propiedades muy interesantes con la infinita variedad de progresión geométrica de radio $\phi$
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\psset{unit=1.2}
+		\begin{pspicture}(-0.5,-1.5)(9.2,5.5)
+			%\psgrid[subgriddiv=1,griddots=10]\psframe(-0.5,-1.5)(9.2,5.5)
+			\rput{0}{\pstGeonode[PosAngle={-135,-45,90,135}](0,0){O}(4,0){A}(4,4){B}(0,4){C}}
+			\pstInterLC[PosAngle=-135]{O}{A}{O}{B}{R'}{R}
+			\pstProjection{C}{B}{R}[K]%%%%% K
+			\pstInterLC[PosAngle=-90]{A}{R}{O}{K}{S'}{S}
+			\pstProjection{C}{B}{S}[L]%%%%% L
+			\pstInterLC[PosAngle=-90]{O}{A}{O}{L}{T'}{T}
+			\pstProjection{C}{B}{T}[M]%%%%% M
+			\pstInterLC[PosAngle=-90]{O}{A}{O}{M}{U'}{U}
+			\pstMiddleAB[PosAngle=135]{O}{A}{D}
+			\pstInterLC[PosAngle=-90,PointSymbolA=none, PointNameA=]{O}{A}{D}{B}{P''}{P}\pstProjection{C}{B}{P}[P']%%%%%
+			\pstInterLC[PosAngle=-90,PointSymbolA=none, PointNameA=]{O}{A}{O}{P'}{r''}{r}
+			\pstProjection{C}{B}{r}[r']%%%%% M
+
+			\pstProjection{C}{B}{U}[N]%%%%% M
+			\pspolygon[](O)(R)(K)(C)%=vlines
+			\pspolygon[](O)(A)(B)(C)%=vlines
+			\pspolygon[](O)(S)(L)(C)%=vlines
+			\pspolygon[](O)(T)(M)(C)%=vlines
+			\pspolygon[](O)(U)(N)(C)%=vlines
+			\pspolygon[](O)(P)(P')(C)%=vlines
+			\pcline[]{}(r)(r')
+			\pcline[linecolor=blue!100,linestyle=dashed]{->}(D)(B)
+			\pcline[linecolor=blue!100,linestyle=dashed]{->}(O)(r')
+			\pcline[linecolor=blue!100,linestyle=dashed,offset=0pt]{->}(O)(B)
+			\ncput*[nrot=:U]{$\sqrt{2}$}
+			\pcline[linecolor=blue!100,linestyle=dashed,offset=0pt]{->}(O)(K)
+			\ncput*[nrot=:U]{$\sqrt{3}$}
+			\pcline[linecolor=blue!100,linestyle=dashed,offset=0pt]{->}(O)(L)
+			\ncput*[nrot=:U]{$\sqrt{4}$}
+			\pcline[linecolor=blue!100,linestyle=dashed,offset=0pt]{->}(O)(M)
+			\pcline[linecolor=blue!100,linestyle=dashed,offset=0pt]{->}(O)(N)
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-12pt,linecolor=orange!100]{O}{A}{$1$}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-36pt,linecolor=orange!100]{O}{R}{$\phi$}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=12pt, linecolor=orange!100]{O}{C}{$1$}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-24pt,linecolor=orange!100]{O}{U}{$\sqrt{5}$}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=20pt, linecolor=orange!100]{C}{P'}{$\sqrt{2}$}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=35pt, linecolor=orange!100]{C}{L}{$\sqrt{3}$}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=50pt, linecolor=orange!100]{C}{r'}{$\sqrt{\phi}$}
+			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-50pt,linecolor=orange!100]{O}{T}{$2$}
+			\pstSegmentMark[SegmentSymbol=MarkHashh]{O}{D}
+			\pstSegmentMark[SegmentSymbol=MarkHashh]{A}{D}
+			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{O}{B}{R}
+			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{O}{K}{S}
+			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{O}{L}{T}
+			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{O}{M}{U}
+			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{D}{B}{P}
+			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{O}{P'}{r}
+		\end{pspicture}
+	\end{center}
+	\caption{Rectángulos Dinámicos $\sqrt{2},$ $\phi,$ $\sqrt{3},$ $\sqrt{5},$ ...}
+	\label{dynamics}
+\end{figure}
+
+Como el rectángulo $ARKC$ denotado por $\sqrt{2}$, $ASLC$ denotado por $\sqrt{3}$, $OTMC$ denotado por $\sqrt{4}=2$ que no es un rectángulo dinámico, $AUNC$ denotado por $\sqrt{5}$ y los rectángulos relacionado con el numero de oro $ACPP'$ denotado por $\phi$ construido con la ayuda del punto medio $D$ del segmento $OA$ finalmente el rectángulo $Orr'C$ denotado por $\sqrt{\phi}$ son los rectángulos más interesantes para la distribución de los elementos en el espacio bidimensional.
+
+
+
+Se descompondrá armónicamente cada uno de estos rectángulos, saber el procedimiento es muy útil para los artistas plásticos sobre para los pintores en sus diversas composiciones bidimensionales, para aquellos que tienen noción tridimensional  se trataran de solidos en el siguiente capitulo.
+
+\begin{comen}\label{com1} un rectángulo esta bien representado por su diagonal y la pendiente de esta en un sistema de ejes coordenados usual. Pues si tratamos de averiguar el tipo de rectángulo  lo que se hace es verificar  la razón de la longitud de su lado mayor y al longitud de su lado menor es decir, la pendiente de la diagonal con respecto aun sistema de ejes coordenados donde el eje las $x$ coincide con el lado mayor es decir en la Figura \ref{Op} la pendiente de la diagonal $AC$ es $\tan{\alpha}=\frac{\overline{CB}}{\overline{AB}}.$
+
+	Por ejemplo en la Figura \ref{Up} el rectángulo $A'B'C'D'$ tiene las mismas proporciones que $ABCD$ pues la pendiente de $A'C'$ es la misma que la pendiente de $AC,$ este principio nos ayudara a demostrar algunas propiedades de los rectángulos dinámicos.
+	\begin{figure}[!ht]
+		\begin{center}
+			\begin{pspicture}(-1.5,-0.4)(5,4.4)
+				%\psframe(-1.4,-0.4)(5,4.4)\psgrid[subgriddiv=1,griddots=10]
+				\pstGeonode[CurveType=polygon,unit=1,PosAngle={-110,-90,90,-115}](0,0){A}(4,2){B}(3,4){C}(-1,2){D}
+				\pstLineAB{A}{C}
+				\pstMarkAngle[]{B}{A}{C}{$\alpha^\circ$}
+				\pstTranslation[DistCoef=0.4,PointSymbol=none,PosAngle=180]{A}{B}{B}[x]
+				\pstTranslation[DistCoef=0.4,PointSymbol=none,PosAngle=180]{A}{D}{D}[y]
+				\pstLineAB[nodesepA=-.4, nodesepB=-1,arrows=->]{A}{B}
+				\pstLineAB[nodesepA=-.4, nodesepB=-1,arrows=->]{A}{D}
+			\end{pspicture}
+		\end{center}
+		\caption{Tipo de rectángulo}\label{Op}
+	\end{figure}
+
+
+\end{comen}
+
+
+
+\begin{comen}
+	A partir de ahora se se usará la notación $ABCD\sim r, r\in \mathbb{I}$ donde $ABCD$ es un rectángulo y ''$\sim$'' significa ''similar semejante'', muy útil  para denotar que dos rectángulos tiene las mismas proporciones o la misma razón entre las longitudes de sus lados  por ejemplo en la Figura \ref{Up} $A'B'C'D'\sim\frac{B'C'}{A'B'}=k; k\in \mathbb{I}$ o en la Figura \ref{Uk} se tiene que $OABC\sim\frac{AB}{OA}=1.$
+
+	\begin{figure}[!ht]
+		\begin{center}
+			\begin{pspicture}(-0.4,-0.4)(6.4,3.5)
+				%\psframe(-0.4,-0.4)(6.4,3.4)\psgrid[subgriddiv=1,griddots=10]
+				\pstGeonode[CurveType=polygon,unit=1,PosAngle={-90,-90,90,90}](0,0){A}(6,0){B}(6,3){C}(0,3){D}
+				\pstGeonode[CurveType=polygon,unit=1,PosAngle={-90,-90,-45,-135}](2,1){A'}(5,1){B'}(5,2.5){C'}(2,2.5){D'}
+				\pspolygon[](A)(B)(C)(D)%=vlines
+				\pspolygon[](A')(B')(C')(D')%=
+				\pstLineAB{A}{C}
+			\end{pspicture}
+		\end{center}
+		\caption{Cuadrado}\label{Up}
+	\end{figure}
+
+\end{comen}
+
+\begin{comen}
+
+	El siguiente criterio mostrada en la Figura \ref{Upu} se toma el $M=\frac{BC}{2}$ se traza el arco $CB$ centrada en $M$ luego $P$ es la intersección de la diagonal del rectángulo $ABCD$ con éste arco, finalmente $Q$ es la intersección del lado $DC$ con la linea $BP$. Se usara este principio para resumir las demostraciones de las propiedades de los rectángulos dinámicos, se tiene que $ABCD\sim P'BCQ$ pues en $AC\perp BQ$ esto es $\angle{BAC}=\angle{CBQ},$
+	luego segun el Comentario \ref{com1} se tiene que $ABCD\sim P'BCQ$ y tambien se tiene que $\frac{AB}{CB}=\frac{BC}{QC}\Longleftrightarrow QC=\frac{BC^2}{AB}$ si $BC=1$ se tiene que $QC=\frac{1}{AB}$ por lo que si $AB$ es de la forma $\sqrt{\beta}$ se tiene que $QC=\frac{1}{\sqrt{\beta}}=\frac{\sqrt{\beta}}{\beta}$ es decir $QC=\frac{AB}{\beta},$ como un ejemplo particular se tiene que si $AB=\sqrt{6}\Longrightarrow QC=\frac{AB}{6}.$
+
+	\begin{figure}[!ht]
+		\begin{center}
+			\begin{pspicture}(-0.4,-0.4)(6.4,3.4)
+				%\psframe(-0.4,-0.4)(6.4,3.4)\psgrid[subgriddiv=1,griddots=10]
+				\pstGeonode[CurveType=polygon,unit=1,PosAngle={-90,-90,90,90}](0,0){A}(6,0){B}(6,3){C}(0,3){D}
+				\pstMiddleAB[PosAngle=0]{B}{C}{M}
+				\pstInterLC[,PointSymbolB=none, PointNameB=]{A}{C}{M}{C}{P}{P''}
+				\pstInterLL[PosAngle=90]{P}{B}{D}{C}{Q}
+				\pstProjection[CodeFig=true,CodeFigColor=black]{B}{A}{Q}[P']
+				\pstArcOAB[linestyle=dashed,arrows=->]{M}{C}{B}
+				\pstLineAB{B}{Q}
+				\pstLineAB{A}{C}
+				\pstRightAngle{C}{P}{Q}
+				\psset{LabelRefPt=c,arrows=->,MarkAngleRadius=0.6,LabelAngleOffset=0,
+					LabelSep=1.3}
+				\pstLineAB[linestyle=dashed,arrows=->]{M}{P}
+				\pstMarkAngle[]{B}{A}{C}{$\alpha^\circ$}
+				\pstMarkAngle[]{C}{B}{Q}{$\alpha^\circ$}
+			\end{pspicture}
+		\end{center}
+		\caption{Un rectángulo arbitrario}\label{Upu}
+	\end{figure}
+
+\end{comen}
+
+
+
+\subsection{El cuadrado}
+Para poder particionarlo es necesario hallar la sección áurea en uno de los lados por ejemplo $P$ con el método ya aprendido, a partir de allí se generan infinidad de posibilidades  por ejemplo una de ellas es la que se muestra en la figura siguiente. aunque el cuadrado es considerado menos apto para las composiciones con un poco de subdivisiones armónicas se pueden obtener una buena composición
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}(-0.4,-0.4)(4.4,4.4)
+			%\psframe(-0.4,-0.4)(4.4,4.4)\psgrid[subgriddiv=1,griddots=10]
+			\pstGeonode[CurveType=polygon,unit=1,PosAngle={-135,-45,90,135}](0,0){O}(4,0){A}(4,4){B}(0,4){C}
+			\pstMiddleAB[PosAngle=135]{O}{A}{D}
+			\pstInterLC[PosAngle=135,,PointSymbolA=none, PointNameA=]{D}{B}{D}{A}{E'}{E}
+			\pstInterLC[,PointSymbolB=none, PointNameB=]{A}{B}{B}{E}{P}{P''}
+			\pstProjection[CodeFig=true,CodeFigColor=black]{C}{O}{P}[P']
+			\pstInterLL[PosAngle=-90]{O}{B}{P}{P'}{Q}
+			\pstLineAB{O}{B}
+			\pstArcOAB[linestyle=dashed,arrows=->]{D}{A}{E}
+			\pstArcnOAB[linestyle=dashed,arrows=<-]{B}{P}{E}
+			\pstLineAB[linestyle=dashed]{D}{B}
+			%\pstInterLC[PosAngle=-90,PointSymbolA=none, PointNameA=none]{O}{A}{D}{B}{P''}{P}
+			%\pstProjection{C}{B}{P}[P']%%%%% M
+			%\pspolygon[](O)(A)(B)(C)%=vlines
+			%\pcline[offset=0pt]{|<*->|*}(O)(B)
+			%\ncput*[nrot=:U]{ $\sqrt{2}$}
+			%\pstArcnOAB[arrows=->, arrowscale=2]{O}{B}{R}
+
+
+
+		\end{pspicture}
+	\end{center}
+	\caption{Cuadrado}\label{Uk}
+\end{figure}
+
+EL cuadrado suele ser uno de los formatos menos eficientes debido a su alta simetría pero con particiones adecuadas sobre su superficie se puede lograr grandes objetivos
+
+
+\subsection{El rectángulo $\sqrt{2}$}
+
+Siendo $M'$ y $M$ puntos medios de $DC$ y $AB$ se observa la propiedad de $DM\perp AC$  pues la pendiente del a recta $DM$ es $-\frac{2}{\sqrt{2}}$ y la pendiente de la recta $AC$ es $\frac{\sqrt{2}}{2}$ lo cual al multiplicar estas pendientes resulta $-1.$
+
+Otra característica es que $ONMB$  es otro rectángulo $\sqrt{2}$ con el lado mayor $ON=MB$ pues $OM=\frac{\sqrt{2}}{2}$ y $NB=\frac{1}{2}$ entonces $\frac{AM}{NB}=\frac{\frac{\sqrt{2}}{2}}{\frac{1}{2}}=\frac{1}{2},$ en este rectángulo también se observa que $MH\perp HB$ pues $MC$ lo secciona a $ON$ en dos segmentos iguales $OP=PN$ lo cual usando el mismo criterio para el aso anterior  se verifica que $MH\perp HB,$ $HH''\perp H''B$ y $N'N\perp HB$ porque estos puntos se obtiene con el mismo procedimiento.
+
+Finalmente se pueden obtener de manera indefinida rectángulos $\sqrt{2}$ tales como $OMNB,$ $HPBN',$ etc. los cuales convergen hacia el vértice $B.$ También se los puede hacer converger hacia los demás vertices $A, D$ y $C$ del mismo modo en el rectángulo $MONB$ se puede iterar los procedimientos anteriores hacia el infinito.
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}(-0.3,-0.5)(8.1,6.1)
+			%\psframe(-0.3,-0.5)(8.1,6.1)\psgrid[subgriddiv=1,griddots=10]
+			\pstGeonode[unit=5.5,PosAngle={-90,90,90,90},PointSymbol={*,none,none,*,none},PointName={default,none,none,default,none}](0,0){A}(1,0){Bb}(1,1){Cc}(0,1){D}(0.5,0){M}
+			\pstInterLC[PointSymbolA=none,PointNameA=none,PosAngleB=-90]{A}{Bb}{A}{Cc}{FF}{B}
+			\pstProjection[]{D}{Cc}{B}[C]
+			\pstMiddleAB[PosAngle=-90]{A}{B}{M}
+			\pstMiddleAB[PosAngle=90]{D}{C}{M'}
+			\pstMiddleAB[PosAngle=0]{B}{C}{N}
+			\pstMiddleAB[PosAngle=-90]{M}{B}{N'}
+			\pstMiddleAB[PosAngle=0]{B}{N}{P}
+			\pspolygon(A)(B)(C)(D)
+			\pstLineAB{D}{M}
+			\pstLineAB{M}{C}
+			\pstLineAB{A}{C}
+			\pstLineAB{D}{B}
+			\pstLineAB{B}{M'}\pstLineAB{M}{N}
+			\pstLineAB{N'}{N}
+			\pstInterLL[PosAngle=-90]{D}{B}{M}{C}{H}
+			\pstInterLL[PosAngle=0]{A}{C}{M}{D}{H'}
+			\pstInterLL[PosAngle=70]{M}{N}{B}{M'}{H''}
+			\pstInterLL[PosAngle=0]{N'}{N}{B}{D}{I}
+			\pstInterLL[PosAngle=90]{A}{C}{B}{D}{O}
+			\pstInterLL[PosAngle=-96,PointName=none,PointSymbol=none]{N}{M}{B}{D}{Hhh}
+			\pstRightAngle{D}{H}{C}
+			\pstRightAngle{D}{H'}{C}
+			\pstRightAngle{M}{H''}{M'}
+			\pstRightAngle{N'}{I}{D}
+			\pstHomO[HomCoef=0.8,PosAngle=0,PointSymbol=none,PointName=none]{N'}{P}[K]
+			\pstLineAB[arrows=->]{N'}{K}
+			\pstSegmentMark[]{M}{N'}
+			\pstSegmentMark[]{B}{N'}
+			\pstInterLL[PosAngle=0]{A}{C}{B}{M'}{O'}
+			\pstSegmentMark[SegmentSymbol=MarkHash]{P}{B}
+			\pstSegmentMark[SegmentSymbol=MarkHash]{P}{N}
+			\pspolygon(M)(O)(N)(B)\pspolygon(N')(Hhh)(P)(B)
+			\pstMiddleAB[PosAngle=0]{A}{D}{E}
+			\pstArcOAB[linestyle=dashed,arrows=->]{E}{A}{D}
+			\pstRotation[RotAngle=90,PosAngle=90]{D}{A}[N'']
+			\pstRotation[RotAngle=-180,PosAngle=90]{M'}{N''}[R]
+			\pstArcOAB[linestyle=dashed,arrows=->]{D}{A}{N''}
+			\pstArcOAB[linestyle=dashed,arrows=->]{M'}{R}{N''}
+			\pstProjection[CodeFig=true, CodeFigColor=black]{A}{B}{R}[R']
+			\pstLineAB{R'}{C}
+		\end{pspicture}
+	\end{center}
+	\caption{Rectángulo $\sqrt{2}$}\label{de}
+\end{figure}
+
+\subsection{El rectángulo $\sqrt{3}$}
+
+
+La propiedad de este triángulo es que si lo dividimos en tres franjas verticales iguales tales como $ANOD$,$ONMP$ y $PMBC$ obtenemos otros triángulos semejantes al primero $\sqrt{3}$, como en el caso anterior se uso las pendientes para averiguar si es correcto poner los ángulos rectos donde lo están, luego es posible iterar esta operación al infinito sobre cada uno de los tres rectángulos  obtenidos anteriormente para obtener otros con la misma propiedad pero en escala menor.
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}(-0.2,-0.6)(9.2,5.6)
+			%\psframe(-0.2,-0.6)(9.2,5.6)\psgrid[subgriddiv=1,griddots=10]
+			\pstGeonode[unit=5,PosAngle={-90,135,-45,90},PointSymbol={*,none,none,*},PointName={default,none,none,default}](0,0){A}(1,0){Bb}(1,1){Cc}(0,1){D}
+			\pstInterLC[PointSymbolA=none,PointNameA=,PointSymbolB=none,PointNameB=]{A}{Bb}{A}{Cc}{G'}{G}
+			\pstInterLC[PointSymbolA=none,PointNameA=,PosAngle=90]{D}{Cc}{D}{G}{h'}{C}
+			\pstProjection[]{A}{Bb}{C}[B]
+			\pspolygon(A)(B)(C)(D)
+			\pstLineAB{A}{C}\pstLineAB{B}{D}
+			\pstProjection[PosAngle=-90,CodeFig=true,CodeFigColor=black]{D}{B}{C}[G]
+			\pstInterLL[PosAngle=-90]{A}{B}{C}{G}{M}
+			\pstProjection[PosAngle=180,CodeFig=true,CodeFigColor=black]{A}{C}{D}[H]
+			\pstInterLL[PosAngle=-90]{A}{B}{D}{H}{N}
+			\pstProjection[CodeFig=true,CodeFigColor=black]{D}{C}{N}[O]
+			\pstProjection[CodeFig=true,CodeFigColor=black]{D}{C}{M}[P]
+			\pstLineAB{O}{N}\pstLineAB{P}{M}
+			\pstHomO[HomCoef=0.2,PointName=none,PointSymbol=none]{N}{D}[s]
+			\pstLineAB{C}{M}
+			\pstLineAB[arrows=-D>]{N}{s}
+			\pstInterLL[PosAngle=-135]{M}{P}{D}{B}{I}
+			\pstProjection[]{B}{C}{I}[I']
+			\pstLineAB{I}{I'}
+			\pstSegmentMark[SegmentSymbol=MarkHashh]{D}{O}
+			\pstSegmentMark[SegmentSymbol=MarkHashh]{O}{P}
+			\pstSegmentMark[SegmentSymbol=MarkHashh]{P}{C}
+			\pstHomO[HomCoef=0.7,PointName=none,PointSymbol=none]{M}{I'}[f]
+			\pstLineAB[arrows=->]{M}{f}
+			\pstProjection[PosAngle=90,CodeFig=true,CodeFigColor=black]{D}{B}{I'}[G']
+			\pstInterLL[PosAngle=-90]{A}{B}{I'}{G'}{J}
+			\pstHomO[HomCoef=0.4,PointName=none,PointSymbol=none]{I'}{J}[j]
+			\pstLineAB[arrows=-D>]{I'}{j}
+		\end{pspicture}
+	\end{center}
+	\caption{Rectángulo $\sqrt{3}$}\label{3}
+\end{figure}
+
+pues $ANOD,$ $AN=\frac{\sqrt{3}}{3}$ y $ON=1$ luego $\frac{ON}{AN}=\frac{1}{\frac{\sqrt{3}}{3}}=\sqrt{3},$ esto es valido para $ONMP,$ $PMBC$ pues $ON=PM=CB$ y $AN=NM=MB.$ Para verificar que $DH\perp AC$ se tiene
+
+\subsection{El rectángulo $\sqrt{5}$}
+
+En este rectángulo se incluye los rectángulos $\phi$ y $\sqrt{5}$  como se muestra en la figura el rectángulo $A'BCD'$ y $AB'C'D$ son rectángulos $\phi$
+
+Se empieza construyendo un cuadrado $A'B'C'D'$ al tomemos uno de sus lados $A'B'$ divisándolo en dos segmentos iguales $A'M=MB'$ el arco generado por $MC'$ interseca a la proyección de lado $A'B'$ en los dos puntos $A$ y $B$ observe que se utilizo el mismo procedimiento para obtener el rectángulo áureo pero en este caso se obtiene dos rectángulos áureos intersecando que comparten el mismo cuadrado, observe que $A'C\perp BC'$ entonces el arco $CB$ pasa por la intersecion de esta lineas, la diagonal $AC$ pasa por la interseccion de los arcos $AB$ y $CB$
+
+\begin{figure}[!ht]
+	\begin{center}\psset{unit=1.2cm}
+		\begin{pspicture}(-2.5,-0.5)(7,4.7)%\psgrid
+			%\psgrid[subgriddiv=1,griddots=10]%\psframe(-0.6,-0.5)(9.2,4.7)
+			\rput{0}{\pstGeonode[PosAngle={-90,-90,90,90}](0,0){A'}(4,0){B'}(4,4){C'}(0,4){D'}}
+			\pstMiddleAB[PosAngle=-90]{A'}{B'}{M}
+			\pstInterLC[PosAngle=-90]{A'}{B'}{M}{C'}{A}{B}
+			\pstProjection{D'}{C'}{B}[C]%%%%% K
+			\pstProjection{D'}{C'}{A}[D]
+			\pspolygon[](A)(B)(C)(D)%=vlines
+			\pstLineAB{D}{A'}\pstLineAB{A'}{C}\pstLineAB{A}{C'}\pstLineAB{C'}{B}
+			\pstLineAB{A'}{D'}\pstLineAB{C'}{B'}\pstLineAB{A}{C}
+			\pstInterLL[PosAngle=180]{A'}{C}{B'}{C'}{O}
+			\pstProjection[]{B}{C}{O}[O']
+			\pstLineAB{O}{O'}
+			\pstMiddleAB[PosAngle=0]{B}{C}{N}
+			\pstArcOAB[linestyle=dashed,arrows=->]{N}{C}{B}
+			\pstInterLC[PosAngle=82,PointNameB=,PointSymbolB=none]{A}{C}{N}{B}{G}{G'}
+			\pstInterLL[PosAngle=90]{B}{G}{D}{C}{H}
+			\pstProjection[CodeFig=true,CodeFigColor=black]{B}{A}{H}[H']
+			\pstLineAB{B}{H}
+			\pstInterLL[PosAngle=185]{A'}{C}{H}{H'}{I}
+			\pstInterLL[PosAngle=125]{A}{C}{H}{H'}{E}
+			\pstProjection[PosAngle=0]{B}{C}{I}[H'']
+			\pstProjection[PosAngle=0]{B}{C}{E}[H''']
+			\pstLineAB{E}{H'''}\pstLineAB{I}{H''}
+			%\pcline[offset=0pt,]{->}(O)(B)
+			\pstInterLL[PosAngle=-55]{O'}{O}{H}{H'}{J}\pstLineAB{B}{O}
+			\pstInterLL[PosAngle=180]{O}{B}{H}{H'}{J'}
+			\pstLineAB{J'}{H''}
+			%\ncput*[nrot=:U]{ $\sqrt{2}$}
+			%
+			\pstArcOAB[linestyle=dashed,arrows=->]{M}{B}{A}
+			\pstProjection[PosAngle=-45]{B}{C}{J'}[Q]\pstLineAB{J'}{Q}
+		\end{pspicture}
+	\end{center}
+	\caption{Rectángulo $\sqrt{5}$}\label{Uw}
+\end{figure}
+se obtiene $G$ intersecar el arco $BC$ con la diagonal $AC,$ $H$ al intersecar el lado $DC$ con la proyección de $BG$ finalmente $H'$ e $I$ al proyectar $H$ perpendicularmente sobre el lado $AB;$  sabe que el rectángulo $OO'CC'$ es un rectángulo $\qw$ por lo tanto $IH''CC'$ lo es, pues la diagonal $IC$ coincide con la del rectángulo $OO'CC'$ (Se demostró al principio de este capitulo que un rectángulo esta definido por el valor de la pendiente de su diagonal) se verifica que $HC=\frac{1}{5}DC$ entonces $H'BCH$ es un rectángulo $\sqrt{5},$ entonces como $H'BQJ'=1,$ y $IH''CH=\qw$  se deduce que $J'QH''I=\qw.$ También $EH'''CC'$ es un $\sqrt{5}$ pues comparten la diagonal del generador $ABCD,$ $BJ'$ es un cuadrado pues comparten la diagonal del cuadrado $B'BO'O$
+
+\subsection{El rectángulo $\sqrt{\phi}$}
+
+El rectángulo $\sqrt{\Phi}$ $AE'ED$ se obtiene a partir de un rectángulo áureo $\Phi$ como se muestra en la figura el rectángulo $\Phi,$ $ABCD$ se obtiene al trazar el arco $BE$  interceptando la linea $AC$ en $E,$ proyectando perpendicularmente este punto sobre la linea $AB$ se obtiene el cuarto vértice $E'$ del rectángulo $\sqrt{\phi}$
+pues como se puede verificar se tiene que ${AE'}^2=\phi^2-1=2\phi+1-1=\phi\Longleftrightarrow AE'=\sqrt{\phi}$
+%https://asy.marris.fr/#section3
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}(-0.1,-0.5)(8.3,5.5)%\psgrid[subgriddiv=1,griddots=10]
+			\pstGeonode[unit=5,PosAngle={-135,34,34,135},PointSymbol={*,none,none,*},PointName={default,none,none,default}]
+			(0,0){A}(1,0){Bb}(1,1){Cc}(0,1){D}
+			\pstMiddleAB[PosAngle=-90,PointName=,PointSymbol=none]{A}{Bb}{M}
+			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{A}{Bb}{M}{Cc}{M''}{B}
+			\pstProjection[]{D}{Cc}{B}[C]
+			\pstInterLC[CodeFig=true,PosAngle=90,PointNameA=,PointSymbolA=none]{D}{C}{A}{B}{E''}{E}
+			\pstProjection[]{A}{B}{E}[E']
+			\pspolygon(A)(E')(E)(D)
+			\pspolygon(A)(B)(C)(D)
+			\pstArcOAB[arrows=->]{A}{B}{E}
+		\end{pspicture}
+	\end{center}
+
+	\caption{Rectángulo $\sqrt{\phi}$}\label{p}
+\end{figure}
+
+
+
+
+
+
+
+\subsection{El rectángulo áureo ($\phi$)}
+El rectángulo de la siguiente figura tiene la única propiedad que si nosotros construimos un cuadrado sobre su lado pequeño(el menor termino del radio $\qw$), el rectángulo pequeño $aBCd$ formado a lado de este cuadrado el rectángulo original también es rectángulo $\qw,$ similar al primero. Esta operación puede ser repetido indefinidamente,ente, resultando así que los cuadrado pequeños, y pequeños y pequeños rectángulos áureos (la superficie del cuadrado y la superficie de los rectángulos formado geométricamente proverbio decreciente de radio $\frac{1}{\qw^2}$), como en la Figura ... Aun aun que actualmente dibujando el cuadrado , esta operación  y la proporción continua característica de la serie de los segmentos y superficies correlacionadas son subsecuentemente subconscientes  al ojo ; lo importante de esta operación  sugerente en la simple caso de una linea recta en dos segmentos  de acuerdo  a la sección áurea
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\psset{unit=1.2}
+		\begin{pspicture}(-0.6,-0.5)(7,4.7)
+			%\psframe(-0.6,-0.5)(7,4.7)\psgrid[subgriddiv=1,griddots=10]
+			\rput{0}{\pstGeonode[PosAngle={-135,-45,90,135}](0,0){O}(4,0){A}(4,4){B}(0,4){C}}
+			\pstMiddleAB[PosAngle=135]{O}{A}{D}
+			\pstInterLC[PosAngle=-90,PointSymbolA=none, PointNameA=]{O}{A}{D}{B}{P''}{P}\pstProjection{C}{B}{P}[P']%%%%%
+
+			\pspolygon[](O)(P)(P')(C)%=vlines
+			\pstInterLL[PosAngle=80]{O}{P'}{P}{B}{O'}\pstInterLL[PosAngle=135]{A}{B}{O}{P'}{H}
+			\pstProjection[PosAngle=0]{P}{P'}{H}[J]
+			\pstInterLL[PosAngle=-90,CodeFig=true,CodeFigColor=black]{H}{J}{P}{B}{I}
+			\pstProjection[CodeFig=true,CodeFigColor=black]{B}{P'}{I}[K]
+			\pstLineAB{A}{B}\pstLineAB{O}{P'}\pstLineAB{P}{B}\pstLineAB{H}{J}
+			\pstRightAngle{O}{O'}{B}
+			\pstSegmentMark[SegmentSymbol=MarkHashh]{O}{D}
+			\pstSegmentMark[SegmentSymbol=MarkHashh]{A}{D}
+
+			\pstArcOAB{B}{C}{A}\pstArcOAB{H}{A}{J}\pstArcOAB{I}{J}{K}
+			\pstLineAB{D}{B}
+		\end{pspicture}
+	\end{center}
+	\caption{Rectángulo $\phi$}\label{Uww}
+\end{figure}
+
+
+
+\subsection{El triángulo áureo y el pentágono}
+Es fácil verificar los ángulos mostrados en la figura pues los ángulos interiores de un pentágono son  como $EDC=180^\circ-\frac{360^\circ}{5}=108$ luego el ángulo $DEC=DCE=\frac{180^\circ-108^\circ}{2}=36^\circ$  ya que $I'D=I'E$ se deduce que el ángulo $DI'I''=72^\circ.$
+
+Se prueba fácilmente que $\frac{a}{b}=\phi$ pues usando la ley de los senos en el triangulo $ADB$ se tiene que: $$\frac{a}{\sin72}=\frac{b}{\sin36}\Longleftrightarrow \frac{a}{b}=\frac{\sin72}{\sin36}=\frac{0.95105651629515357211\ldots}{0.5877852522924731291\ldots}=\phi.$$
+
+Lo mismo ocurre con $\frac{DI'}{I'I}=\phi$ pues solo basta probar que los segmentos $I'I$ y $I'I''$ son iguales en efecto pues $I'I''$ es el lado del pentágono que se genera con la diagonales del pentágono $ABCDE$
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}(-4,-5)(5,4.8)
+			%\psframe(-4,-4.5)(4.5,4.5)\psgrid[subgriddiv=1,griddots=10]
+			\rput(0,0){\pstGeonode[CurveType=polygon,PosAngle={0,90,180,120,-90}](4,0){A}(4;72){B}(4;144){C}
+				(4;-144){D}(4;-72){E}}
+			%\pstRotation[linecolor=red, RotAngle=180, CurveType=polygon]{D}{A, B, C, D, E}
+			\ncline[]{-}{C}{A}
+			\ncline[]{-}{B}{E}
+			\ncline[]{-}{D}{A}
+			\ncline[]{-}{B}{D}
+			\ncline[]{-}{E}{C}
+			\psset{LabelRefPt=c,arrows=->,MarkAngleRadius=0.6,LabelAngleOffset=0,
+				LabelSep=1.3}
+			\pstMarkAngle[]{D}{B}{E}{$36^\circ$}
+			\pstMarkAngle[]{C}{E}{D}{$36^\circ$}
+			\pstMarkAngle[]{A}{D}{B}{$36^\circ$}
+			\pstMarkAngle[]{D}{C}{E}{$36^\circ$}
+			\pstMarkAngle[]{E}{B}{A}{$36^\circ$}
+
+			\pstInterLL[PosAngle=135]{E}{B}{A}{D}{I}% PointSymbol=square
+			\pstInterLL[PosAngle=55]{D}{A}{E}{C}{I'}% PointSymbol=square
+			\pstInterLL[PosAngle=0]{C}{E}{D}{B}{I''}% PointSymbol=square
+			\pstMarkAngle[]{C}{I'}{D}{$72^\circ$}
+			\pstMarkAngle[]{B}{I''}{C}{$72^\circ$}
+
+			\ncline[arrowscale=1]{-}{E}{C}
+			\ncline[offset=-14pt]{|<->|}{D}{A}
+			\ncput*[]{$a$}
+			\ncline[offset=14pt]{|<->|}{B}{A}
+			\ncput*[]{$b$}
+		\end{pspicture}
+	\end{center}
+
+	\caption{El Pentágono y el Triángulo Áureo y la Relación de sus Lados}\label{R}
+\end{figure}
+
+
+\subsection{Ejemplos de Composición sobre los Rectángulos Dinámicos}
+
+
+\begin{longtable}{|l|l|l|}
+	\caption{A sample long table.} \label{tab:long} \\
+
+	\hline \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline
+	\endfirsthead
+
+	\multicolumn{3}{c}%
+	{{\bfseries \tablename\ \thetable{} -- continued from previous pagewwwwww}} \\
+	\hline \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline
+	\endhead
+
+	\hline \multicolumn{3}{|r|}{{Continued on next pagewwwwwwwwwwwwwww}} \\ \hline
+	\endfoot
+
+	\hline
+	\endlastfoot
+
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+	One & abcdef ghjijklmn & 123.456778 \\
+\end{longtable}
+
+
+
+
+
+Existen 6 posibilidades donde la constante $1$ las variables $x,$ y $x-1$ o $-x+1$ conmutan de lugar veamos.
+
+Lo importante de este análisis es determinar que que cualquiera se e
+
+
+\chapter{Superficies}
+
+
+\begin{defn}[Superficie]
+En matemáticas, una superficie es un modelo matemático del concepto común de superficie. Es una generalización de un plano, pero, a diferencia de un plano, puede ser curvo; esto es análogo a una curva que generaliza una línea recta.
+
+Existen varias definiciones más precisas, dependiendo del contexto y de las herramientas matemáticas que se utilicen para su estudio. Las superficies matemáticas más simples son los planos y las esferas en el espacio euclídeo. La definición exacta de una superficie puede depender del contexto. Típicamente, en geometría algebraica, una superficie puede cruzarse a sí misma (y puede tener otros singularidades), mientras que, en topología y geometría diferencial, puede no hacerlo.
+
+Una superficie es un espacio topológico de dimensión dos; esto significa que un punto móvil en una superficie puede moverse en dos direcciones (tiene dos grados de libertad). En otras palabras, alrededor de casi todos los puntos hay una carta local coordenada en la que se define un sistema de coordenadas bidimensional. Por ejemplo, la superficie de la Tierra se asemeja (idealmente) a una esfera bidimensional, y la latitud y la longitud proporcionan coordenadas bidimensionales en ella (excepto en los polos y a lo largo del meridiano 180).
+\end{defn}
+
+
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	size(300,0);
+	import graph3;
+	currentprojection =perspective(3,4,2);
+	pair a=(-1.5,-1);
+	pair b=(1,1.5);
+
+	real f(pair xy) {
+	real x = xy.x; real y = xy.y;
+	return (6/5 - x^2/2) * (-y^4/2 + y^3/15 + y^2 + y/5 + 1);
+	}
+	real f1(pair xy) {
+	real x = xy.x; real y = xy.y;
+	return -x * (-y^4/2 + y^3/15 + y^2 + y/5 + 1);
+	}
+	real f2(pair xy) {
+	real x = xy.x; real y = xy.y;
+	return (6/5 - x^2/2) * (-2*y^3 + y^2/5 + 2*y + 1/5);
+	}
+	real w=1.1 ;
+	real x1(real t){return t;}
+	real y1(real t){return w;}
+	real z1(real t){pair z=(t,w); return f(z);}
+	path3 l1=graph(x1,y1,z1,a.x,b.x);
+	real ww=.4;
+	real x2(real t){return ww;}
+	real y2(real t){return t;}
+	real z2(real t){pair z=(ww,t); return f(z);}
+	path3 l2=graph(x2,y2,z2,a.y,b.y);
+	triple Q=(ww,w,f((ww,w)));
+	draw(l1, orange);
+	draw(l2, white);
+	dot(Label("$P$",align=2N),Q);
+
+	pair tww=(Q.x,Q.y);
+	real m1=f1(tww);
+	path3 tgx=Q-unit((Q.x+1,Q.y,Q.z+m1)-Q)--(Q+unit((Q.x+1,Q.y,Q.z+m1)-Q));
+	draw(tgx, orange);
+	pair tww2=(Q.x,Q.y);
+	real m2=f2(tww2);
+	path3 tgy=Q-unit((Q.x,Q.y+1,Q.z+m2)-Q)--(Q+unit((Q.x,Q.y+1,Q.z+m2)-Q));
+	draw(tgy, white);
+	draw(surface(plane(
+	O=Q+unit((Q.x,Q.y+1,Q.z+m2)-Q)+unit((Q.x+1,Q.y,Q.z+m1)-Q),
+	-2*unit((Q.x,Q.y+1,Q.z+m2)-Q),
+	-2*unit((Q.x+1,Q.y,Q.z+m1)-Q)
+	)), blue + opacity(0.5));
+
+	surface s = surface(f, a, b, Spline);
+	draw(s, surfacepen=paleyellow);axes3("$x$","$y$","$z$", Arrow3);
+	\end{asy}
+	\caption{Plano tangente}
+\end{figure}
+
+\section{Superficies de revolucion}
+
+Una superficie de revolución es una superficie en el espacio euclidiano creada al rotar una curva (la generatriz ) alrededor de un eje de rotación . [1]
+
+Ejemplos de superficies de revolución generadas por una línea recta son superficies cilíndricas y cónicas dependiendo de si la línea es o no paralela al eje. Un círculo que se gira alrededor de cualquier diámetro genera una esfera de la que entonces es un gran círculo , y si el círculo se gira alrededor de un eje que no corta el interior de un círculo, entonces genera un toro que no se corta a sí mismo ( un toro anular ).
+\subsection{Propoiedades}
+
+Las secciones de la superficie de revolución formadas por planos que pasan por el eje se denominan secciones meridionales . Cualquier sección meridional puede considerarse generatriz en el plano determinado por ella y el eje. [2]
+
+Las secciones de la superficie de revolución formadas por planos que son perpendiculares al eje son círculos.
+
+Algunos casos especiales de hiperboloides (de una o dos hojas) y paraboloides elípticos son superficies de revolución. Estas pueden identificarse como aquellas superficies cuadráticas cuyas secciones transversales perpendiculares al eje son todas circulares.
+
+\begin{figure}[!ht]\centering
+	\begin{asy}
+	import solids;
+	size(300,0);
+	currentprojection=perspective((45,30,50));
+	viewportmargin=(1mm,1mm);
+
+	draw((4,0,8)--(-4,0,8)^^(0,4,8)--(0,-4,8),dashed+darkgray);
+	draw("$x$",O--X,Arrow3);draw(O--3X);
+	draw("$y$",O--Y,Arrow3);draw(O--3Y);
+	draw("$z$",O--Z,Arrow3);draw(O--13Z);
+
+	path3 gene=(0,2,3)..(0,3,3.5)..(0,4,4.5)..(0,4.5,6)
+	..(0,4,8)..(0,1,10)..(0,2,12);
+	revolution vase=revolution(c=(0,0,0),gene, axis=Z, -70, 270);
+	draw(surface(vase),palegreen+opacity(.4));
+	draw(vase,m=3,frontpen=.8bp+blue,backpen=.6bp+paleblue,longitudinalpen=nullpen);
+	skeleton s;
+	vase.transverse(s,reltime(vase.g,0.5),P=currentprojection);
+	draw(s.transverse.back,1bp+yellow+linetype("8 8",8));
+	draw(s.transverse.front,1bp+yellow);
+
+	draw((0,2,3)--(0,-2,3)^^(2,0,3)--(-2,0,3),dashed+gray);
+	draw((0,2,12)--(0,-2,12)^^(2,0,12)--(-2,0,12),gray);
+
+	draw (gene,1bp+green);
+	draw ((2,0,12)..(0,2,12)..(-2,0,12)..(0,-2,12)..cycle,.4bp+red,Arrow3);
+
+	dot(Label("$a$",align=SE),(0,0,3));
+	dot(Label("$z$",align=SE),(0,0,8),red);
+	dot(Label("$b$",align=NE),(0,0,12));
+	draw("$r(z)$",(0,0,8)--(4,0,8),red,Arrow3);
+
+	\end{asy}
+	\caption{revolution}\end{figure}
+ \section{Superficies de reglada}
+
+ En geometría , se gobierna una superficie S (también llamada pergamino ) si a través de cada punto de S hay una línea recta que se encuentra en S. Los ejemplos incluyen el plano , la superficie lateral de un cilindro o cono , una superficie cónica con directriz elíptica , el conoide recto , el helicoide y la tangente que se desarrolla de una curva suave en el espacio.
+
+ Una superficie reglada se puede describir como el conjunto de puntos barridos por una línea recta en movimiento. Por ejemplo, un cono se forma manteniendo fijo un punto de una línea mientras se mueve otro punto a lo largo de un círculo . Una superficie está doblemente reglada si por cada uno de sus puntos pasan dos rectas distintas que se encuentran sobre la superficie. El paraboloide hiperbólico y el hiperboloide de una hoja son superficies doblemente regladas. El plano es la única superficie que contiene al menos tres líneas distintas a través de cada uno de sus puntos
+
+ Los mapas proyectivos conservan las propiedades de estar reglado o doblemente reglado y, por lo tanto, son conceptos de geometría proyectiva . En geometría algebraica , las superficies regladas a veces se consideran superficies en un espacio afín o proyectivo sobre un campo , pero también a veces se las considera superficies algebraicas abstractas sin una incrustación en un espacio afín o proyectivo, en cuyo caso se entiende que "línea recta" significa una línea afín o proyectiva.
+
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+  // Riemann surface of z^{1/n}
+import graph3;
+import palette;
+
+int n=3;
+
+size(200,300,keepAspect=false);
+
+currentprojection=orthographic(10,10,10);
+currentlight=(10,10,5);
+triple f(pair t) {return (t.x*cos(t.y),t.x*sin(t.y),t.x^(1/n)*sin(t.y/n));}
+
+surface s=surface(f,(0,0),(1,2pi*n),8,16,Spline);
+s.colors(palette(s.map(zpart),Rainbow()));
+
+draw(s,meshpen=black,render(merge=true));
+  \end{asy}
+  \caption{Superficie de Riemann}
+\end{figure}
+
+\section{Superficies orientables}
+
+
+Se dice que una superficie está orientada (cuando esto es posible) si se ha elegido una dirección de flujo positivo. Para elegir una dirección de flujo positivo especificamos un vector normal a la superficie. Cualquier flujo que esté en la dirección general del vector normal se considera positivo y cualquier flujo que se dirija contra el vector normal se considera negativo. Tenga en cuenta que no todas las superficies son orientables (por ejemplo, la banda de Möbius)
+
+\begin{figure}[!ht]
+	\begin{asy}
+import graph3;
+import palette;
+import contour3;
+size(300,0);
+
+real f(real x, real y, real z) {
+return cos(x)*sin(y)+cos(y)*sin(z)+cos(z)*sin(x);
+}
+
+surface sf=surface(contour3(f,(-2pi,-2pi,-2pi),(2pi,2pi,2pi),12));
+sf.colors(palette(sf.map(abs),Gradient(red,yellow)));
+
+currentlight=nolight;
+
+draw(sf,render(merge=true));
+	\end{asy}
+	\caption{Queso}
+\end{figure}
+
+
+\section{Superficies no orientables}
+
+ Una superficie S en el espacio euclidiano R 3 es orientable si una figura bidimensional (por ejemplo, Pequeño pastel.svg) no se puede mover alrededor de la superficie y regresar a donde comenzó para que parezca su propia imagen especular ( Tarta 2.svg). De lo contrario, la superficie no es orientable . Una superficie abstracta (es decir, una variedad bidimensional ) es orientable si se puede definir un concepto consistente de rotación en el sentido de las agujas del reloj en la superficie de manera continua. Es decir, un bucle que gira en un sentido sobre la superficie nunca puede deformarse continuamente (sin superponerse a sí mismo) en un bucle que gira en el sentido opuesto. Esto resulta ser equivalente a la pregunta de si la superficie no contiene ningún subconjunto que sea homeomorfo a la cinta de Möbius . Así, para las superficies, la cinta de Möbius puede considerarse la fuente de toda falta de orientabilidad.
+
+ Para una superficie orientable, una elección consistente de "sentido horario" (en contraposición a sentido contrario a las agujas del reloj) se denomina orientación , y la superficie se denomina orientada . Para las superficies incrustadas en el espacio euclidiano, la orientación se especifica mediante la elección de una superficie normal n que varía continuamente en cada punto. Si tal normal existe, entonces siempre hay dos formas de seleccionarlo: n o -n . Más generalmente, una superficie orientable admite exactamente dos orientaciones, y la distinción entre una superficie orientada y una orientablela superficie es sutil y frecuentemente borrosa. Una superficie orientable es una superficie abstracta que admite una orientación, mientras que una superficie orientada es una superficie abstractamente orientable, y tiene como dato adicional la elección de una de las dos orientaciones posibles.
+
+
+
+
+
+ \begin{figure}[!ht]
+ 	\begin{asy}
+ 	size(300,0);
+ 	import graph3;
+ 	triple F(pair uv) {
+ 	real t = uv.x;
+ 	real r = uv.y;
+ 	return (cos(t) + r*cos(t)*sin(t/2),
+ 	sin(t) + r*sin(t)*sin(t/2),
+ 	r*cos(t/2));
+ 	}
+ 	real r = 0.3;
+ 	surface moeb = surface(F, (0,-r), (2pi,r), Spline);
+ 	draw(moeb, surfacepen=material(blue, emissivepen=0.15 white), meshpen=black+thick());
+ 	\end{asy}
+ 	\caption{Mobius}
+ \end{figure}
+
+
+\chapter{Perspectiva cónica}
+
+\section{Elementos}
+
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+    size(12cm,0);
+    //import markers;
+    import geometry;
+    //import math;
+    path g=scale(1)*unitcircle;
+    path gg=scale(1.5)*unitcircle;
+    path ggg=scale(2.1)*unitcircle;
+    draw(g);
+    pair A=(0,0);
+    pair V=unit((1,.2));
+    pair V1=rotate(90)*(V);
+    path l=-2*V--2*V;
+    dot(intersectionpoints(l,g));
+    pair[] I=intersectionpoints(l,g);
+
+    pair P=(0.3,-0.5), Q=1.5*(V1-A)/2+P;
+    pair P1=(length(V)*cos(-2),length(V)*sin(-2)), Q1=4.5*(V1-A)/2+P1;
+    pair P2=(2,-1), Q2=4.5*(V1-A)/2+P2;
+
+    dot(midpoint(l)^^V1^^P^^P1^^P2);
+    draw(I[0]--I[0]+0.6*(P-I[0])--I[1]^^I[1]--I[1]+0.6*(P-I[1])--I[0], 1*orange+linewidth(0.2mm));
+
+    draw(I[0]--P--I[1]^^Q--I[1]--I[0]--cycle, 1*blue);
+    draw(I[0]--P1--I[1]^^Q1--I[1]--I[0]--cycle, 0.8*orange);
+    draw(I[0]--P2--I[1]^^Q2--I[1]--I[0]--cycle, 0.8*paleblue);
+    line l1=line(-2*V,2*V);
+    line l1=line(-2*V,2*V);
+    draw(Label("$\mathcal{L}_1$",Relative(.99),align=dir(-45)), l1,
+         1bp+dashed+.8red);
+    line l2=perpendicular(A,l1);
+    draw(Label("$\mathcal{L}_2$",Relative(.99),align=dir(-90)), l2,
+         1bp+dashed+0.5*orange);
+    line d2=parallel(I[0],l2);
+    draw(d2,.8green);
+    distance("$www$",offset=10mm,joinpen=dashed,A,I[0],orange);
+    draw(I[1]--A,StickIntervalMarker(1,3,size=15,angle=45,blue));
+    draw(I[0]--A,StickIntervalMarker(1,3,size=15,angle=45,blue));
+    label("$PP$",A,SE,UnFill);
+    label("$V$",V1,2*NE,UnFill);
+    label("$P_1$",I[0],3*dir(-110),UnFill);
+    label("$P_2$",I[1],2*NE,UnFill);
+
+    //show(currentcoordsys);
+    perpendicular(A,NE,V1-A,Fill(blue));
+    markangle(Label("$\alpha$",Relative(0.5),UnFill),n=3,radius=15,I[1],P,I[0],ArcArrow(5mm,2mm),red);
+    markangle(Label("$\alpha_2$",Relative(0.25)),n=3,radius=-5,I[1],Q,I[0],p=0.5blue);
+
+    markangle(Label("$\alpha_1$",Relative(0.5)),n=3,radius=15,I[1],P1,I[0],ArcArrow(5mm,2mm),red);
+    markangle(Label("$\gamma_1$",Relative(0.5)),n=3,radius=-15,I[1],Q1,I[0],p=0.5blue);
+
+    markangle(Label("$\alpha_3$",Relative(0.25)),n=3,radius=15,I[1],P2,I[0],ArcArrow(5mm,2mm),red);
+    markangle(Label("$\omega$",Relative(0.5)),n=3,radius=-15,I[1],Q2,I[0],p=0.5blue);
+  \end{asy}
+  \caption{}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+size(12cm,0);
+//import markers;
+import geometry;
+//import math;
+path g=scale(1)*unitcircle;
+path gg=scale(1.5)*unitcircle;
+path ggg=scale(2.1)*unitcircle;
+draw(g);
+pair A=(0,0);
+pair V=unit((1,.2));
+pair V1=rotate(90)*(V);
+pair V2=rotate(-90)*(V);
+pair V3=rotate(-90)*(V)+0.9*(V2-V1);
+path l=-2*V--2*V;
+pair[] I=intersectionpoints(l,g);
+dot(I);
+
+pair T=(0.3,-1.2), R=T+0.3*(3,-0.2);
+dot(midpoint(l));
+dot(V1^^T^^R);
+
+line l1=line(-2*V,2*V);
+
+draw(Label("$\mathcal{L}_1$",Relative(.99),align=dir(-45)), l1,
+     1bp+dashed+.8red);
+line l2=perpendicular(A,l1);
+draw(Label("$\mathcal{L}_2$",Relative(0),align=dir(90)), l2, 1bp+dashed+0.5*orange);
+line l3=parallel(V2,l1);draw(l3,green);line l4=parallel(V3,l1);draw(l4,green);
+label("$PP$",A,3*NW,UnFill);
+label("$V$",V1,W,UnFill);
+label("$P_1$",I[0],3*dir(-110),UnFill);
+label("$P_2$",I[1],2*NE,UnFill);
+
+transform proj=projection(l4);
+point Mp=proj*T;
+point Mp1=proj*R;
+dot(Mp^^Mp1);
+dot(Label("$P_T$",Mp,dir(-90),UnFill),orange);
+dot(Label("$P_R$",Mp1,dir(-90),UnFill),orange);
+dot(Label("$T$",T,W,UnFill));
+dot(Label("$R$",R,N,UnFill));
+circle C=circle(Mp,length(Mp-T));
+circle C1=circle(Mp1,length(Mp1-R));
+draw(C^^C1,dashed);
+pair[] II=intersectionpoints(l4,C);
+dot(II);
+pair[] II1=intersectionpoints(l4,C1);
+dot(II1);
+
+transform proj1=projection(l3);
+point w1=proj1*II[0], w2=proj1*II[1];
+point ww1=proj1*II1[0], ww2=proj1*II1[1];
+point T1=proj1*T, R1=proj1*R;
+dot(w1^^w2^^ww1^^ww2^^T1^^R1);
+dot("$W_1$",w1,dir(90));
+dot("$W_2$",w2,dir(-135));
+dot("$W_3$",ww1,dir(-120));
+dot("$W_4$",ww2,dir(90));
+dot("$T_1$",T1,dir(90));
+dot("$R_1$",R1,dir(90));
+draw(II[0]--w1^^II[1]--w2^^II1[0]--ww1^^II1[1]--ww2^^T--T1^^R--R1, dashed);
+draw(I[1]--w1^^I[0]--w2^^I[1]--ww1^^I[0]--ww2^^A--T1^^A--R1, dashed);
+draw(T--R, orange+linewidth(0.5mm));
+pair[] T3=intersectionpoints(T1--A,w2--I[0]);
+pair[] R3=intersectionpoints(R1--A,ww1--I[1]);
+
+dot(R3[0]);
+dot(T3[0]);
+draw(T3[0]--R3[0], orange+linewidth(0.5mm));
+pair R5=rotate(90)*(T-R)+T;
+pair RW=rotate(90)*(T-R)+R;
+dot("$R_W$",RW,E,UnFill);
+dot("$R_5$",R5,W,UnFill);
+draw(T--R5--RW--R--cycle, orange+linewidth(0.5mm));
+//draw(T--R5, orange+linewidth(0.5mm));
+point S1=proj1*R5;
+point S2=proj*R5;
+dot(S1^^S2);
+dot("$S_1$",S1,N);
+dot("$S_2$",S2,N);
+circle CC=circle(S2,length(R5-S2));
+draw(CC,dashed);
+pair[] I5=intersectionpoints(l4,CC);
+point j=proj1*I5[1], k=proj1*I5[0];
+dot(I5);
+dot(j);
+dot(k);
+draw(j--I5[1]^^k--I5[0]^^S1--R5,dashed);
+draw(j--I[0]^^k--I[1]^^S1--A,dashed);
+pair[] R9=intersectionpoints(S1--A,j--I[0]);
+dot(R9[0]);
+
+line l5=line(T3[0],R9[0]);
+line l6=line(T3[0],R3[0]);
+draw(l5^^l6,dashed+orange);
+
+//line l5=line(T3[0],R9[0]);
+line l7=line(intersectionpoint(l5,l1),R3[0]);
+line l8=line(intersectionpoint(l6,l1),R9[0]);
+draw(T3[0]--R9[0]--intersectionpoint(l7,l8)--R3[0]--cycle, orange+linewidth(0.5mm));
+draw(l7^^l8,dashed+orange);
+dot("$T_3$",intersectionpoint(l6,l1),N);
+dot("$T_8$",intersectionpoint(l7,l1),N);
+
+//show(currentcoordsys);
+
+perpendicular(A,NE,V1-A,Fill(blue));
+
+  \end{asy}
+  \caption{La hiperbola $y=\frac{\lVert PP-PD\rVert^2}{x}$}
+\end{figure}
+
+La hiperbola $$y=\frac{\lVert PP-PD\rVert^2}{x}$$
+wwwwwwwwwwwwwwwww
+
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+  size(12cm,0);
+  import geometry;
+  pair A=(0,0);
+  pair V=(1,.1);
+
+  pair V1=rotate(90)*(V);
+  pair V2=rotate(-90)*(V);
+  pair V3=rotate(-90)*(V)+0.9*(V2-V1);
+
+  path g=scale(length(A-V))*unitcircle;
+  draw(g);
+  path l=-2*V--2*V;
+  pair[] I=intersectionpoints(l,g);
+
+  pair T=(0.3,-0.8), f1=A-0.6*(A-V), f2=A+((length(A-V))^2/length(f1-A))*unit(A-V);
+  line l1=line(-2*V,2*V);
+  line l2=perpendicular(A,l1);
+  draw(Label("$\mathcal{L}_1$",Relative(.99),align=dir(-45)), l1, 1bp+dashed+.8red);
+  draw(Label("$\mathcal{L}_2$",Relative(0),align=dir(90)), l2, 1bp+dashed+0.5*orange);
+  dot("$P_1$",I[0],N);
+  dot("$P_2$",I[1],N);
+  dot("$F_1$",f1,N);
+  dot("$F_2$",f2,N);
+  dot("$PP$",A,NW);
+  dot("$V$",V1,W);
+  dot("$T$",T,dir(-90));
+  draw(T--f1^^T--f2);
+
+  pair T1=T+0.5*unit(V1-A);
+  pair T2=T+0.2*unit(f1-T);
+  dot("$T_1$",T1,dir(90));
+  dot("$T_2$",T2,dir(-50));
+  pair T3=intersectionpoint(T1--f1,T2--T2+unit(V1-A));
+  dot("$T_3$",T3,dir(50));
+  pair T4=T+0.4*unit(f2-T);
+  dot("$T_4$",T4,dir(-90));
+  pair T5=intersectionpoint(T1--f2,T4--T4+unit(V1-A));
+  dot("$T_5$",T5,N);
+  draw(T1--f1^^T1--f2,blue+dashed);
+  draw(T3--f2^^T5--f1^^T2--f2^^T4--f1,orange+dashed);
+  draw(T3--T2^^T5--T4^^intersectionpoint(T3--f2,T5--f1)--intersectionpoint(T2--f2,T4--f1)^^T--T1,yellow);
+  fill(T2--T3--intersectionpoint(T3--f2,T5--f1)--intersectionpoint(T2--f2,T4--f1)--cycle,blue);
+  fill(T4--T5--intersectionpoint(T3--f2,T5--f1)--intersectionpoint(T2--f2,T4--f1)--cycle,orange);
+  fill(T3--T2--T--T1--cycle,orange);
+  dot("$T_7$",intersectionpoint(T3--f2,T5--f1),N);
+  dot("$T_8$",intersectionpoint(T2--f2,T4--f1),N);
+
+  \end{asy}
+  \caption{}
+\end{figure}
+
+\section{Tipos}
+\section{Sombras}
+
+\chapter{Optica}
+
+\section{Reflexion}
+
+\section{Refracción}
+
+
+\chapter{Fractales}
+
+\section{Fractales 2D}
+
+
+Un comjunto $E\subset \Real^n$ es autosemejante si existe una coleccion $\xi_1,\xi_2 \cdots \xi_m$ de semejansas de $\Real^n,$ todoas ellas con razones menores a la unidad (es decri contractivas), tales que
+
+\begin{itemize}
+	\item $E\subset \bigcup^m_{i=1}\xi_i\pa{E}$
+	\item para cierrto $s$ (no necesariamente entero) se tiene ue $H^s\pa{E}>0$ y que $H^s\pa{\xi_i\pa{E}\cap \xi\pa{E}}=0,$ si $i\neq j$
+\end{itemize}
+
+Las estructuras de las superficies que observamos no son lo que parecen con una finitud limitada mas aun se puede sumergir al infinito atómicamente y averiguar mentalmente la composición estructural de tales formas, desde  la concepción de este tema e podrá cambiar el modo de ver de las cosas .
+
+\subsection{Phylotaxis}
+The beautiful arrangement de las hojas en alguna plantas, llamado phyllotaxis, obeys un munero de subtle mathematical relationships. For instance, the florets in the head of a sunflower form two oppositely directed spirals: 55 of them clockwise and 34 counterclockwise.Surprisingly, these numbers are consecutive Fibonacci numbers. The Phyllotaxis is like a Lindenmayer system.
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}[showgrid=true](-3,-3)(3,3)
+			\psPhyllotaxis[c=4,angle=111]
+		\end{pspicture}
+		\,
+		\begin{pspicture}[showgrid=true](-2.5,-2.5)(2.5,2.5)
+			\psPhyllotaxis[angle=99]
+		\end{pspicture}
+	\end{center}
+	\caption{e}
+\end{figure}
+
+
+\subsection{Cosh y sierpinsiqui}
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}[showgrid=true](0,0)(13,3.7)
+			\multido{\iA=0+1,\iB=0+2}{6}{%
+				\psKochflake[angle=-30,scale=3,maxIter=\iA](\iB,2.5)%\psdot*(\iB,2.5)
+				\psKochflake[scale=3,maxIter=\iA](\iB,0)}%\psdot*(\iB,0)
+		\end{pspicture}
+	\end{center}
+	\caption{s}\label{s}
+\end{figure}
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}[showgrid=true](-1,0)(4,5)
+			\psKochflake[scale=10,linewidth=1pt]
+		\end{pspicture}
+	\end{center}
+	\caption{copo de nieva de Cosh}
+\end{figure}
+
+
+
+
+
+
+\subsection{Arboles}
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}[showgrid=true](-7,-1)(5,8)
+			\psPTree[xWidth=1.75cm,c=0.35]
+		\end{pspicture}
+	\end{center}
+	\caption{Arbol}\label{f}
+\end{figure}
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}[showgrid=true](-3,0)(3,3.5)
+			\psFArrow[linewidth=9pt]{0.65}
+		\end{pspicture}
+		\,
+		\begin{pspicture}[showgrid=true](-4,-3)(3,3)\psset{unit=0.7}
+			\psFArrow[Color]{0.7}
+			\psFArrow[angle=90,Color]{0.7}
+		\end{pspicture}
+	\end{center}
+	\caption{e}
+\end{figure}
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}[showgrid=true](0,0)(5,4.5)
+			\psSier[linecolor=black,](0,0){5cm}{8}
+		\end{pspicture}
+	\end{center}
+	\caption{triangulo de Sierpinski}
+\end{figure}
+
+
+\subsection{Circulo de Apollonius}
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}[showgrid=true,linewidth=9pt](-4,-4)(4,4)
+			\psAppolonius[Radius=4cm]
+		\end{pspicture}
+	\end{center}
+	\caption{Circulo de Apollonius}
+\end{figure}
+
+\begin{figure}[!ht]
+	\begin{center}
+		\begin{pspicture}[showgrid=true,linewidth=9pt](-5,-5)(5,5)
+			\psAppolonius[Radius=5cm,Color]
+		\end{pspicture}
+	\end{center}
+	\caption{Circulo de Apollonius}
+\end{figure}
+
+
+
+
+\section{Fractales 3D}
+
+
+Fractales matemáticos en tres dimensiones. Introducción a los fractales. La geometría fractal estudia las formas que tienen dimensión fraccionaria.
+
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	size(200);
+	import palette;
+	import three;
+
+	currentprojection=perspective(1,1,1);
+
+	triple[] M=
+	{
+	(-1,-1,-1),(0,-1,-1),(1,-1,-1),(1,0,-1),
+	(1,1,-1),(0,1,-1),(-1,1,-1),(-1,0,-1),
+	(-1,-1,0),(1,-1,0),(1,1,0),(-1,1,0),
+	(-1,-1,1),(0,-1,1),(1,-1,1),(1,0,1),(1,1,1),(0,1,1),(-1,1,1),(-1,0,1)
+	};
+
+	surface[] Squares=
+	{
+	surface((1,-1,-1)--(1,1,-1)--(1,1,1)--(1,-1,1)--cycle),
+	surface((-1,-1,-1)--(-1,1,-1)--(-1,1,1)--(-1,-1,1)--cycle),
+	surface((1,1,-1)--(-1,1,-1)--(-1,1,1)--(1,1,1)--cycle),
+	surface((1,-1,-1)--(-1,-1,-1)--(-1,-1,1)--(1,-1,1)--cycle),
+	surface((1,-1,1)--(1,1,1)--(-1,1,1)--(-1,-1,1)--cycle),
+	surface((1,-1,-1)--(1,1,-1)--(-1,1,-1)--(-1,-1,-1)--cycle),
+	};
+
+	int[][] SquaresPoints=
+	{
+	{2,3,4,10,16,15,14,9},
+	{0,7,6,11,18,19,12,8},
+	{4,5,6,11,18,17,16,10},
+	{2,1,0,8,12,13,14,9},
+	{12,13,14,15,16,17,18,19},
+	{0,1,2,3,4,5,6,7}
+	};
+
+	int[][] index=
+	{
+	{0,2,4},{0,1},{1,2,4},{2,3},{1,3,4},{0,1},{0,3,4},{2,3},
+	{4,5},{4,5},{4,5},{4,5},
+	{0,2,5},{0,1},{1,2,5},{2,3},{1,3,5},{0,1},{0,3,5},{2,3}
+	};
+
+	int[] Sponge0=array(n=6,value=1);
+
+	int[] eraseFaces(int n, int[] Sponge0) {
+	int[] temp=copy(Sponge0);
+	for(int k : index[n]) {
+	temp[k]=0;
+	}
+	return temp;
+	}
+
+	int[][] Sponge1=new int[20][];
+	for(int n=0; n < 20; ++n) {
+	Sponge1[n]=eraseFaces(n,Sponge0);
+	}
+
+	int[][] eraseFaces(int n, int[][] Sponge1) {
+	int[][] temp=copy(Sponge1);
+	for(int k : index[n])
+	for(int n1 : SquaresPoints[k])
+	temp[n1][k]=0;
+	return temp;
+	}
+
+	int[][][] Sponge2=new int[20][][];
+	for(int n=0; n < 20; ++n)
+	Sponge2[n]=eraseFaces(n,Sponge1);
+
+	int[][][] eraseFaces(int n, int[][][] Sponge2) {
+	int[][][] temp=copy(Sponge2);
+	for(int k : index[n])
+	for(int n2: SquaresPoints[k])
+	for(int n1: SquaresPoints[k])
+	temp[n2][n1][k]=0;
+	return temp;
+	}
+
+	int[][][][] Sponge3=new int[20][][][];
+	for(int n=0; n < 20; ++n)
+	Sponge3[n]=eraseFaces(n,Sponge2);
+
+	surface s3;
+	real u=2/3;
+	for(int n3=0; n3 < 20; ++n3) {
+	surface s2;
+	for(int n2=0; n2 < 20; ++n2) {
+	surface s1;
+	for(int n1=0; n1 < 20; ++n1) {
+	for(int k=0; k < 6; ++k) {
+	if(Sponge3[n3][n2][n1][k] > 0) {
+	s1.append(scale3(u)*shift(M[n1])*scale3(0.5)*Squares[k]);
+	}
+	}
+	}
+	s2.append(scale3(u)*shift(M[n2])*scale3(0.5)*s1);
+	}
+	s3.append(scale3(u)*shift(M[n3])*scale3(0.5)*s2);
+	}
+	s3.colors(palette(s3.map(abs),Rainbow()));
+	draw(s3);
+	\end{asy}
+
+	\caption{Esponja de Menger}
+\end{figure}
+
+
+En matemáticas, la esponja de Menger (a veces llamada cubo de Menger o bien cubo o esponja de Menger-Sierpinski o de Sierpiński) es un conjunto fractal descrito por primera vez en 1926 por Karl Menger mientras exploraba el concepto de dimensión topológica
+
+Al igual que la alfombra de Sierpinski constituye una generalización bidimensional del conjunto de Cantor, esta es una generalización tridimensional de ambos. Comparte con estos muchas de sus propiedades, siendo un conjunto compacto, no numerable y de medida de Lebesgue nula. Su dimensión dimensión fractal de Hausdorff es ${ d_{H}=\log 20/\log 3\approx 2.7268}d_{H}=\log 20/\log 3\approx 2.7268$. El área de la esponja de Menger es infinita y al mismo tiempo encierra un volumen cero.
+
+
+
+
+Es de destacar su propiedad de curva universal, pues es un conjunto topológico de dimensión topológica uno, y cualquier otra curva o grafo es homeomorfo a un subconjunto de la esponja de Menger.
+
+
+La construcción de la esponja de Menger se define de forma recursiva:
+
+\begin{enumerate}
+	\item Comenzamos con un cubo (primera imagen).
+	\item Dividimos cada cara del cubo en 9 cuadrados. Esto subdivide el cubo en 27 cubos más pequeños, como le sucede al cubo de Rubik.
+	\item Eliminamos los cubos centrales de cada cara (6) y el cubo central (1), dejando solamente 20 cubos (segunda imagen).
+	\item Repetimos los pasos 1, 2 y 3 para cada uno de los veinte cubos menores restantes.
+\end{enumerate}
+La esponja de Menger es el límite de este proceso tras un número infinito de iteraciones.
+
+
+Karl Menger (Viena, Austria, 13 de enero de 1902 - Highland Park, Illinois, EE.UU., 5 de octubre de 1985) fue un matemático, hijo del famoso economista Carl Menger, conocido por el teorema de Menger. Dentro de las matemáticas trabajó en álgebra, álgebra de la geometría, teoría de la curva y la dimensión, etc. Además, contribuyó a la teoría de juegos y a las ciencias sociales.
+
+
+
+\chapter{Principios de composición}
+
+La sensibilidad es un conjunto de sentimientos que pululan en nuestro subconsciencia armonizadas por nuestro temperamento que acoge nuestro existencia es por eso que se el arte expresa esta armonía con la yuxtaposición adecuada de elementos gráficos es decir es el ritmo que genera un bello lenguaje visual dominarlo es cuestión de nuestro instinto creador conceptual de la realidad anexada a cada ser humano
+
+
+\section{Ritmo}
+
+
+Permutación de un conjunto de series (aritméticas geométricas cualquier otra que puedas inventar) convergentes o no (divergente, constantes) donde una serie puede depender de otra u otras, estas series pueden estara relacionadas con cantidades numéricas tales como ancho, largo, profundidad, distancias entre los objetos, la dirección de los ejes de los objetos con respecto un punto u otra serie, cantidad de rugosidad etcétera.
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\psset{unit=0.5}
+		\begin{pspicture}[showgrid=false](-.5,-9)(22.5,9)
+			\pstGeonode[CurveType=polygon,unit=1,PosAngle={-110,-90,135,45,135,45,135,0}](0,0)
+			{A}(1,0){B}(2,0){C}(4,0){D}(6,0){E}(10,0){F}(13,0){G}(21,0){H}
+			\psccurve[linewidth=.25pt](0,0)(0.5,-0.14)(1,0)(0.5,0.14)
+			\psccurve[showpoints=true,linewidth=0.5pt](2,0)(3,-0.625)(4,0)(3,0.625)
+			\psccurve[showpoints=true,linewidth=1pt](6,0)(7,-0.5)(8,-1.5)(10,0)(8,1.5)(7,0.5)
+			\psccurve[showpoints=true,linewidth=2pt](13,0)(15,-1)(17,-3)(21,0)(17,3)(15,1)
+			\pcline[offset=-35pt]{|<*->|*}(E)(F)\ncput*{$\beta$}
+			\pcline[offset=-30pt]{|<*->|*}(D)(E)\ncput*{$\alpha$}
+			\pcline[offset=-125pt]{|<*->|*}(G)(H)\ncput*{$2\beta$}
+			\pcline[offset=-30pt]{|<*->|*}(F)(G)\ncput*{$\alpha+1$}
+			%\psbrace*[,ref=rC](A)(E){$\beta$}
+			\pstGeonode[PointNameSep={1,1,1,1,1,1},PosAngle={-110,-90,0,0,90,110}](10,-3){P}(13,-5){Q}(21,-3){R}(21,3){S}(13,5){T}(10,3){U}
+			\pstGeonode[PointNameSep={1,1,1,1,1,1},unit=1,PosAngle={-110,-90,0,0,90,110}](4,-4){P'}(6,-6){Q'}(21,-4){R'}(21,4){S'}(6,6){T'}(4,4){U'}
+			\pstGeonode[PointNameSep={1,1,1,1,1,1},unit=1,PosAngle={-110,-90,0,0,90,110}](1,-5){P''}(3,-7){Q''}(21,-5){R''}(21,5){S''}(3,7){T''}(1,5){U''}
+			\pcline{<->}(17,-3)(17,3)\mput*{$2\theta$}
+			\pcline{<->}(8,-1.5)(8,1.5)\mput*{$\theta$}
+			\pscurve[variableLW,startLW=.5pt,endLW=5pt](H)(R)(Q)(P)\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(S)(T)(U)
+			\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(R')(Q')(P')\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(S')(T')(U')
+			\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(R'')(Q'')(P'')\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(S'')(T'')(U'')
+			%\pstLineAB{A}{C}
+			%\pstMarkAngle[]{B}{A}{C}{$\alpha^\circ$}
+			%\pstTranslation[DistCoef=0.4,PointSymbol=none,PosAngle=180]{A}{B}{B}[x]
+			%\pstTranslation[DistCoef=0.4,PointSymbol=none,PosAngle=180]{A}{D}{D}[y]
+			%\pstLineAB[nodesepA=-.4, nodesepB=-1,arrows=->]{A}{B}
+			%\pstLineAB[nodesepA=-.4, nodesepB=-1,arrows=->]{A}{D}
+		\end{pspicture}
+	\end{center}
+	\caption{Series en una Composición}\label{Ogw}
+\end{figure}
+
+\begin{enumerate}
+	\item Considerando  la progresión geometría o aritmética a cualquier otra sucesión de las distancias entre los centros de gravedad de dos objetos adyacentes de mod que guarden alguna sucesión creciente o decreciente de las longitudes entre los elementos.
+	\item la metamorfosis de su estructura que estos sufren al converger al foco visual o al divergir de ella.
+	\item el color, la textura, el tamaño, etc.
+\end{enumerate}
+
+Tenemos un ejemplo
+$AB,$ $CD,$ $EF$ y $GH$ son los objetos a los cuales se le aplico una serie en la distancia horizontal de sus longitudes tal com
+
+
+En la Figura \ref{Ogw} se observa cuatro series, la primera es aquella generada por $\alpha$ (serie aritmética $\cdots, 2\theta, cdots$) la segunda por (la serie) geométrica) $\theta$ la tercera generada por la líneas de grosor variable donde también esta serie de compone de otras series tales como la distancia entre los puntos $P'',$ $P',$ $P$ son guiados por la segunda serie anterior es decir horizontalmente coinciden con las líneas  verticales que parten de los extremos $C,$ $D,$ y $F$ respectivamente, la distribución vertical de estos puntos  obedece a otra serie finalmente la ultima
+
+
+En el siguiente ejemplo  se ganara el ritmo partir de dos series de circunferencia  concéntricas, en el primer grupo  se ubican los puntos $A, B, C$ luego se obtiene los puntos $P,$ $Q,$ y $R$ al rotar $90^{\circ}$ el punto $O$ centrado en $A,$ $B,$ y $C$ respectivamente; a partir de estos puntos se trazan tangentes sobre la segunda serie de circunferencias, ubicandose los punto $I''$ y $I'$ sobre la circunferencia menor en la serie, con la
+
+\begin{figure}[!ht]
+	\begin{center}
+		\psset{unit=0.9}
+		\begin{pspicture}(-4,-4)(8,9)
+			%\psframe(-4,-4)(7,8)\psgrid[subgriddiv=1,griddots=10]
+			\pstGeonode[PosAngle=180](0,0){O}
+			\pstGeonode[PosAngle={180,0,90}](1;0){A}(2;30){B}(4;60){C}(5,6){D}
+			\pstGeonode[PointSymbol=none, PointName=none](4,4){E}(4,5){F}
+			(5,5){G}
+			\pstCircleOA[linestyle=dashed]{O}{A}
+			\pstCircleOA[linestyle=dashed]{O}{B}
+			\pstCircleOA[linestyle=dashed]{O}{C}
+			\pstCircleOA[linestyle=dashed]{D}{E}
+			\pstCircleOA[linestyle=dashed]{D}{F}
+			\pstCircleOA[linestyle=dashed]{D}{G}
+			\pstRotation[PosAngle=-90, RotAngle=90, CodeFig=true,
+			CodeFigColor=black,DistCoef=4]{A}{O}[P]
+			\pstRotation[PosAngle=-90, RotAngle=90, CodeFig=true,
+			CodeFigColor=black,DistCoef=4,PointNameSep=.5]{B}{O}[Q]
+			\pstRotation[PosAngle=90, RotAngle=90, CodeFig=true,
+			CodeFigColor=black,DistCoef=4]{C}{O}[R]
+			\pstMiddleAB[PointSymbol=none, PointName=none]{R}{D}{A'}
+			\pstInterCC[PosAngleA=180,PosAngleB=0]{A'}{D}{D}{E}{G'}{G''}\pstLineAB[linestyle=dashed]{R}{G'}\pstLineAB[linestyle=dashed]{R}{G''}
+			\pstMiddleAB[PointSymbol=none, PointName=none]{Q}{D}{B'}
+			\pstInterCC[PosAngleA=180,PosAngleB=-5]{B'}{D}{D}{F}{H'}{H''}\psline[linestyle=dashed](Q)(H')\psline[linestyle=dashed](Q)(H'')
+			\pstMiddleAB[PointSymbol=none, PointName=none]{P}{D}{B'}
+			\pstInterCC[PosAngleA=90,PosAngleB=-90]{B'}{D}{D}{G}{I'}{I''}\psline[linestyle=dashed](P)(I')\psline[linestyle=dashed](P)(I'')
+			%\nccurve[angleA=-135,angleB=90,variableLW,startLW=1pt,endLW=20pt,]{O}{I'}
+			\pscurve[,variableLW,startLW=0.5pt,endLW=3pt](G')(G'')(P)(A)
+			\pscurve[,variableLW,startLW=0.5pt,endLW=4pt](H')(H'')(Q)(B)%showpoints=true
+			\pscurve[,variableLW,startLW=0.5pt,endLW=5pt](I')(I'')(R)(C)
+			%\pstCircleOA[Diameter=\pstDistAB{A}{O}]{C}{}
+			%\pstCircleOA[linewidth=2\pslinewidth,Diameter=\pstDistAB{B}{O}]{B}{}
+			%\pstCircleOA[linewidth=4\pslinewidth,Diameter=\pstDistAB{C}{O}]{A}{}
+		\end{pspicture}
+	\end{center}
+	\caption{series en una composición}\label{Og}
+\end{figure}
+
+
+
+
+\section{Unidad}
+
+Los lementos se repiten
+
+\section{Variedad}
+
+\begin{pspicture}(0,0)(10,10)
+\psframe(0,0)(10,10)\psgrid[subgriddiv=1,griddots=10]
+	\pstGeonode[PosAngle={0,90}](0,10){A_0}(0,0){B_0}%
+	\psset{RotAngle=90}
+	\pstRotation[PosAngle=270]{A_0}{B_0}[D_0]
+	\pstRotation[PosAngle=180]{D_0}{A_0}[C_0]
+	\pspolygon(A_0)(B_0)(C_0)(D_0)%
+	\psset{PointSymbol=none, PointName=none, HomCoef=.2}
+	\multido{\n=1+1,\i=0+1}{20}{%
+		\pstHomO[PosAngle=0]{B_\i}{A_\i}[A_\n]
+		\pstHomO[PosAngle=90]{C_\i}{B_\i}[B_\n]
+		\pstHomO[PosAngle=180]{D_\i}{C_\i}[C_\n]
+		\pstHomO[PosAngle=270]{A_\i}{D_\i}[D_\n]
+		\pspolygon(A_\n)(B_\n)(C_\n)(D_\n)}% fin multido
+\end{pspicture}
+
+
+Los elementos varian
+
+
+\section{Equilibrio}
+
+El centro de masa de objetos generan un promedio
+
+
+
+
+\begin{figure}[!ht]\centering
+\begin{asy}
+import graph;
+size(300,0);
+
+real f(real x) {return x*sin(x);}
+pair F(real x) {return (x,f(x));}
+
+dotfactor=7;
+
+void subinterval(real a, real b)
+{
+path g=box((a,0),(b,f(b)));
+filldraw(g,orange+opacity(0.1)+linewidth(1.5));
+draw(box((a,f(a)),(b,0)));
+}
+
+int a=-9, b=9;
+
+xaxis("$x$",0,b);
+yaxis("$y$",0);
+
+draw(graph(f,a,b,n=200, Hermite));
+
+int n=2;
+
+for(int i=a; i <= b; ++i) {
+if(i < b) subinterval(i,i+1);
+if(i <= n) labelx(i);
+dot(F(i));
+}
+
+int i=n;
+labelx("$\ldots$",++i);
+labelx("$k$",++i);
+labelx("$k+1$",++i);
+labelx("$\ldots$",++i);
+\end{asy}
+\caption{wwwwww}\end{figure}
+
+
+
+
+\begin{figure}[!ht]
+	\begin{asy}
+	import three;
+	import graph3;
+
+	size(300,0);
+	//create segment
+	path3 g = (0,1.2,0) ..
+	(0,0.6,1.2)..
+	(0,3,1.5)..
+	(0,0.8,2.1);
+	surface lampshade =
+	surface(g, c=O, n=100, axis=Z);
+	draw(lampshade, white);
+	//draw revolved segment for reference
+	draw(g, black);
+	dot(g, black);
+	//draw axes for reference
+	axes3("$x$","$y$","$z$", Arrow3);
+	\end{asy}
+
+	\caption{www}
+\end{figure}
+
+
+
+
+
+
+
+\begin{figure}[!ht]\centering
+\begin{asy}
+import solids;
+currentprojection=orthographic(8.5,9.5,8);
+currentlight=(0,5,5);
+
+size(300,0);
+
+real R=3, a=1, d=R+2a;
+
+// On définit un tore et on le trace.
+revolution tore=revolution(shift(R*X)*Circle(O,a,Y,32),Z);
+surface s=surface(tore);
+draw(s,white);
+
+// On définit une courbe et on la trace...
+path3 g=d*unit(X+.3Y)..0.5(X-Y)..d*unit(-X-3Y)
+..(-d,0,a)..0.5(Y-X)..d*unit(.5X+Y);
+draw(g,2bp+blue);
+// ... en indiquant en vert les 6 points la définissant.
+dot(g,4bp+green);
+
+// On définit les points d'intersection du tore et de la courbe...
+triple[] points=intersectionpoints(g,s);
+// ... que l'on place en rouge.
+dot(points,6bp+red);
+\end{asy}
+\caption{Surface linesww}\end{figure}
+
+\begin{figure}[!ht]\centering
+\begin{asy}
+import graph3;
+size(300, 0);
+currentprojection = orthographic(3, 4, 5);
+real epsilon = .0001;
+// Returns the derivative f'(t) of a parametrized function f: R -> R^3.
+triple derivative(triple f(real), real t, real dx=epsilon)
+{
+return (f(t + dx) - f(t - dx)) / 2dx;
+}
+// Returns a vector starting from `start` with a direction `direction`.
+path3 pos(triple start, triple direction)
+{
+return shift(start) * (O -- direction);
+}
+// Base vector
+triple base(real t){
+return (3cos(t / sqrt(10)), 3sin(t / sqrt(10)), t / sqrt(10));
+}
+// Tangent vector
+triple tangent(real t){
+return unit(derivative(base, t));
+}
+// Normal vector
+triple normal(real t){
+return unit(derivative(tangent, t));
+}
+// Binormal vector
+triple binormal(real t){
+return cross(tangent(t), normal(t));
+}
+// u-frame vector
+triple uFrame(real t, real u){
+return cos(u) * normal(t) + sin(u) * binormal(t);
+}
+// u-circle center
+triple uCenter(real t, real u){
+return base(t) + uFrame(t, u);
+}
+// u-circle
+path3 uCircle(real t, real u, real radius=1){
+triple n = cross(tangent(t), uFrame(t, u));
+return circle(uCenter(t, u), radius, normal=n);
+}
+// Parametrized cycloidal surface
+triple paramCycloid(real t, real u){
+assert(0 <= u && u <= 2pi, "u should be in range [0, 2pi]");
+return uCenter(t, u) - sin(t) * tangent(t) - cos(t) * uFrame(t, u);
+}
+triple paramCycloid(pair z){
+return paramCycloid(xpart(z), ypart(z));
+}
+triple principalCycloid(real t){
+return paramCycloid(t, 0);
+}
+// t range
+real tMin = 0;
+real tMax = pi * sqrt(10);
+// Draw curves
+path3 baseCurve = graph(base, tMin, tMax, operator ..);
+draw(baseCurve, black);
+
+path3 centerCurve = graph(
+new triple (real t) { return uCenter(t, 0); },
+tMin,
+tMax,
+operator ..
+);
+draw(centerCurve, orange);
+
+path3 principalCycloidCurve = graph(principalCycloid, tMin, tMax, operator ..);
+draw(principalCycloidCurve, yellow);
+
+// Draw TNB frames
+int steps = 5;
+for (int i = 0; i < steps; ++i) {
+real t = tMin + (tMax - tMin) / steps * i;
+// Current point on the base curve
+triple curr = base(t);
+dot(curr);
+draw(pos(curr, tangent(t)), red + linewidth(.4pt), arrow=Arrow3());
+draw(pos(curr, normal(t)), green + linewidth(.4pt), arrow=Arrow3());
+draw(pos(curr, binormal(t)), blue + linewidth(.4pt), arrow=Arrow3());
+draw(uCircle(t, 0), red + linewidth(.4pt));
+}
+// Draw the cycloidal surface
+var cycloidalSurface = surface(paramCycloid, (tMin, 0), (tMax, 2pi), Spline);
+var surfacepen = material(
+blue+opacity(.3),
+emissivepen=gray(.2),
+shininess=.5
+);
+draw(cycloidalSurface, surfacepen=surfacepen);
+\end{asy}
+\caption{wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww}\end{figure}
+
+
+\chapter{Formas Geométricas en el Espacio}
+Se coincidieran a los 5 solidos platónicos como figuras que tienen volumen y dimensiones relacionadas con el numero de oro pues como se demostrarará  las longitudes de las aristas con respecto a otros se relacionan en proporción áurea sus volúmenes se relaciona del mismo modo pero no se tratara en este libro por lo tedioso e casi inútil en el arte.
+
+los gráficos se realizan en perspectiva por lo que no se tomara en cuenta la deducción teniendo en cuenta que el lector conoce de estos temas  para poder recrear las figuras en sus aplicaciones
+
+
+Como en cada cada vertice concurren como minimo tres caras y la suma de los angulos de estas tiene que ser menor de $360^\circ$ se deduce quwe solo puede existir los isguinetes caso
+
+\begin{itemize}
+  \item 3 triangulos equilateros nos genera $3\times 60^\circ=180^\circ < 360^\circ$
+  \item 4 triangulos euilateros nos genera $4\times 60^\circ=240^\circ < 360^\circ$
+  \item 5 triangulos equilateros mos genera $5\times 60^\circ=300^\circ < 360^\circ$
+  \item 6 triangulos equilateros nos genera $6\times 60^\circ=180^\circ < 360^\circ$ pues debe ser menor estrictamante en este caso es igual
+  \item 3 cuadrados nos genera $3\times 90^\circ=270^\circ < 360^\circ$
+  \item 4 cuadrados nos genera $4\times 90^\circ=360^\circ < 360^\circ$ pues debe ser menor estrictamante en este caso es igual
+  \item 3 pentagonos regualares nos genera $3\times 108^\circ=324^\circ < 360^\circ$
+  \item 4 pentagonos regualares nos genera $4\times 108^\circ=432^\circ < 360^\circ$ pues debe ser menor estrictamante en este caso es igual
+\end{itemize}
+
+ Es decir solo pueden existir  5 poliedros regulares o solidos platónicos
+
+\section{El Icosaedro}
+Formado por 20 caras triangulares equiláteros iguales, 12 vertices y 20 aristas
+Se genera a partir de un pentágono inscrito en una circunferencia  clone este pentágono rotelo $36^\circ$ de modo que todos sus vertices coincidan con las medios arcos cuyas cuerdas son los lados del pentágono original y clonado  a partir de los vertices de este pentagon clonado y rotado  tracese líneas ortogonales al plano donde el pentágono esta, de longitudes $\frac{D}{\sqrt{5}}$, donde $D$ es el diámetro del circunferencia que inscribe a los dos pentágonos, luego une los extremos $A'',B'',B'',C'',D''$ y $E''$ para formar nuevamente un pentágono semejante alas anterior finalmente solo nos falta dos puntos.
+
+
+\begin{figure}[!ht]
+\begin{center}
+\begin{asy}
+import three;
+size(300,0);
+real radius=0.5, theta=36, phi=60;
+currentprojection=perspective((0.3,1,0.7));
+currentlight=Headlamp;
+real r=1.1;
+
+triple w1=radius*dir(90,0);
+triple w2=radius*dir(90,360/5);
+triple w3=radius*dir(90,2*(360/5));
+triple w4=radius*dir(90,3*(360/5));
+triple w5=radius*dir(90,4*(360/5));
+triple w6=abs(w1-w2)*Z+radius*dir(90,1*(36));
+triple w7=abs(w1-w2)*Z+radius*dir(90,3*(36));
+triple w8=abs(w1-w2)*Z+radius*dir(90,5*(36));
+triple w9=abs(w1-w2)*Z+radius*dir(90,7*(36));
+triple w10=abs(w1-w2)*Z+radius*dir(90,9*(36));
+triple w11=radius*dir(90,(36));
+triple ww12=abs(w1-w2)*Z;
+triple w12=abs(w1-w2)*Z+abs(w1-w11)*Z;
+triple w=O-abs(w1-w11)*Z;
+dot(Label("$A$"),w1,W);
+dot(Label("$B$"),w2,dir(-90));
+dot(Label("$C$"),w3,E);
+dot(Label("$D$"),w4,3*N);
+dot(Label("$E$"),w5,3*N);
+dot(Label("$F$"),w6,dir(-135));
+dot(Label("$G$"),w7,E);
+dot(Label("$H$"),w8,NE);
+dot(Label("$I$"),w9,NE);
+dot(Label("$J$"),w10,2*W);
+dot(Label("$K$"),w11,dir(-100));
+dot(Label("$L$"),w12,dir(90));
+dot(Label("$M$"),ww12,dir(0));
+dot(Label("$N$"),w,dir(-135));
+dot(Label("$O$"),O,dir(-45));
+dot(w1^^w2^^w3^^w4^^w5^^w6^^w7^^w8^^w9^^w10^^w11^^w12^^w^^O^^ww12);
+draw(surface(w7--w8--w12--cycle^^w10--w6--w12--cycle^^w9--w12--w10--cycle^^w9--w12--w8--cycle^^w1--w6--w10--cycle^^w5--w10--w9--cycle^^w5--w9--w4--cycle^^w9--w4--w8--cycle^^w3--w8--w7--cycle^^w1--w5--w10--cycle^^w--w5--w1--cycle^^w3--w4--w8--cycle^^w5--w4--w--cycle^^w4--w3--w--cycle^^w1--w2--w--cycle^^w2--w3--w--cycle^^w2--w6--w7--cycle^^w7--w6--w12--cycle^^w1--w2--w6--cycle^^w2--w7--w3--cycle), surfacepen=material(blue+opacity(0.5)));
+draw(w1--w6--w2--w7--w3--w8--w4--w9--w5--w10--cycle^^w12--w6^^w12--w7^^w12--w8^^w12--w9^^w--w1^^w--w2^^w--w3^^w--w4^^w--w5^^w1--w2--w3--w4--w5--cycle^^w6--w7--w8--w9--w10--cycle,white);
+draw(w12--w10);
+
+draw("$36^\circ$",arc(O,w1,w11),align=3*dir(90,50),  Arrows3,light=currentlight);
+
+path3 g1 = circle(c=O, r=radius, normal=Z);
+path3 g2 = circle(c=ww12, r=radius, normal=Z);
+path3 g3 = circle(c=w12, r=radius, normal=Z);
+path3 g4 = circle(c=w, r=radius, normal=Z);
+draw(g1^^g2^^g3^^g4, dashed);
+draw(surface(g3^^g4), orange+opacity(0.5));
+pen ww=linewidth(0.2mm);
+draw("$r$",w11--w6,W,dashed+ww);
+draw("$r$",O--w11,dashed+ww,Arrow3);
+draw("$r$",O--ww12,W,dashed);
+draw("$r$",w7--(w7.x,w7.y,0),W,dashed+ww);
+draw("$r$",w8--(w8.x,w8.y,0),W,dashed+ww);
+draw("$r$",w9--(w9.x,w9.y,0),W,dashed+ww);
+draw("$r$",w10--(w10.x,w10.y,0),W,dashed+ww);
+dot((w7.x,w7.y,0)^^(w8.x,w8.y,0)^^(w9.x,w9.y,0)^^(w10.x,w10.y,0));
+
+draw("$w$",ww12--w12,W,dashed+ww);
+draw("$w$",O--w,W,dashed+ww);
+draw("$w$",w11--w2,N,dashed+ww);
+draw("$w$",w10--(w10.x,w10.y,abs(O-w12)),W,dashed+ww,Arrows3);
+draw("$w$",w3--(w3.x,w3.y,-abs(O-w)),E,dashed+ww,Arrows3);
+\end{asy}
+\end{center}
+\caption{Icosaedro}\label{icow}
+\end{figure}
+
+
+
+
+
+
+\section{El Dodecaedro}
+
+
+\begin{figure}[!ht]
+\centering
+\begin{asy}
+import three;
+size(300,0);
+currentprojection=perspective((2,9.5,2));
+currentlight=Headlamp;
+real radius=0.5;
+triple w1=radius*dir(90,0);
+triple w2=radius*dir(90,360/4);
+triple w3=radius*dir(90,2*(360/4));
+triple w4=radius*dir(90,3*(360/4));
+triple w5=w1+abs(w2-w1)*Z;
+triple w6=w2+abs(w2-w1)*Z;
+triple w7=w3+abs(w2-w1)*Z;
+triple w8=w4+abs(w2-w1)*Z;
+
+draw(w1--w2--w3--w4--w1--w5--w6--w7--w8--w5^^w6--w2^^w7--w3^^w8--w4);
+dot(Label("$E$"),w5,W);
+dot(Label("$F$"),w6,SE);
+dot(Label("$G$"),w7,E);
+dot(Label("$H$"),w8,N);
+dot(Label("$A$"),w1,S);
+dot(Label("$B$"),w2,NE);
+dot(Label("$C$"),w3,E);
+dot(Label("$D$"),w4,S);
+
+triple t1=(w5+w6)/2;
+triple t2=(w6+w7)/2;
+triple t3=(w7+w3)/2;
+triple t4=(w8+w5)/2;
+triple t5=(w1+w2)/2;
+triple t6=(w6+w2)/2;
+dot(Label("$M_1$"),t1,S);
+dot(Label("$M_2$"),t2,N);
+dot(Label("$M_3$"),t3,E);
+dot(Label("$M_4$"),t4,N);
+dot(Label("$M_5$"),t5,S);
+
+
+triple w11=(w5+w7)/2;
+triple w11w=t1+(w11-t1)*(1+sqrt(5))/2;
+triple w12w=w11+(w11-t1)*(1-sqrt(5))/2;
+triple n11=w11w+abs(w11w-w12w)*0.5*Z;
+triple n12=w12w+abs(w11w-w12w)*0.5*Z;
+
+dot(Label("$R$"),w11,N);
+dot(Label("$S$"),w11w,S);
+dot(Label("$T$"),w12w,NW);
+dot(Label("$N_1$"),n11,N);
+dot(Label("$N_2$"),n12,N);
+
+/////////////////////////
+triple w12=(w6+w3)/2;
+triple w21w=t2+(w12-t2)*(1+sqrt(5))/2;
+triple w22w=w12+(w12-t2)*(1-sqrt(5))/2;
+triple n21=w21w+abs(w21w-w22w)*0.5*unit(w6-w5);
+triple n22=w22w+abs(w21w-w22w)*0.5*unit(w6-w5);
+//dot(Label("$w12$"),w12);dot(Label("$w21w$"),w21w);dot(Label("$w22w$"),w22w);dot(Label("$n21$"),n21);dot(Label("$n22$"),n22);
+
+/////////////////////////
+triple w13=(w7+w4)/2;
+triple w31w=t3+(w13-t3)*(1+sqrt(5))/2;
+triple w32w=w13+(w13-t3)*(1-sqrt(5))/2;
+triple n31=w31w+abs(w31w-w32w)*0.5*unit(w7-w6);
+triple n32=w32w+abs(w31w-w32w)*0.5*unit(w7-w6);
+//dot(Label("$w13$"),w13);dot(Label("$w31w$"),w31w);dot(Label("$w32w$"),w32w);dot(Label("$n31$"),n31);dot(Label("$n32$"),n32);
+
+/////////////////////////
+triple w14=(w8+w1)/2;
+triple w41w=t4+(w14-t4)*(1+sqrt(5))/2;
+triple w42w=w14+(w14-t4)*(1-sqrt(5))/2;
+triple n41=w41w+abs(w41w-w42w)*0.5*unit(w5-w6);
+triple n42=w42w+abs(w41w-w42w)*0.5*unit(w5-w6);
+//dot(Label("$w14$"),w14);dot(Label("$w41w$"),w41w);dot(Label("$w42w$"),w42w);dot(Label("$n41$"),n41);dot(Label("$n42$"),n42);
+
+
+/////////////////////////
+triple w15=(w5+w2)/2;
+triple w51w=t6+(w15-t6)*(1+sqrt(5))/2;
+triple w52w=w15+(w15-t6)*(1-sqrt(5))/2;
+triple n51=w51w+abs(w51w-w52w)*0.5*unit(w6-w7);
+triple n52=w52w+abs(w51w-w52w)*0.5*unit(w6-w7);
+//dot(Label("$w15$"),w15);dot(Label("$w51w$"),w51w);dot(Label("$w52w$"),w52w);dot(Label("$n51$"),n51);dot(Label("$n52$"),n52);
+
+/////////////////////////
+triple w16=(w2+w4)/2;
+triple w61w=t5+(w16-t5)*(1+sqrt(5))/2;
+triple w62w=w16+(w16-t5)*(1-sqrt(5))/2;
+triple n61=w61w+abs(w61w-w62w)*0.5*-Z;
+triple n62=w62w+abs(w61w-w62w)*0.5*-Z;
+//dot(Label("$w16$"),w16);dot(Label("$61w$"),w61w);dot(Label("$62w$"),w62w);dot(Label("$n61$"),n61);dot(Label("$n62$"),n62);
+
+draw(w61w--n61, blue,Arrows3(size=5bp));
+draw(w62w--n62, blue,Arrows3(size=5bp));
+draw(w52w--n52, blue,Arrows3(size=5bp));
+draw(w51w--n51, blue,Arrows3(size=5bp));
+draw(w42w--n42, blue,Arrows3(size=5bp));
+draw(w41w--n41, blue,Arrows3(size=5bp));
+draw(w32w--n32, blue,Arrows3(size=5bp));
+draw(w31w--n31, blue,Arrows3(size=5bp));
+draw(w22w--n22, blue,Arrows3(size=5bp));
+draw(w21w--n21, blue,Arrows3(size=5bp));
+draw(w11w--n11, blue,Arrows3(size=5bp));
+draw(w12w--n12, blue,Arrows3(size=5bp));
+draw(t1-- w11w);
+draw(t2--w21w);
+draw(t3--w31w);
+draw(t4--w41w);
+draw(t6--w51w);
+draw(t5--w61w);
+
+draw(surface(
+  n11--n12--w5--n42--w8--cycle^^n11--n12--w6--n22--w7--cycle
+    ^^n21--n22--w6--n52--w2--cycle^^n21--n22--w7--n32--w3--cycle
+    ^^n31--n32--w7--n11--w8--cycle^^n31--n32--w3--n61--w4--cycle
+    ^^n41--n42--w8--n31--w4--cycle^^n41--n42--w5--n51--w1--cycle
+    ^^n51--n52--w6--n12--w5--cycle^^n51--n52--w2--n62--w1--cycle
+    ^^n61--n62--w2--n21--w3--cycle^^n61--n62--w1--n41--w4--cycle
+  ), surfacepen=material(palegreen+opacity(0.6)));
+draw(n11--n12--w5--n42--w8--cycle^^n11--n12--w6--n22--w7--cycle
+    ^^n21--n22--w6--n52--w2--cycle^^n21--n22--w7--n32--w3--cycle
+    ^^n31--n32--w7--n11--w8--cycle^^n31--n32--w3--n61--w4--cycle
+    ^^n41--n42--w8--n31--w4--cycle^^n41--n42--w5--n51--w1--cycle
+    ^^n51--n52--w6--n12--w5--cycle^^n51--n52--w2--n62--w1--cycle
+    ^^n61--n62--w2--n21--w3--cycle^^n61--n62--w1--n41--w4--cycle, white);
+	\end{asy}
+\caption{\label{pointsw}Dodecaedro}
+\end{figure}
+
+Solido constituido de 12 caras pentagonales 12 aristas (8 del cubo y 12 generadas en cada una de las caras por el método que se describirá) y 30 aristas cada cada pentágono se constituye de lados que se relación con el numero de oro como  ya se vio anteriormente, veamos como  se relaciona sus diagonales  es decir las líneas que reculatan de unir puntos no contiguas
+
+Se  obtiene un cubo las seis caras se dividen por la mitad de modo de que esas divisiones no se continúen es decir opuestos por ejemplo ($i'j'$ y $a'b'$) cada una de esas líneas  divídalos en dos segmentos iguales, sobre estas a la ves  obtenga las secciones áureas $u$ y $u'$   de los segmentos $i'o$ y $oj'$ con los segmento menores $i'o$ y $u'j'$ cercanos a las aristas del cubo respectivamente, luego de haber obtenido estos 2 secciones áureas (dos en cada unas de las caras del cubo) levántese líneas ortogonales $a'B,$ $uA$ y $iE'$ a las caras desde los puntos $u,$ $u'$ y $i'$ de longitud $ou'$ (el segmento mayor obtenido en el proceso anterior, de hallar la sección áurea) el proceso culmina al unir los vertices consecutivos del cubo con las puntos obtenidos en la proceso anterior, con los extremos de los segmentos tres ortogonales levantados anteriormente por ejemplo una de las caras del dodecaedro emerge al unir los puntos $ABeE'a$ el siguiente será el pentagono $aE'F'bE$
+
+
+Ahora analicemos la longitud de los aristas, observe el plano que pasa por el centro del cubo que tiene por vertices a los puntos $ABCD$ este plano genera una sección sobre el dodecaedro llamada sección principal que es un hexágono irregular que tiene dos lados opuestos que son aristas del dodecaedro y los otro cuatro son medianas de los  de la cuatro caras.
+
+\section{El Octaedro}
+
+
+\begin{figure}[!ht]
+\begin{asy}
+import three;
+import graph3;
+size(300,0);
+currentprojection=perspective((1,2,1.2));
+currentlight=Headlamp;
+real radius=0.5;
+triple w1=radius*dir(90,45);
+triple w2=radius*dir(90,135);
+triple w3=radius*dir(90,180+45);
+triple w4=radius*dir(90,180+135);
+triple w5=O+abs(O-w1)*Z;
+triple w6=O-abs(O-w1)*Z;
+
+dot(Label("$E$"),w5,W+N);
+dot(Label("$F$"),w6,SE);
+dot(Label("$A$"),w1,S);
+dot(Label("$B$"),w2,S);
+dot(Label("$C$"),w3,E);
+dot(Label("$D$"),w4,W);
+draw(surface(
+  w1--w2--w5--cycle
+  ^^w2--w3--w5--cycle
+  ^^w3--w4--w5--cycle
+  ^^w4--w1--w5--cycle
+  ^^w1--w2--w6--cycle
+  ^^w2--w3--w6--cycle
+  ^^w3--w4--w6--cycle
+  ^^w4--w1--w6--cycle
+  ), surfacepen=material(palegreen+opacity(0.9)));
+	draw(
+	  w1--w2--w5--cycle
+	  ^^w2--w3--w5--cycle
+	  ^^w3--w4--w5--cycle
+	  ^^w4--w1--w5--cycle
+	  ^^w1--w2--w6--cycle
+	  ^^w2--w3--w6--cycle
+	  ^^w3--w4--w6--cycle
+	  ^^w4--w1--w6--cycle
+	  , white);
+	draw("$OA$",O--0.5Z,W,Arrows3);
+
+	draw(Label("$x$",position=EndPoint,align=dir(-90)),O--0.1X,Arrow3);draw(O--0.3X);
+	draw(Label("$y$",position=EndPoint,align=N),O--0.1Y,Arrow3);draw(O--0.3Y);
+	draw(Label("$z$",position=EndPoint,align=W),O--0.1Z,Arrow3);draw(O--0.3Z);
+\end{asy}
+ \caption{Octaedro}\label{oc}
+\end{figure}
+
+Generemos el cuadrado  $ABCD$ inscrito en una circunferencia, por el punto medio de esta circunferencia levantemos la linea $OF$ y $OF'$ de longitud $OA$ que es la mitad de la diagonal de cuadrado $ABCD,$ e fácil verificar que este sea la altura del octaedro pues cada lado es un triángulo equilátero tratemos de generar un triángulo rectángulo para poder aplicar el Teorema de Pitágoras, entonces si proyectamos el punto $O$ perpendicularmente al  segmento $AB$ obtenemos el segmento $OP$ este tiene longitud $\frac{AD}{2},$ también proyectemos el punto $F$ al segmento $AB$ así generamos el segmento $FP$ de longitud $AD\frac{\sqrt{3}}{2}$ finalmente aplicaremos el teorema de Pitágoras para obtener $OF^2+OP^2=FP^2\Longleftrightarrow OF^2=\pa{AD\frac{\sqrt{3}}{2}}^2-\pa{\frac{AD}{2}}^2
+=\pa{\frac{AD}{2}}^22$ de donde $OF=\frac{AD}{\sqrt{2}}$ que verifica que $OF=AO$
+
+
+Generemos el cuadrado  $ABCD$ inscrito en una circunferencia, por el punto medio de esta circunferencia levantemos la linea $OF$ y $OF'$ de longitud $OA$ que es la mitad de la diagonal de cuadrado $ABCD,$ e fácil verificar que este sea la altura del octaedro pues cada lado es un triángulo equilátero tratemos de generar un triángulo rectángulo para poder aplicar el Teorema de Pitágoras, entonces si proyectamos el punto $O$ perpendicularmente al  segmento $AB$ obtenemos el segmento $OP$ este tiene longitud $\frac{AD}{2},$ también proyectemos el punto $F$ al segmento $AB$ así generamos el segmento $FP$ de longitud $AD\frac{\sqrt{3}}{2}$ finalmente aplicaremos el teorema de Pitágoras para obtener $OF^2+OP^2=FP^2\Longleftrightarrow OF^2=\pa{AD\frac{\sqrt{3}}{2}}^2-\pa{\frac{AD}{2}}^2
+=\pa{\frac{AD}{2}}^22$ de donde $OF=\frac{AD}{\sqrt{2}}$ que verifica que $OF=AO$
+
+
+
+\section{El Exaedro o Cubo}
+
+\begin{figure}[!ht]
+\centering
+\begin{asy}
+import graph3;
+size(300,0);
+currentprojection=perspective((1,2,1.2));
+currentlight=Headlamp;
+real radius=0.5;
+triple w1=radius*dir(90,45);
+triple w2=radius*dir(90,135);
+triple w3=radius*dir(90,180+45);
+triple w4=radius*dir(90,180+135);
+triple w5=w1+abs(w2-w1)*Z;
+triple w6=w2+abs(w2-w1)*Z;
+triple w7=w3+abs(w2-w1)*Z;
+triple w8=w4+abs(w2-w1)*Z;
+
+dot(Label("$A$"),w1,W);
+dot(Label("$B$"),w2,SE);
+dot(Label("$C$"),w3,E);
+dot(Label("$D$"),w4,W);
+dot(Label("$E$"),w5,dir(-135));
+dot(Label("$F$"),w6,E);
+dot(Label("$G$"),w7,N);
+dot(Label("$H$"),w8,W);
+draw(surface(
+  w1--w2--w3--w4--cycle
+  ^^w5--w6--w7--w8--cycle
+  ^^w1--w2--w6--w5--cycle
+  ^^w2--w3--w7--w6--cycle
+  ^^w3--w4--w8--w7--cycle
+  ^^w1--w4--w8--w5--cycle
+  ), surfacepen=material(palegreen+opacity(0.5)));
+draw(
+  w1--w2--w3--w4--cycle
+  ^^w5--w6--w7--w8--cycle
+  ^^w1--w2--w6--w5--cycle
+  ^^w2--w3--w7--w6--cycle
+  ^^w3--w4--w8--w7--cycle
+  ^^w1--w4--w8--w5--cycle
+  , white);
+draw(Label("$x$",position=EndPoint,align=dir(-90)),O--0.1X,Arrow3);draw(O--0.3X);
+draw(Label("$y$",position=EndPoint,align=N),O--0.1Y,Arrow3);draw(O--0.3Y);
+draw(Label("$z$",position=EndPoint,align=W),O--0.1Z,Arrow3);draw(O--0.3Z);
+\end{asy}
+  \caption{Cubo}\label{cu}
+\end{figure}
+
+Formado por seis caras cuadrados iguales, ocho vertices y doce aristas la sección principal pasa por dos aristas opuestas y hay seis des estas secciones en un cubo tales como, debemos destacar que $\frac{DF}{3}$
+Hay que demostrar como se forma el cubo y cual es la proporción entre su lado y el diámetro de la esfera que lo circumscribe exactamente, tómese el diámetro de la esfera en la que se prepone colocarlo exactamente y sea este la linea $AB,$ sobre la cula se trasa el semicírculo $ADB$ luego divídalas el diámetro en el punto $C$ de manera que $AC=2BC$ tracsece la linea $CD$ perpendicular a la linea $AB$ además tracese las líneas $BC$ y $CA.$ Haga luego un cuadrado cuyos lados iguales a la linea $BD$
+
+luego se verifica que $3BD^2=AB^2\Longleftrightarrow AB=\sqrt{3}BD$
+
+
+\section{El Tetraedro}
+
+
+\begin{figure}[!ht]
+\centering
+\begin{asy}
+import three;
+import graph3;
+size(300,0);
+currentprojection=perspective((0.5,0.5,0.1));
+currentlight=Headlamp;
+real radius=0.5;
+triple w1=radius*dir(90,60);
+triple w2=radius*dir(90,180);
+triple w3=radius*dir(90,360-60);
+triple w4=O+sqrt((abs(w2-w1)*sin(radians(60)))^2-(abs(w2-w1)/2*sin(radians(30)))^2)*Z;
+//write(abs(w2-w1));
+//write(abs(w4-w1));
+
+draw("$\sqrt{(L\sin(60))^2-(\frac{L}{2}\sin(30))^2}$",O--w4,W,Arrows3);
+
+dot(Label("$A$"),w1,S);
+dot(Label("$B$"),w2,E);
+dot(Label("$C$"),w3,W);
+dot(Label("$D$"),w4,W);
+draw(surface(
+  w1--w2--w4--cycle
+  ^^w2--w3--w4--cycle
+  ^^w3--w1--w4--cycle
+  ^^w3--w1--w2--cycle
+  ), surfacepen=material(palegreen+opacity(0.5)));
+
+draw(w1--w2--w4--cycle
+  ^^w2--w3--w4--cycle
+  ^^w3--w1--w4--cycle
+  ^^w3--w1--w2--cycle, white);
+
+draw(Label("$x$",position=EndPoint,align=dir(-90)),O--0.3X,Arrow3);draw(O--0.5X);
+draw(Label("$y$",position=EndPoint,align=N),O--0.4Y,Arrow3);draw(O--0.5Y);
+draw(Label("$z$",position=EndPoint,align=W),O--0.8Z,Arrow3);draw(O--0.2Z);
+\end{asy}
+  \caption{Tetraedro}\label{u}
+\end{figure}
+
+El tetraedro es mu y fácil de construir sea el triángulo equilátero $ABC$ a partir de su centro $O$ se lavanda una  ortogonal $OF=r\sqrt{2}$ donde $r$ es la radio de la circunferencia que circumscribe al triángulo
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%555555555555
+
+
+\chapter{Proporcion y canon}
+
+
+\section{Proporcion en el arte}
+\section{Proporcion directa}
+\section{Proporcion inversa}
+\section{Canon}
+
+\subsection{Canon griego}
+\subsection{Canon egipcio}
+\subsection{Canon andino}
+El buen gusto por la perfección exquisitas llevo a los generadores de formas reales o abstractas a concebir cañones y reglas, la analogía de la sección áurea con muchas areas de la ciencia no explica como el numero del promedio entre el caos y el orden los rectángulos estáticos'' no producen divisiones armónicas, no obstante los rectángulos dinámicos producen las mas variadas y satisfactorias subdivisiones  y combinaciones distintas sin encontrar antagonismos entre ellos mas aun viéndolas unirse entre ellas para genera un solo objeto bidimensionales  por ejemplo el $\sqrt{5}$ se compone de muchos de el mismo y del rectángulo $\phi$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\index{wwwwwwwwwwwwwwww}
+
+%\begin{figure}[!ht]
+%\begin{center}
+%\pspicture[showgrid=true](-2,-2)(2,2)
+%\psfractal[type=Mandel, xWidth=6cm,yWidth=4.8cm, baseColor=white,dIter=10](-2,-1.2)(1,1.2)
+%\endpspicture
+%\end{center}
+%  \caption{e}
+%\end{figure}
+%\renewcommand{\bibname}{REFERENCIAS BIBLIOGRÁFICAS}
+
+\bibliographystyle{apacite}
+\bibliography{bb}
+\addcontentsline{toc}{chapter}{Indices}
+\printindex
+
+
+
+\appendix
+\pagenumbering{roman}
+\setcounter{page}{1}
+\chapter{Sistemas de coordenadas}
+
+\section{Coordenas cartesianas}
+
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+  import graph3;
+  import three;
+
+  //size(300,0);
+  size3(300,IgnoreAspect);
+
+  currentprojection=perspective(2,1,1);
+  triple P=(1,1,1);
+  scale(Linear,Linear,Linear);
+  dot("$P=(x,y,z)$",(1,1,1),dir(-35));
+  dot("$W=(x,y,0)$",(1,1,0),dir(-45));
+  dot("$Q=(x,y,0)$",(1,0,0),dir(165));
+  dot("$R=(x,y,0)$",(0,1,0),dir(35));
+  draw(box(O,P),dashed);
+  xaxis3("$x$",0,1.5,red,OutTicks(2,2));
+  yaxis3("$y$",0,1.5,red,OutTicks(2,5));
+  zaxis3("$z$",0,1.5,red,OutTicks(2,2));
+
+  \end{asy}
+  \caption{}
+\end{figure}
+\section{Coordenas esfericas}
+
+
+El sistema de coordenadas esféricas se basa en la misma idea que las coordenadas\index{coordenadas} index{coordenadas!polares} polares y se utiliza para determinar la posición espacial de un punto mediante una distancia y dos ángulos. En consecuencia, un punto P queda representado por un conjunto de tres magnitudes: el radio r, el ángulo polar o colatitud $\theta$  y el azimutal $\varphi$.
+
+Algunos autores utilizan la latitud, en lugar de colatitud, en cuyo caso su margen es de -90 a 90 (de $-\pi/2$ a $\pi/2$ radianes), siendo el cero el plano $XY$. También puede variar la medida del azimutal, según se mida el ángulo en sentido reloj o contrarreloj, y de 0 a 360 (0 a $2\pi$ en radianes) o de -180 a +180 ($-\pi$ a $-\pi$).
+
+La mayoría de los físicos, ingenieros y matemáticos no norteamericanos escriben:
+
+\begin{enumerate}
+  \item $\varphi$ , el azimutal  : de 0 a 360
+  \item $\theta$ , la colatitud : de 0 a 180
+\end{enumerate}
+Esta es la convención que se sigue en este artículo. En el sistema internacional, los rangos de variación de las tres coordenadas son:
+$0\leq r<\infty \qquad 0\leq \theta \leq \pi \qquad 0\leq \varphi <2\pi$
+
+La coordenada radial es siempre positiva. Si reduciendo el valor de $r$ llega a alcanzarse el valor 0, a partir de ahí, $r$; vuelve a aumentar, pero $\theta$  pasa a valer $\pi-\theta$  y $\varphi$  aumenta o disminuye en $\pi$ radianes.
+
+\begin{figure}[!ht]
+	\begin{asy}
+import three;
+import math;
+import solids;
+
+
+size(300,0);
+
+pen thickp=linewidth(0.5mm);
+real radius=1, lambda=37, aux=60;
+
+currentprojection=perspective(1,1,0.5);
+
+
+revolution sphere=sphere(1);
+draw(surface(sphere),green+opacity(0.2));
+draw(sphere,m=7,blue);
+
+// Planes
+//pen bg=gray(0.9)+opacity(0.5);
+//draw(surface((1.2,0,0)--(1.2,0,1.2)--(0,0,1.2)--(0,0,0)--cycle),bg);
+//draw(surface((0,1.2,0)--(0,1.2,1.2)--(0,0,1.2)--(0,0,0)--cycle),bg);
+//draw(surface((1.2,0,0)--(1.2,1.2,0)--(0,1.2,0)--(0,0,0)--cycle),bg);
+
+real r=1.1;
+pen p=rgb(0,0.7,0);
+draw(Label("$x$",1),O--r*X,p,Arrow3);
+draw(Label("$y$",1),O--r*Y,p,Arrow3);
+draw(Label("$z$",1),O--r*Z,p,Arrow3);
+label("$O$",(0,0,0),W);
+draw(unitsphere, orange+opacity(0.5));
+// Point Q
+triple pQ=radius*dir(lambda,aux);
+draw(O--radius*dir(90,aux),dashed);
+label("$ Q$",pQ,N+3*W);
+draw("$\lambda$",arc(O,0.15pQ,0.15*Z),N+0.3E);
+
+
+// Particle
+triple m=pQ-(0.26,-0.4,0.28);
+real width=5;
+dot("$m$",m,SE,linewidth(width));
+draw("${\rho}$",(0,0,0)--m,Arrow3,PenMargin3(0,width));
+draw("${r}$",pQ--m,Arrow3,PenMargin3(0,width));
+
+// Spherical octant
+real r=sqrt(pQ.x^2+pQ.y^2);
+draw(arc((0,0,pQ.z),(r,0,pQ.z),(0,r,pQ.z)),dashed);
+draw(arc(O,radius*Z,radius*dir(90,aux)),dashed);
+draw(arc(O,radius*Z,radius*X),thickp);
+draw(arc(O,radius*Z,radius*Y),thickp);
+draw(arc(O,radius*X,radius*Y),thickp);
+
+// Moving axes
+triple i=dir(90+lambda,aux);
+triple k=unit(pQ);
+triple j=cross(k,i);
+
+draw(Label("$x$",1),pQ--pQ+0.2*i,2W,red,Arrow3);
+draw(Label("$y$",1),pQ--pQ+0.32*j,red,Arrow3);
+draw(Label("$z$",1),pQ--pQ+0.26*k,red,Arrow3);
+
+draw("${R}$",O--pQ,Arrow3,PenMargin3);
+draw("$\omega{K}$",arc(0.9Z,0.2,90,-120,90,160,CW),1.2N,Arrow3);
+	\end{asy}
+	\caption{Coordenadas esféricas}
+\end{figure}
+
+
+
+
+\section{Coordenas cilindricas}
+
+El sistema de coordenadas cilíndricas es muy conveniente en aquellos casos en que se tratan problemas que tienen simetría de tipo cilíndrico o azimutal. Se trata de una versión en tres dimensiones de las coordenadas polares de la geometría analítica plana.
+
+Un punto $P$ en coordenadas cilíndricas se representa por $(\rho ,\varphi ,z)$ donde:
+\begin{enumerate}
+  \item $\rho$ : Coordenada radial, definida como la distancia del punto $P$ al eje $z$, o bien la longitud de la proyección del radiovector sobre el plano $XY$
+   \item  $\varphi$ : Coordenada azimutal, definida como el ángulo que forma con el eje $X$ la proyección del radiovector sobre el plano $XY$.
+   \item  $z$: Coordenada vertical o altura, definida como la distancia, con signo, desde el punto P al plano $XY$.
+
+\end{enumerate}
+Los rangos de variación de las tres coordenadas son $0\leq \rho <\infty, 0\leq \varphi <2\pi, -\infty <z<\infty.$
+
+La coordenada azimutal $\varphi$  se hace variar en ocasiones desde $-\phi$ a $\pi$. La coordenada radial es siempre positiva. Si reduciendo el valor de $\rho$  llega a alcanzarse el valor 0, a partir de ahí, $\rho$  vuelve a aumentar, pero $\varphi$  aumenta o disminuye en $\pi$ radianes.
+
+Teniendo en cuenta la definición del ángulo $\varphi$ , obtenemos las siguientes relaciones entre las coordenadas cilíndricas y las cartesianas: $x=\rho \cos \varphi , y=\rho \sin \varphi ,z=z$
+
+
+\begin{figure}[!ht]
+\begin{asy}
+import three;
+import math;
+import solids;
+
+currentprojection=perspective(2,1,1);
+size(300,0);
+
+//pen thickp=linewidth(0.5mm);
+real rho=1, phi=60, z=1.5/2;
+//draw(unitcylinder,material(palegray+opacity(0.25),shininess=0.5));
+
+real r=1.1;
+pen p=black;
+draw(Label("$x$",1),O--r*X,p,Arrow3);
+draw(Label("$y$",1),O--r*Y,p,Arrow3);
+draw(Label("$z$",1),O--r*Z,p,Arrow3);
+label("$\rm O$",(0,0,0),-1.5Y-X);
+
+triple Q=(rho*Cos(phi),rho*Sin(phi),z);
+dot("$(x,y,z)$",Q);
+draw(Q--(Q.x,Q.y,0),dashed+blue);
+draw(O--rho*dir(90,phi),dashed+blue);
+draw((0,0,Q.z)--Q,dashed+blue);
+draw("$\varphi$",arc(O,0.15*X,0.15*dir(90,phi)),align=6*dir(90,phi/3)+Z,Arrow3);
+draw("$\rho$",(0,0,0)--(Q.x,Q.y,0),align=-Y+2X,DotMargin3);
+draw("$r$",O--Q,align=2*dir(90,phi),Arrow3,DotMargin3);
+
+revolution hyperboloid=revolution(graph(new triple(real z) {
+      return (1,0,z);},0,1.5,20,operator ..),axis=Z);
+draw(surface(hyperboloid),yellow+opacity(0.3),render(compression=Low,merge=true));
+draw(hyperboloid,3,white+0.15mm,longitudinalpen=nullpen);
+
+\end{asy}
+\end{figure}
+
+\section{Transformacion de coordenas}
+
+\section{Dirección de una linea 2D y 3D}
+
+
+Analogue of spherical coordinates in $n$-dimensions
+
+\begin{enumerate}
+\item Recta en dos bidimensiones two dimensions, you can use polar coordinates:
+\item Recta en 3 bidimensiones, you can use spherical coordinates:
+\item Recta en $n$ bidimensiones, you can use hyperspherical coordinates.
+\end{enumerate}
+
+But basically, in any n-dimensional space, you'll have one length coordinate and (n-1) angle coordinates.
+
+\chapter{Recta y plano}
+
+
+\section{Vector}
+
+\begin{asy}
+import graph3;
+import three;
+
+size3(12cm,IgnoreAspect);
+
+currentprojection=perspective(2,1,1);
+triple P=(1,1,1);
+triple P1=(-1,1.5,0.5);
+scale(Linear,Linear,Linear);
+dot("$P=(x,y,z)$",P,dir(45));
+dot("$W=(x,y,0)$",(1,1,0),dir(-45));
+dot("$P_1=(x,y,0)$",P1,dir(45));
+dot("$Q=(x,y,0)$",(1,0,0),dir(165));
+dot("$R=(x,y,0)$",(0,1,0),dir(35));
+draw(box(O,P),dashed);
+xaxis3("$x$",0,1.5,red,OutTicks(2,2));
+yaxis3("$y$",0,1.5,red,OutTicks(2,5));
+zaxis3("$z$",0,1.5,red,OutTicks(2,2));
+
+draw(Label("$\mathcal{L}_1$",Relative(.9),align=dir(90)), P+2*unit(P-P1)--P1+2*unit(P1-P));
+draw(Label("$\vec{v}_1$",Relative(.5),align=dir(90)),shift(0.05*P) * (P-0.3*unit(P-P1)--P1+0.3*unit(P-P1)), orange, arrow=Arrow3());
+draw(O--2X ^^ O--2Y ^^ O--2Z);
+triple circleCenter = (Y+Z)/sqrt(2) + X;
+path3 mycircle =circle(c=circleCenter, r=1,normal=Y+Z);
+draw(plane(O=sqrt(2)*Z, 2X, 2*unit(Y-Z)), gray + 0.1cyan);
+draw(mycircle, blue);
+draw(shift(circleCenter)*(O -- Y+Z), green, arrow=Arrow3());
+
+\end{asy}
+
+\section{Recta}
+
+\section{Plano}
+
+
+\chapter{La forma y elementos}
+
+\section{Centro de masa}
+
+\section{Eje de una forma}
+
+\section{Volumen}
+
+\section{Simplicaciones de la forma}
+
+
+\chapter{Transformaciones}
+
+\section{Transformaciones elementales}
+\subsection{Traslacion}
+
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	import solids;
+	import  obj;
+	settings.render=-1;
+	size3(200,0);
+	size(300);
+	currentprojection=perspective(3,3,-1);
+	currentlight=Headlamp;
+	triple t=(0,3 ,0);
+	triple vectaxe=(1,0,0);
+
+	triple pA=(-3,0,0), pB=(0,3,0), pC=(0,0,3), pE=(0,0,3);
+	transform3 sym=reflect(X,Z,O);
+	transform3 r=rotate(0,vectaxe);
+	triple p1=(1.3125,-0.531249,0.054691);
+	triple p2=(0.328125,0.398431,-0.914065);
+	draw(p1--shift(t)*p1,blue+dashed, Arrow3);
+	draw(p2--shift(t)*p2,blue+dashed, Arrow3);
+	dot(p1^^p2^^shift(t)*p1^^shift(t)*p2);
+
+	dot(Label("$A$",align=dir(-90)),p1);
+	dot(Label("$C$",align=dir(-90)),p2);
+	dot(Label("$B$",align=dir(-90)),shift(t)*p1);
+	dot(Label("$D$",align=dir(-90)),shift(t)*p2);
+
+	draw(obj("www.obj",paleyellow+opacity(0.9)));
+	draw(shift(t)*obj("www.obj",paleblue+opacity(0.9)));
+	axes3("$x$","$y$","$z$", Arrow3);
+	/*
+	//close(in);
+	write(vert[334]);
+	//for(int i=300; i<400;++i){
+	//write(i);
+	//write(vert[i]);
+	//dot(Label((string) i, fontsize(3pt)),vert[i]);
+	};
+	*/
+	\end{asy}
+	\caption{Traslation}
+\end{figure}
+
+ \subsection{Rotation}
+
+ Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+ Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	import three;
+	size(300,0);
+	currentprojection=perspective(3,1,2);
+	currentlight=light((0,0,3),(0,0,-3));
+	triple vectaxe=(1,0,0);
+	transform3 r=rotate(-100,vectaxe);
+	triple pA=(1.5,0.9,1), pB=(4,0,1), pC=(1.2,0,4), p1=(2,-0.9,1.5);
+	path3 tri=pA--pB--pC--cycle;
+	path3 tri1=pA--p1--pC--cycle;
+	path3 tri2=p1--pB--pC--cycle;
+	path3 tri3=pA--pB--p1--cycle;
+	path3 trip=r*tri;
+	path3 trip1=r*tri1;
+	path3 trip2=r*tri2;
+	path3 trip3=r*tri3;
+	draw(surface(tri^^tri1^^tri2^^tri3^^trip^^trip1^^trip2^^trip3),orange+opacity(0.5));
+	draw(O--X,Arrow3); // En attendant
+	draw(O--Y,Arrow3); // d’avoir les axes
+	draw(O--Z,Arrow3); // avec graph3.asy
+	label("$x$", 2*X, NW);
+	label("$y$", 2*Y, SE);
+	label("$z$", Z, E);
+	dot(p1^^pA^^pB^^pC^^r*pA^^r*pB^^r*pC^^r*p1);
+	pen dotteddash=linetype("0 4 4 4"),
+	p2=.8bp+blue;
+	draw((-1,0,0)--(4,0,0),red);
+	draw(pA--(pA.x,0,0)--r*pA,red+dotteddash);
+	draw(pB--(pB.x,0,0)--r*pB,red+dotteddash);
+	draw(pC--(pC.x,0,0)--r*pC,red+dotteddash);
+	draw(arc((pA.x,0,0),pA,r*pA,CCW),p2,Arrow3);
+	draw(arc((pB.x,0,0),pB,r*pB,CCW),p2,Arrow3);
+	draw(arc((pC.x,0,0),pC,r*pC,CCW),p2,Arrow3);
+	\end{asy}
+	\caption{Rotation}
+\end{figure}
+
+\subsection{Simetry}
+
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	import graph3;
+	import three;
+	settings.render=-1;
+	currentprojection=perspective(3,7,2);
+	currentlight=light((0,0,3),(0,0,-3));
+	size(300,0);
+	transform3 ag=scale(1.7,2,0.7);
+	triple pA=(-3,0,0), pB=(0,3,0), pC=(0,0,3), pE=(0,0,3);
+	transform3 sym=reflect(pA,pB,pC);
+	draw(ag*unithemisphere,yellow+opacity(0.7), meshpen=brown+thick());
+	draw(sym*ag*unithemisphere,red+opacity(0.7), meshpen=brown+thick());
+	triple pS=(0,0,0.7), pE=(0,2,0);
+	draw(pS--sym*pS,paleblue);
+	draw(pE--sym*pE,paleblue);
+	dot((pS+sym*pS)/2);
+	dot((pE+sym*pE)/2);
+	draw((pS+sym*pS)/2--(pE+sym*pE)/2, dashed);
+	dot(pS^^pE^^sym*pS^^sym*pE);
+	label("$P$", pS, 2NW);
+	label("$Q$", pE, SW);
+	label("$P'$", sym*pS, NW);
+	label("$Q'$", sym*pE, SE);
+	triple ww=unit(cross(sym*pS-pS,sym*pS-sym*pE));
+	draw(surface(plane(O=(pE+sym*pE)/2-unit((pS+sym*pS)/2-(pE+sym*pE)/2)-ww, 2*ww, 2*((pS+sym*pS)/2-(pE+sym*pE)/2))), blue + opacity(0.6));
+
+	draw("$90^\circ$",arc((pS+sym*pS)/2,(pS+sym*pS)/2-0.3*unit((pS-sym*pS)/2),(pE+sym*pE)/2),align=3*Y,  Arrows3,light=currentlight);
+	axes3("$x$","$y$","$z$", Arrows3);
+
+	\end{asy}
+	\caption{Simetry}
+\end{figure}
+\subsection{Homotecia}
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+Las traslaciones pueden entenderse como movimientos directos sin cambios de orientación, es decir, mantienen la forma y el tamaño de las figuras u objetos trasladados, a las cuales deslizan según el vector. Dado el carácter de isometría para cualquier punto X y H se cumple la siguiente identidad entre distancias:
+
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	import graph3;
+	import three;
+	size3(200,0);
+	currentprojection=perspective(4,6,-3);
+	//triple pA=(-3,0,0), pB=(0,3,0), pC=(0,0,3), pE=(0,0,3);
+	//path3 gg=pA--pB--pC--cycle;
+	//draw(surface(gg),orange);
+	triple p1=(3,1,1.5);
+	transform3 t=shift(p1);
+	transform3 g=scale(1.5,1.5,1.5);
+
+	draw(g*unithemisphere,blue);
+	draw(surface(t*g*unithemisphere),orange);
+	draw(surface(t*g*g*unithemisphere),yellow);
+	draw(surface(t*g*g*g*unithemisphere),yellow);
+	axes3("$x$","$y$","$z$", Arrows3);
+	\end{asy}
+	\caption{Escala - Homotecia}
+\end{figure}
+
+
+
+\section{Transformaciones topológicas}
+Coloquialmente, se presenta a la topología como la geometría de la página de goma (chicle). Esto hace referencia a que, en la geometría euclídea, dos objetos serán equivalentes mientras podamos transformar uno en otro mediante isometrías (rotaciones, traslaciones, reflexiones, etc.), es decir, mediante transformaciones que conservan las medidas de ángulo, área, longitud, volumen y otras.
+
+En topología, dos objetos son equivalentes en un sentido mucho más amplio. Han de tener el mismo número de trozos, huecos, intersecciones, etc. En topología está permitido doblar, estirar, encoger, retorcer, etc., los objetos, pero siempre que se haga sin romper ni separar lo que estaba unido, ni pegar lo que estaba separado. Por ejemplo, un triángulo es topológicamente lo mismo que una circunferencia, ya que podemos transformar uno en otra de forma continua, sin romper ni pegar. Pero una circunferencia no es lo mismo que un segmento, ya que habría que partirla (o pegarla) por algún punto.
+
+Esta es la razón de que se la llame la geometría de la página de goma, porque es como si estuviéramos estudiando geometría sobre un papel de goma que pudiera contraerse, estirarse, etc.
+
+
+Una taza transformándose en una rosquilla (toro).
+Un chiste habitual entre los topólogos (los matemáticos que se dedican a la topología) es que un topólogo es una persona incapaz de distinguir una taza de una rosquilla. Pero esta visión, aunque muy intuitiva e ingeniosa, es sesgada y parcial. Por un lado, puede llevar a pensar que la topología trata solo de objetos y conceptos geométricos, siendo más bien al contrario, es la geometría la que trata con un cierto tipo de objetos topológicos. Por otro lado, en muchos casos es imposible dar una imagen o interpretación intuitiva de problemas topológicos o incluso de algunos conceptos. Es frecuente entre los estudiantes primerizos escuchar que no entienden la topología y que no les gusta esa rama; generalmente se debe a que se mantienen en esta actitud gráfica. Por último, la topología se nutre también en buena medida de conceptos cuya inspiración se encuentra en el análisis matemático. Se puede decir que casi la totalidad de los conceptos e ideas de esta rama son conceptos e ideas topológicas.
+
+\begin{figure}[!ht]
+	\centering
+\begin{asy}
+import tube;
+import graph3;
+size(300,0);
+currentprojection = orthographic(4,4,14);
+triple f(real x){
+  return (x, x*x, 0);
+}
+path3 p = graph(f, -1, 1, operator ..);
+
+transform T(real t){
+    return scale(t*(1-t)/500);
+}
+draw(tube(p, unitcircle, T), purple);
+
+draw(shift(relpoint(p,0))*scale3(0.1)*unitsphere, black);
+draw(shift(relpoint(p,1))*scale3(0.1)*unitsphere, green);
+\end{asy}
+\caption{Secciones y rebanadas}
+\end{figure}
+
+
+\begin{figure}[!ht]
+\centering
+\begin{asy}
+settings.render=-1;
+import graph3;
+import solids;
+size(300,0);
+currentprojection=perspective(3,3,1);
+
+pen color1=green+opacity(0.25);
+pen color2=red;
+real alpha=350;
+
+real f(real x) {return 2x^2-x^3;}
+pair F(real x) {return (x,f(x));}
+triple F3(real x) {return (x,f(x),0);}
+
+ngraph=12;
+
+real x1=0.7476;
+real x2=1.7787;
+real x3=1.8043;
+
+path[] p={graph(F,x1,x2,Spline),
+          graph(F,0.7,x1,Spline)--graph(F,x2,x3,Spline)&cycle,
+          graph(F,0,0.7,Spline)--graph(F,x3,2,Spline)};
+
+pen[] pn=new pen[] {color1,color2,color1};
+
+render render=render(compression=0);
+
+for(int i=0; i < p.length; ++i) {
+  revolution a=revolution(path3(p[i]),Y,0.5,alpha);
+  draw(surface(a),pn[i],render);
+
+  surface s=surface(p[i]--cycle);
+  draw(s,pn[i],render);
+  draw(rotate(alpha,Y)*s,pn[i],render);
+}
+
+draw((4/3,0,0)--F3(4/3),dashed);
+xtick("$\frac{4}{3}$",(4/3,0,0));
+
+xaxis3(Label("$x$",1),Arrow3);
+zaxis3(Label("$z$",1),Arrow3);
+yaxis3(Label("$y$",1),ymax=1.25,dashed,Arrow3);
+arrow("$y=2x^2-x^3$",F3(1.6),X+Y,0.75cm,red);
+draw(arc(1.1Y,0.3,90,0,7.5,180),Arrow3);
+\end{asy}
+\caption{Secciones y rebanadas}
+\end{figure}
+
+
+
+
+\subsection{Homeomorfismo}
+\subsection{Isometria}
+
+
+
+
+
+\begin{figure}[!ht]
+	\centering
+\begin{asy}
+import three;
+import graph3;
+size(300,0);
+currentprojection=perspective(1,1,1);
+int N=5;
+real f=3+1/N;
+for(int k=1; k < N; ++k) {
+  for(int m=1; m < N; ++m) {
+    for(int n=1; n < N; ++n) {
+      //if(m!=2){
+      transform3 gg=shift((n,m,k)*f)*scale3(3/length((n,m,k)));
+      //transform3 gg=rotate(longitude((n,m,k)),X)*scale3(length((n,m,k)))*shift((n,m,k)*f);
+      //draw(gg*unitcone,m==3?white+opacity(0.9):orange+opacity(0.9));
+      //draw(gg*unitcircle3,m==3?white+opacity(0.9):orange+opacity(0.9));
+      draw(gg*scale3(2)*unitplane,m==3?white+opacity(0.9):orange+opacity(0.9));
+      draw(gg*unitsphere,m==3?white+opacity(0.9):n==2?orange+opacity(0.9):n>1?blue+opacity(0.9):magenta);
+        //draw(O--(n,m,k)*f,green);
+      //}else{
+        //draw(O--gg*(n,m,k));
+
+      //}
+  }
+}
+}
+axes3("$x$","$y$","$z$", Arrow3);
+\end{asy}
+\caption{Array}
+\end{figure}
+
+
+\chapter{Proyecciones}
+\subsection{Ortogonal }
+
+\begin{asy}
+import three;
+size(8cm,0);
+currentprojection=obliqueX;
+currentlight=(0,2,1);
+
+//~~~~~~~~~ DEFINITIONS ~~~~~~~~~
+// On définit le plan.
+triple v1=(10,0,0),
+v2=(0,10,0),
+pO=(-2,-3,0);
+path3 pl1=plane(v1,v2,pO);
+// On définit un chemin
+path3 ch=(5,3,4)..(5,4,8)..(1,4,4)..(4,-2,3)..cycle;
+
+// On définit la projection orthogonale sur pl1 :
+transform3 proj=planeproject(pl1);
+// et on définit le projetté de ch :
+path3 chproj=proj*ch;
+
+//~~~~~~~~~ CONSTRUCTIONS ~~~~~~~~~
+// On trace le plan.
+draw(surface(pl1),paleblue+opacity(.5),blue);
+// On trace le chemin défini
+draw(ch,blue);
+// et son projeté
+draw(chproj,red);
+
+for (int i=0; i < length(ch); ++i)
+draw(point(ch,i)--point(chproj,i), .5bp+blue+dotted);
+\end{asy}
+
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	import graph3;
+
+	size(300,0);
+
+	currentprojection=perspective(1,1,1);
+
+	real x(real t) {return 1+cos(2pi*t);}
+	real y(real t) {return 1+sin(2pi*t);}
+	real z(real t) {return t;}
+
+	path3 p=graph(x,y,z,0,1,operator ..);
+
+	draw(p,Arrow3);
+	draw(planeproject(XY*unitsquare3)*p,red,Arrow3);
+	draw(planeproject(YZ*unitsquare3)*p,green,Arrow3);
+	draw(planeproject(ZX*unitsquare3)*p,blue,Arrow3);
+
+	axes3("$x$","$y$","$z$");
+	\end{asy}
+		\caption{Ortogonal}
+\end{figure}
+
+\subsection{Oblicua}
+
+\begin{asy}
+import three;
+size(8cm,0);
+currentprojection=obliqueX;
+currentlight=(0,2,1);
+
+//~~~~~~~~~ DEFINITIONS ~~~~~~~~~
+// On définit le plan.
+triple v1=(10,0,0),
+v2=(0,10,0),
+pO=(-2,-3,0);
+path3 pl1=plane(v1,v2,pO);
+// On définit un vecteur donnant la direction de projection
+triple V=(1,-1,4);
+// On définit un chemin
+path3 ch=(5,3,4)--(5,4,8)--(1,4,4)--(4,-2,3)--cycle;
+
+// projection sur le plan pl1 suivant la direction de V
+transform3 proj=planeproject(pl1,V);
+// et on définit le projetté de ch :
+path3 chproj=proj*ch;
+
+//~~~~~~~~~ CONSTRUCTIONS ~~~~~~~~~
+// On trace le plan.
+draw(surface(pl1),paleblue+opacity(.5),blue);
+// On représente le vecteur.
+draw((0,0,0)--V,Arrow3);
+// On trace le chemin défini
+draw(ch,blue);
+// et son projeté
+draw(chproj,red);
+
+for (int i=0; i < length(ch); ++i)
+draw(point(ch,i)--point(chproj,i), .5bp+blue+dotted);
+\end{asy}
+
+\subsection{Estereografica}
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+import graph3;
+import solids;
+
+currentlight=White;
+defaultrender.merge=true;
+
+size(10cm,0);
+
+pair k=(1,0.2);
+real r=abs(k);
+real theta=angle(k);
+
+real x(real t) { return 1-r^t*cos(t*theta); }
+real y(real t) { return r^t*sin(t*theta); }
+real z(real t) { return 0; }
+
+real u(real t) { return x(t)/(x(t)^2+y(t)^2+1); }
+real v(real t) { return y(t)/(x(t)^2+y(t)^2+1); }
+real w(real t) { return (x(t)^2+y(t)^2)/(x(t)^2+y(t)^2+1); }
+
+real nb=2;
+//for (int i=0; i<12; ++i) draw((0,0,0)--nb*(Cos(i*30),Sin(i*30),0),yellow);
+for (int i=0; i<=nb; ++i) draw(circle((0,0,0),i),lightgreen+white);
+
+
+path3 p=graph(x,y,z,-200,40,operator ..);
+path3 q=graph(u,v,w,-200,40,operator ..);
+
+revolution sph=sphere((0,0,0.5),0.5);
+draw(surface(sph),green+white+opacity(0.2));
+
+draw(p,blue);
+draw(q,white);
+
+triple
+A=(0,0,1),
+B=(u(40),v(40),w(40)),
+C=(x(40),y(40),z(40));
+
+path3 L=A--C;
+draw(L);
+
+pen p=orange;
+
+dot("$(0,0,1)$",A,N);
+dot("$(u,v,w)$",B,NE,orange);
+dot("$(x,y,0)$",C,dir(-90));
+axes3("$x$","$y$","$z$", extend=true, min=(0,0,0),max=(2,1,0.5), p, Arrow3);
+	\end{asy}
+	\caption{Estereografica}
+\end{figure}
+
+\begin{figure}[!ht]
+
+\begin{asy}
+size(7cm,7cm,IgnoreAspect);
+
+// Un premier tableau d'entiers de taille (3,4) rempli "manuellement"
+int[][] x={{2,3,5,7},
+{11,13,17,19},
+{23,29,31,37}};
+// Un second tableau d'entiers de taille (7,5) rempli avec une boucle
+int[][] y=new int[7][5];
+for (int i=0; i<7; ++i)
+for (int j=0; j<5; ++j)
+y[i][j]=i+j;
+
+// Affichage du tableau x
+for (int i=0; i<3; ++i)
+for (int j=0; j<4; ++j)
+label(format("%i",x[i][j]),(j,-i));
+// Affichage du tableau y
+for (int i=0; i<7; ++i)
+for (int j=0; j<5; ++j)
+label(format("%i",y[i][j]),(j,-i-4));
+
+shipout(bbox(.5cm,Fill(white)));
+\end{asy}
+\caption{www}
+\end{figure}
+
+\end{document}
+/*
+real[][] f(real a, real b, real c)
+{
+    if (b^2-4*a*c<0) {
+      real[][] w={
+      {-b/2,(sqrt(abs(b^2-4*a*c)))/2*a,-b/2,(-b+sqrt(abs(b^2-4*a*c)))/2*a}//,{0,0}
+      };
+      return w;
+   }
+     real[][] w={
+     {(-b+sqrt(abs(b^2-4*a*c)))/2*a,(-b-sqrt(abs(b^2-4*a*c)))/2*a}//,{0,0}
+     };
+     return w;
+}
+
+write(f(1,4,9));
+write(f(1,4,9)[0][3]);
+*/

@@ -10,50 +10,37 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=2;
+settings.render=1;
 
-settings.render=-1;
-import graph3;
+import three;
+import math;
 import solids;
+
+currentprojection=perspective(2,1,1);
 size(300,0);
-currentprojection=perspective(3,3,1);
 
-pen color1=green+opacity(0.25);
-pen color2=red;
-real alpha=350;
+//pen thickp=linewidth(0.5mm);
+real rho=1, phi=60, z=1.5/2;
+//draw(unitcylinder,material(palegray+opacity(0.25),shininess=0.5));
 
-real f(real x) {return 2x^2-x^3;}
-pair F(real x) {return (x,f(x));}
-triple F3(real x) {return (x,f(x),0);}
+real r=1.1;
+pen p=black;
+draw(Label("$x$",1),O--r*X,p,Arrow3);
+draw(Label("$y$",1),O--r*Y,p,Arrow3);
+draw(Label("$z$",1),O--r*Z,p,Arrow3);
+label("$\rm O$",(0,0,0),-1.5Y-X);
 
-ngraph=12;
+triple Q=(rho*Cos(phi),rho*Sin(phi),z);
+dot("$(x,y,z)$",Q);
+draw(Q--(Q.x,Q.y,0),dashed+blue);
+draw(O--rho*dir(90,phi),dashed+blue);
+draw((0,0,Q.z)--Q,dashed+blue);
+draw("$\varphi$",arc(O,0.15*X,0.15*dir(90,phi)),align=6*dir(90,phi/3)+Z,Arrow3);
+draw("$\rho$",(0,0,0)--(Q.x,Q.y,0),align=-Y+2X,DotMargin3);
+draw("$r$",O--Q,align=2*dir(90,phi),Arrow3,DotMargin3);
 
-real x1=0.7476;
-real x2=1.7787;
-real x3=1.8043;
+revolution hyperboloid=revolution(graph(new triple(real z) {
+return (1,0,z);},0,1.5,20,operator ..),axis=Z);
+draw(surface(hyperboloid),yellow+opacity(0.3),render(compression=Low,merge=true));
+draw(hyperboloid,3,white+0.15mm,longitudinalpen=nullpen);
 
-path[] p={graph(F,x1,x2,Spline),
-graph(F,0.7,x1,Spline)--graph(F,x2,x3,Spline)&cycle,
-graph(F,0,0.7,Spline)--graph(F,x3,2,Spline)};
-
-pen[] pn=new pen[] {color1,color2,color1};
-
-render render=render(compression=0);
-
-for(int i=0; i < p.length; ++i) {
-revolution a=revolution(path3(p[i]),Y,0.5,alpha);
-draw(surface(a),pn[i],render);
-
-surface s=surface(p[i]--cycle);
-draw(s,pn[i],render);
-draw(rotate(alpha,Y)*s,pn[i],render);
-}
-
-draw((4/3,0,0)--F3(4/3),dashed);
-xtick("$\frac{4}{3}$",(4/3,0,0));
-
-xaxis3(Label("$x$",1),Arrow3);
-zaxis3(Label("$z$",1),Arrow3);
-yaxis3(Label("$y$",1),ymax=1.25,dashed,Arrow3);
-arrow("$y=2x^2-x^3$",F3(1.6),X+Y,0.75cm,red);
-draw(arc(1.1Y,0.3,90,0,7.5,180),Arrow3);

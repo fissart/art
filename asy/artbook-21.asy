@@ -10,41 +10,30 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=2;
+settings.render=1;
 
 import solids;
-import obj;
-settings.render=-1;
-size3(200,0);
-size(300);
-currentprojection=perspective(3,3,-1);
-currentlight=Headlamp;
-triple t=(0,3 ,0);
-triple vectaxe=(1,0,0);
+currentprojection=orthographic(8.5,9.5,8);
+currentlight=(0,5,5);
 
-triple pA=(-3,0,0), pB=(0,3,0), pC=(0,0,3), pE=(0,0,3);
-transform3 sym=reflect(X,Z,O);
-transform3 r=rotate(0,vectaxe);
-triple p1=(1.3125,-0.531249,0.054691);
-triple p2=(0.328125,0.398431,-0.914065);
-draw(p1--shift(t)*p1,blue+dashed, Arrow3);
-draw(p2--shift(t)*p2,blue+dashed, Arrow3);
-dot(p1^^p2^^shift(t)*p1^^shift(t)*p2);
+size(8cm,0);
 
-dot(Label("$A$",align=dir(-90)),p1);
-dot(Label("$C$",align=dir(-90)),p2);
-dot(Label("$B$",align=dir(-90)),shift(t)*p1);
-dot(Label("$D$",align=dir(-90)),shift(t)*p2);
+real R=3, a=1, d=R+2a;
 
-draw(obj("www.obj",paleyellow+opacity(0.9)));
-draw(shift(t)*obj("www.obj",paleblue+opacity(0.9)));
-axes3("$x$","$y$","$z$", Arrow3);
-/*
-//close(in);
-write(vert[334]);
-//for(int i=300; i<400;++i){
-//write(i);
-//write(vert[i]);
-//dot(Label((string) i, fontsize(3pt)),vert[i]);
-};
-*/
+// On définit un tore et on le trace.
+revolution tore=revolution(shift(R*X)*Circle(O,a,Y,32),Z);
+surface s=surface(tore);
+draw(s,white);
+
+// On définit une courbe et on la trace...
+path3 g=d*unit(X+.3Y)..0.5(X-Y)..d*unit(-X-3Y)
+..(-d,0,a)..0.5(Y-X)..d*unit(.5X+Y);
+draw(g,2bp+blue);
+// ... en indiquant en vert les 6 points la définissant.
+dot(g,4bp+green);
+
+// On définit les points d'intersection du tore et de la courbe...
+triple[] points=intersectionpoints(g,s);
+// ... que l'on place en rouge.
+dot(points,6bp+red);
+

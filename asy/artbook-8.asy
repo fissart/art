@@ -10,17 +10,20 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=2;
+settings.render=1;
 
-size(300,0);
 import graph3;
-triple F(pair uv) {
-real t = uv.x;
-real r = uv.y;
-return (cos(t) + r*cos(t)*sin(t/2),
-sin(t) + r*sin(t)*sin(t/2),
-r*cos(t/2));
+import palette;
+import contour3;
+size(300,0);
+
+real f(real x, real y, real z) {
+return cos(x)*sin(y)+cos(y)*sin(z)+cos(z)*sin(x);
 }
-real r = 0.3;
-surface moeb = surface(F, (0,-r), (2pi,r), Spline);
-draw(moeb, surfacepen=material(blue, emissivepen=0.15 white), meshpen=black+thick());
+
+surface sf=surface(contour3(f,(-2pi,-2pi,-2pi),(2pi,2pi,2pi),12));
+sf.colors(palette(sf.map(abs),Gradient(red,yellow)));
+
+currentlight=nolight;
+
+draw(sf,render(merge=true));

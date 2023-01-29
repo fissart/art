@@ -10,21 +10,23 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=2;
+settings.render=1;
 
 import graph3;
 import three;
-size3(200,0);
-currentprojection=perspective(4,6,-3);
-//triple pA=(-3,0,0), pB=(0,3,0), pC=(0,0,3), pE=(0,0,3);
-//path3 gg=pA--pB--pC--cycle;
-//draw(surface(gg),orange);
-triple p1=(3,1,1.5);
-transform3 t=shift(p1);
-transform3 g=scale(1.5,1.5,1.5);
 
-draw(g*unithemisphere,blue);
-draw(surface(t*g*unithemisphere),orange);
-draw(surface(t*g*g*unithemisphere),yellow);
-draw(surface(t*g*g*g*unithemisphere),yellow);
-axes3("$x$","$y$","$z$", Arrows3);
+//size(300,0);
+size3(300,IgnoreAspect);
+
+currentprojection=perspective(2,1,1);
+triple P=(1,1,1);
+scale(Linear,Linear,Linear);
+dot("$P=(x,y,z)$",(1,1,1),dir(-35));
+dot("$W=(x,y,0)$",(1,1,0),dir(-45));
+dot("$Q=(x,y,0)$",(1,0,0),dir(165));
+dot("$R=(x,y,0)$",(0,1,0),dir(35));
+draw(box(O,P),dashed);
+xaxis3("$x$",0,1.5,red,OutTicks(2,2));
+yaxis3("$y$",0,1.5,red,OutTicks(2,5));
+zaxis3("$z$",0,1.5,red,OutTicks(2,2));
+

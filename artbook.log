@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=latex 2023.1.19)  20 JAN 2023 18:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=latex 2023.1.19)  28 JAN 2023 20:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -778,14 +778,15 @@ Writing index file artbook.idx
 (./artbook.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
+ (./chp/chp1.aux
+
+LaTeX Warning: Label `tab:w1wwwww' multiply defined.
 
 
 LaTeX Warning: Label `tab:w1wwwww' multiply defined.
 
-
-LaTeX Warning: Label `tab:w1wwwww' multiply defined.
-
-)
+) (./chp/chp2.aux) (./chp/chp3.aux) (./chp/chp4.aux) (./chp/chp5.aux)
+(./chp/chp6.aux) (./chp/chp7.aux) (./chp/chp8.aux))
 \openout1 = `artbook.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 61.
@@ -888,41 +889,35 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ]
 
 Package spanish Warning: Replacing `OT1/cmr/bx/sc' by 
-(spanish)                faked small caps on input line 61.
+(spanish)                faked small caps on input line 59.
 
 
 Package spanish Warning: Replacing `OT1/cmr/bx/sc' by 
-(spanish)                faked small caps on input line 67.
+(spanish)                faked small caps on input line 65.
 
 
 Package spanish Warning: Replacing `OT1/cmr/bx/sc' by 
-(spanish)                faked small caps on input line 71.
+(spanish)                faked small caps on input line 69.
 
 
 Package spanish Warning: Replacing `OT1/cmr/bx/sc' by 
-(spanish)                faked small caps on input line 76.
+(spanish)                faked small caps on input line 74.
 
-LaTeX Info: Redefining \. on input line 76.
-LaTeX Info: Redefining \% on input line 76.
+LaTeX Info: Redefining \. on input line 74.
+LaTeX Info: Redefining \% on input line 74.
 [2]
+Overfull \hbox (0.1443pt too wide) detected at line 79
+ [][]
+ []
+
+
+Overfull \hbox (0.1443pt too wide) detected at line 80
+ [][]
+ []
+
 
 Package spanish Warning: Replacing `OT1/cmr/bx/sc' by 
-(spanish)                faked small caps on input line 85.
-
-
-Overfull \hbox (3.0332pt too wide) detected at line 86
- [][]
- []
-
-
-Overfull \hbox (3.0332pt too wide) detected at line 87
- [][]
- []
-
-
-Overfull \hbox (3.0332pt too wide) detected at line 88
- [][]
- []
+(spanish)                faked small caps on input line 83.
 
 )
 \tf@toc=\write6
@@ -944,12 +939,7 @@ Overfull \hbox (0.1443pt too wide) detected at line 62
  []
 
 
-Overfull \hbox (6.27762pt too wide) detected at line 66
- [][]
- []
-
-
-Overfull \hbox (6.27762pt too wide) detected at line 67
+Overfull \hbox (3.0332pt too wide) detected at line 66
  [][]
  []
 
@@ -974,20 +964,16 @@ LaTeX Info: Redefining \% on input line 189.
  [8
 
 
-]
-Overfull \hbox (74.92773pt too wide) in paragraph at lines 192--196
-[]$[]$ \OT1/cmr/m/n/10 Dou-ble un-der-li-ned text $[]$ $[]$ 
- []
+] [9]
+LaTeX Info: Redefining \. on input line 253.
+LaTeX Info: Redefining \% on input line 253.
+ [10]
+\openout2 = `chp/chp1.aux'.
 
-[9]
-LaTeX Info: Redefining \. on input line 213.
-LaTeX Info: Redefining \% on input line 213.
- [10
-
-]
+ (./chp/chp1.tex
 Cap\'{\i }tulo 1.
 
-Overfull \hbox (0.17096pt too wide) in paragraph at lines 226--226
+Overfull \hbox (0.17096pt too wide) in paragraph at lines 14--14
 \OT1/cmr/m/it/10 op-tio-nal ar-gu-ment of newtheo-rem to in-di-ca-te that []Hil
 bert y Cohn-Vossen, 2020).
  []
@@ -995,78 +981,87 @@ bert y Cohn-Vossen, 2020).
 \openout3 = `asy/artbook-3.asy'.
 
 File: asy/artbook-3.eps Graphic file (type eps)
-<asy/artbook-3.eps> [1]
+<asy/artbook-3.eps> [1
+
+
+]
 \openout3 = `asy/artbook-4.asy'.
 
 File: asy/artbook-4.eps Graphic file (type eps)
  <asy/artbook-4.eps>
-LaTeX Info: Redefining \. on input line 323.
-LaTeX Info: Redefining \% on input line 323.
+LaTeX Info: Redefining \. on input line 111.
+LaTeX Info: Redefining \% on input line 111.
  [2]
-LaTeX Info: Redefining \. on input line 364.
-LaTeX Info: Redefining \% on input line 364.
+LaTeX Info: Redefining \. on input line 152.
+LaTeX Info: Redefining \% on input line 152.
  [3]
-LaTeX Info: Redefining \. on input line 491.
-LaTeX Info: Redefining \% on input line 491.
+LaTeX Info: Redefining \. on input line 279.
+LaTeX Info: Redefining \% on input line 279.
  [4]
-LaTeX Info: Redefining \. on input line 534.
-LaTeX Info: Redefining \% on input line 534.
+LaTeX Info: Redefining \. on input line 322.
+LaTeX Info: Redefining \% on input line 322.
  [5]
-LaTeX Info: Redefining \. on input line 601.
-LaTeX Info: Redefining \% on input line 601.
+LaTeX Info: Redefining \. on input line 389.
+LaTeX Info: Redefining \% on input line 389.
  [6]
-LaTeX Info: Redefining \. on input line 694.
-LaTeX Info: Redefining \% on input line 694.
+LaTeX Info: Redefining \. on input line 482.
+LaTeX Info: Redefining \% on input line 482.
  [7]
-LaTeX Info: Redefining \. on input line 850.
-LaTeX Info: Redefining \% on input line 850.
+LaTeX Info: Redefining \. on input line 638.
+LaTeX Info: Redefining \% on input line 638.
  [8]
-LaTeX Info: Redefining \. on input line 850.
-LaTeX Info: Redefining \% on input line 850.
+LaTeX Info: Redefining \. on input line 638.
+LaTeX Info: Redefining \% on input line 638.
 
 [9]
-Overfull \hbox (9.52225pt too wide) in paragraph at lines 907--908
+Overfull \hbox (9.52225pt too wide) in paragraph at lines 695--696
  [] 
  []
 
-LaTeX Info: Redefining \. on input line 920.
-LaTeX Info: Redefining \% on input line 920.
+LaTeX Info: Redefining \. on input line 708.
+LaTeX Info: Redefining \% on input line 708.
 [10]
-LaTeX Info: Redefining \. on input line 945.
-LaTeX Info: Redefining \% on input line 945.
+LaTeX Info: Redefining \. on input line 733.
+LaTeX Info: Redefining \% on input line 733.
  [11]
-LaTeX Info: Redefining \. on input line 1023.
-LaTeX Info: Redefining \% on input line 1023.
+LaTeX Info: Redefining \. on input line 811.
+LaTeX Info: Redefining \% on input line 811.
  [12]
-LaTeX Info: Redefining \. on input line 1131.
-LaTeX Info: Redefining \% on input line 1131.
+LaTeX Info: Redefining \. on input line 919.
+LaTeX Info: Redefining \% on input line 919.
  [13]
-LaTeX Info: Redefining \. on input line 1136.
-LaTeX Info: Redefining \% on input line 1136.
+LaTeX Info: Redefining \. on input line 924.
+LaTeX Info: Redefining \% on input line 924.
  [14]
-LaTeX Info: Redefining \. on input line 1209.
-LaTeX Info: Redefining \% on input line 1209.
+LaTeX Info: Redefining \. on input line 997.
+LaTeX Info: Redefining \% on input line 997.
  [15]
-LaTeX Info: Redefining \. on input line 1242.
-LaTeX Info: Redefining \% on input line 1242.
+LaTeX Info: Redefining \. on input line 1030.
+LaTeX Info: Redefining \% on input line 1030.
  [16]
-Overfull \hbox (27.18062pt too wide) in paragraph at lines 1285--1285
+Overfull \hbox (27.18062pt too wide) in paragraph at lines 1073--1073
 []\OT1/cmr/bx/n/12 Ejemplos de Com-po-si-ci^^Son so-bre los Rect^^Sangu-los Din
 ^^Sami-
  []
 
-LaTeX Info: Redefining \. on input line 1385.
-LaTeX Info: Redefining \% on input line 1385.
+LaTeX Info: Redefining \. on input line 1173.
+LaTeX Info: Redefining \% on input line 1173.
 [17]
-LaTeX Info: Redefining \. on input line 1385.
-LaTeX Info: Redefining \% on input line 1385.
- [18]
-LaTeX Info: Redefining \. on input line 1396.
-LaTeX Info: Redefining \% on input line 1396.
+LaTeX Info: Redefining \. on input line 1173.
+LaTeX Info: Redefining \% on input line 1173.
+ [18])
+LaTeX Info: Redefining \. on input line 253.
+LaTeX Info: Redefining \% on input line 253.
  [19]
-LaTeX Info: Redefining \. on input line 1396.
-LaTeX Info: Redefining \% on input line 1396.
+\openout2 = `chp/chp2.aux'.
+
+ (./chp/chp2.tex
+LaTeX Info: Redefining \. on input line 2.
+LaTeX Info: Redefining \% on input line 2.
  [20
+
+
+
 
 ]
 Cap\'{\i }tulo 2.
@@ -1078,88 +1073,36 @@ File: asy/artbook-5.eps Graphic file (type eps)
 
 File: asy/artbook-6.eps Graphic file (type eps)
  <asy/artbook-6.eps>
-LaTeX Info: Redefining \. on input line 1518.
-LaTeX Info: Redefining \% on input line 1518.
+LaTeX Info: Redefining \. on input line 124.
+LaTeX Info: Redefining \% on input line 124.
  [22]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 1525.
-LaTeX Info: Redefining \% on input line 1525.
- [23]
 \openout3 = `asy/artbook-7.asy'.
 
 File: asy/artbook-7.eps Graphic file (type eps)
+ <asy/artbook-7.eps>
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<asy/artbook-7.eps>
-LaTeX Info: Redefining \. on input line 1551.
-LaTeX Info: Redefining \% on input line 1551.
- [24]
+LaTeX Info: Redefining \. on input line 154.
+LaTeX Info: Redefining \% on input line 154.
+ [23]
 \openout3 = `asy/artbook-8.asy'.
 
 File: asy/artbook-8.eps Graphic file (type eps)
- <asy/artbook-8.eps>
-LaTeX Info: Redefining \. on input line 1577.
-LaTeX Info: Redefining \% on input line 1577.
- [25]
-LaTeX Info: Redefining \. on input line 1577.
-LaTeX Info: Redefining \% on input line 1577.
- [26
 
-]
-Cap\'{\i }tulo 3.
-[27]
-LaTeX Info: Redefining \. on input line 1583.
-LaTeX Info: Redefining \% on input line 1583.
- [28
-
-]
-Cap\'{\i }tulo 4.
-[29]
-LaTeX Info: Redefining \. on input line 1590.
-LaTeX Info: Redefining \% on input line 1590.
- [30
-
-]
-Cap\'{\i }tulo 5.
-
-Overfull \hbox (24.88567pt too wide) in paragraph at lines 1630--1631
- [] 
- []
-
+<asy/artbook-8.eps>
+LaTeX Info: Redefining \. on input line 180.
+LaTeX Info: Redefining \% on input line 180.
+ [24]
 \openout3 = `asy/artbook-9.asy'.
 
 File: asy/artbook-9.eps Graphic file (type eps)
-<asy/artbook-9.eps> [31]
-LaTeX Info: Redefining \. on input line 1825.
-LaTeX Info: Redefining \% on input line 1825.
- [32]
-LaTeX Info: Redefining \. on input line 1844.
-LaTeX Info: Redefining \% on input line 1844.
- [33]
-LaTeX Info: Redefining \. on input line 1847.
-LaTeX Info: Redefining \% on input line 1847.
- [34]
-LaTeX Info: Redefining \. on input line 1847.
-LaTeX Info: Redefining \% on input line 1847.
- [35]
-LaTeX Info: Redefining \. on input line 1847.
-LaTeX Info: Redefining \% on input line 1847.
- [36]
-Cap\'{\i }tulo 6.
-[37
-
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 1972.
-LaTeX Info: Redefining \% on input line 1972.
- [38]
-Overfull \vbox (90.26933pt too high) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 1972.
-LaTeX Info: Redefining \% on input line 1972.
-
-[39]
+ <asy/artbook-9.eps>
+LaTeX Info: Redefining \. on input line 210.
+LaTeX Info: Redefining \% on input line 210.
+ [25]
+LaTeX Info: Redefining \. on input line 232.
+LaTeX Info: Redefining \% on input line 232.
+ [26]
 \openout3 = `asy/artbook-10.asy'.
 
 File: asy/artbook-10.eps Graphic file (type eps)
@@ -1167,173 +1110,264 @@ File: asy/artbook-10.eps Graphic file (type eps)
 \openout3 = `asy/artbook-11.asy'.
 
 File: asy/artbook-11.eps Graphic file (type eps)
- <asy/artbook-11.eps>
+
+<asy/artbook-11.eps>
+LaTeX Info: Redefining \. on input line 446.
+LaTeX Info: Redefining \% on input line 446.
+ [27]
+Underfull \vbox (badness 1953) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 451.
+LaTeX Info: Redefining \% on input line 451.
+ [28]
 \openout3 = `asy/artbook-12.asy'.
 
 File: asy/artbook-12.eps Graphic file (type eps)
- <asy/artbook-12.eps>
+
+<asy/artbook-12.eps>
+LaTeX Info: Redefining \. on input line 510.
+LaTeX Info: Redefining \% on input line 510.
+ [29]
 \openout3 = `asy/artbook-13.asy'.
 
 File: asy/artbook-13.eps Graphic file (type eps)
-
-<asy/artbook-13.eps>
-LaTeX Info: Redefining \. on input line 2182.
-LaTeX Info: Redefining \% on input line 2182.
- [40]
-LaTeX Info: Redefining \. on input line 2182.
-LaTeX Info: Redefining \% on input line 2182.
- [41]
-LaTeX Info: Redefining \. on input line 2182.
-LaTeX Info: Redefining \% on input line 2182.
- [42]
-Cap\'{\i }tulo 7.
-[43
-
-]
+ <asy/artbook-13.eps>
 \openout3 = `asy/artbook-14.asy'.
 
 File: asy/artbook-14.eps Graphic file (type eps)
  <asy/artbook-14.eps>
+LaTeX Info: Redefining \. on input line 611.
+LaTeX Info: Redefining \% on input line 611.
+ [30])
+LaTeX Info: Redefining \. on input line 254.
+LaTeX Info: Redefining \% on input line 254.
+
+[31]
+\openout2 = `chp/chp3.aux'.
+
+ (./chp/chp3.tex
+LaTeX Info: Redefining \. on input line 2.
+LaTeX Info: Redefining \% on input line 2.
+ [32
+
+
+
+
+]
+Cap\'{\i }tulo 3.
 \openout3 = `asy/artbook-15.asy'.
 
 File: asy/artbook-15.eps Graphic file (type eps)
- <asy/artbook-15.eps>
-LaTeX Info: Redefining \. on input line 2416.
-LaTeX Info: Redefining \% on input line 2416.
- [44]
-LaTeX Info: Redefining \. on input line 2423.
-LaTeX Info: Redefining \% on input line 2423.
- [45]
+<asy/artbook-15.eps>
 \openout3 = `asy/artbook-16.asy'.
 
 File: asy/artbook-16.eps Graphic file (type eps)
  <asy/artbook-16.eps>
-LaTeX Info: Redefining \. on input line 2484.
-LaTeX Info: Redefining \% on input line 2484.
-
-[46]
 \openout3 = `asy/artbook-17.asy'.
 
 File: asy/artbook-17.eps Graphic file (type eps)
- <asy/artbook-17.eps>
-LaTeX Info: Redefining \. on input line 2539.
-LaTeX Info: Redefining \% on input line 2539.
- [47]
+ <asy/artbook-17.eps>)
+Underfull \vbox (badness 2980) has occurred while \output is active []
+
+ [33]
+LaTeX Info: Redefining \. on input line 255.
+LaTeX Info: Redefining \% on input line 255.
+
+[34]
+LaTeX Info: Redefining \. on input line 255.
+LaTeX Info: Redefining \% on input line 255.
+ [35]
+\openout2 = `chp/chp4.aux'.
+
+ (./chp/chp4.tex
+LaTeX Info: Redefining \. on input line 2.
+LaTeX Info: Redefining \% on input line 2.
+ [36
+
+
+
+
+]
+Cap\'{\i }tulo 4.
+) [37]
+\openout2 = `chp/chp5.aux'.
+
+ (./chp/chp5.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [38
+
+
+
+
+]
+Cap\'{\i }tulo 5.
+
+Overfull \hbox (24.88567pt too wide) in paragraph at lines 41--42
+ [] 
+ []
+
 \openout3 = `asy/artbook-18.asy'.
 
 File: asy/artbook-18.eps Graphic file (type eps)
- <asy/artbook-18.eps>
-LaTeX Info: Redefining \. on input line 2592.
-LaTeX Info: Redefining \% on input line 2592.
- [48]
-Cap\'{\i }tulo 8.
-(./artbook.bbl [49
+<asy/artbook-18.eps> [39]
+LaTeX Info: Redefining \. on input line 236.
+LaTeX Info: Redefining \% on input line 236.
+ [40])
+LaTeX Info: Redefining \. on input line 257.
+LaTeX Info: Redefining \% on input line 257.
+ [41]
+LaTeX Info: Redefining \. on input line 257.
+LaTeX Info: Redefining \% on input line 257.
+ [42]
+LaTeX Info: Redefining \. on input line 257.
+LaTeX Info: Redefining \% on input line 257.
+ [43]
+LaTeX Info: Redefining \. on input line 257.
+LaTeX Info: Redefining \% on input line 257.
+ [44]
+\openout2 = `chp/chp6.aux'.
 
-]
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
- [50
-
-]) (./artbook.ind [51] [52
-
-
-])
-Ap\'{e}ndice A.
+ (./chp/chp6.tex
+Cap\'{\i }tulo 6.
 \openout3 = `asy/artbook-19.asy'.
 
 File: asy/artbook-19.eps Graphic file (type eps)
-<asy/artbook-19.eps> [1
-
-
-]
+<asy/artbook-19.eps>
 \openout3 = `asy/artbook-20.asy'.
 
 File: asy/artbook-20.eps Graphic file (type eps)
  <asy/artbook-20.eps>
-LaTeX Info: Redefining \. on input line 2787.
-LaTeX Info: Redefining \% on input line 2787.
- [2]
-LaTeX Info: Redefining \. on input line 2794.
-LaTeX Info: Redefining \% on input line 2794.
- [3]
-LaTeX Info: Redefining \. on input line 2794.
-LaTeX Info: Redefining \% on input line 2794.
- [4
-
-]
-Ap\'{e}ndice B.
-[5]
-LaTeX Info: Redefining \. on input line 2803.
-LaTeX Info: Redefining \% on input line 2803.
- [6
-
-]
-Ap\'{e}ndice C.
-[7]
-LaTeX Info: Redefining \. on input line 2810.
-LaTeX Info: Redefining \% on input line 2810.
- [8
-
-]
-Ap\'{e}ndice D.
 \openout3 = `asy/artbook-21.asy'.
 
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [45
+
+
+
+
+]
 File: asy/artbook-21.eps Graphic file (type eps)
-<asy/artbook-21.eps> [9]
+
+<asy/artbook-21.eps>
 \openout3 = `asy/artbook-22.asy'.
 
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 197.
+LaTeX Info: Redefining \% on input line 197.
+ [46]
 File: asy/artbook-22.eps Graphic file (type eps)
- <asy/artbook-22.eps>
+
+<asy/artbook-22.eps> [47]
 \openout3 = `asy/artbook-23.asy'.
 
 File: asy/artbook-23.eps Graphic file (type eps)
- <asy/artbook-23.eps>
-LaTeX Info: Redefining \. on input line 2949.
-LaTeX Info: Redefining \% on input line 2949.
- [10]
+ <asy/artbook-23.eps>)
+LaTeX Info: Redefining \. on input line 258.
+LaTeX Info: Redefining \% on input line 258.
+ [48]
+LaTeX Info: Redefining \. on input line 258.
+LaTeX Info: Redefining \% on input line 258.
+ [49]
+\openout2 = `chp/chp7.aux'.
+
+ (./chp/chp7.tex
+LaTeX Info: Redefining \. on input line 3.
+LaTeX Info: Redefining \% on input line 3.
+
+[50
+
+
+
+
+]
+Cap\'{\i }tulo 7.
+) [51] (./artbook.bbl
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [52
+
+
+
+]) (./artbook.ind [53] [54
+
+
+])
+\openout2 = `chp/chp8.aux'.
+
+ (./chp/chp8.tex
+Ap\'{e}ndice A.
 \openout3 = `asy/artbook-24.asy'.
 
 File: asy/artbook-24.eps Graphic file (type eps)
-
 <asy/artbook-24.eps>
-LaTeX Info: Redefining \. on input line 2982.
-LaTeX Info: Redefining \% on input line 2982.
- [11]
 \openout3 = `asy/artbook-25.asy'.
 
 File: asy/artbook-25.eps Graphic file (type eps)
- <asy/artbook-25.eps>
+ <asy/artbook-25.eps> [1
+
+
+
+]
+LaTeX Info: Redefining \. on input line 135.
+LaTeX Info: Redefining \% on input line 135.
+ [2]
 \openout3 = `asy/artbook-26.asy'.
 
 File: asy/artbook-26.eps Graphic file (type eps)
  <asy/artbook-26.eps>
+LaTeX Info: Redefining \. on input line 189.
+LaTeX Info: Redefining \% on input line 189.
+ [3]
+LaTeX Info: Redefining \. on input line 189.
+LaTeX Info: Redefining \% on input line 189.
+
+[4]
+Ap\'{e}ndice B.
 \openout3 = `asy/artbook-27.asy'.
 
 File: asy/artbook-27.eps Graphic file (type eps)
-
 <asy/artbook-27.eps>
-LaTeX Info: Redefining \. on input line 3108.
-LaTeX Info: Redefining \% on input line 3108.
- [12]
-LaTeX Info: Redefining \. on input line 3108.
-LaTeX Info: Redefining \% on input line 3108.
- [13]
-LaTeX Info: Redefining \. on input line 3108.
-LaTeX Info: Redefining \% on input line 3108.
- [14]
-LaTeX Info: Redefining \. on input line 3108.
-LaTeX Info: Redefining \% on input line 3108.
- [15]
-LaTeX Info: Redefining \. on input line 3108.
-LaTeX Info: Redefining \% on input line 3108.
- [16
+Overfull \hbox (60.43869pt too wide) in paragraph at lines 223--224
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5
 
 ]
-Ap\'{e}ndice E.
+Overfull \vbox (18.444pt too high) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 225.
+LaTeX Info: Redefining \% on input line 225.
+
+[6]
+LaTeX Info: Redefining \. on input line 230.
+LaTeX Info: Redefining \% on input line 230.
+ [7]
+LaTeX Info: Redefining \. on input line 230.
+LaTeX Info: Redefining \% on input line 230.
+ [8
+
+]
+Ap\'{e}ndice C.
+[9]
+LaTeX Info: Redefining \. on input line 241.
+LaTeX Info: Redefining \% on input line 241.
+ [10
+
+]
+Ap\'{e}ndice D.
 \openout3 = `asy/artbook-28.asy'.
 
 File: asy/artbook-28.eps Graphic file (type eps)
-<asy/artbook-28.eps>
+<asy/artbook-28.eps> [11]
 \openout3 = `asy/artbook-29.asy'.
 
 File: asy/artbook-29.eps Graphic file (type eps)
@@ -1342,21 +1376,77 @@ File: asy/artbook-29.eps Graphic file (type eps)
 
 File: asy/artbook-30.eps Graphic file (type eps)
  <asy/artbook-30.eps>
+LaTeX Info: Redefining \. on input line 380.
+LaTeX Info: Redefining \% on input line 380.
+ [12]
 \openout3 = `asy/artbook-31.asy'.
 
 File: asy/artbook-31.eps Graphic file (type eps)
 
 <asy/artbook-31.eps>
+LaTeX Info: Redefining \. on input line 413.
+LaTeX Info: Redefining \% on input line 413.
+ [13]
 \openout3 = `asy/artbook-32.asy'.
 
 File: asy/artbook-32.eps Graphic file (type eps)
- <asy/artbook-32.eps> [17]
-LaTeX Info: Redefining \. on input line 3291.
-LaTeX Info: Redefining \% on input line 3291.
- [18] [19] (./artbook.aux
+ <asy/artbook-32.eps>
+\openout3 = `asy/artbook-33.asy'.
+
+File: asy/artbook-33.eps Graphic file (type eps)
+ <asy/artbook-33.eps>
+\openout3 = `asy/artbook-34.asy'.
+
+File: asy/artbook-34.eps Graphic file (type eps)
+
+<asy/artbook-34.eps>
+LaTeX Info: Redefining \. on input line 539.
+LaTeX Info: Redefining \% on input line 539.
+ [14]
+LaTeX Info: Redefining \. on input line 539.
+LaTeX Info: Redefining \% on input line 539.
+ [15]
+LaTeX Info: Redefining \. on input line 539.
+LaTeX Info: Redefining \% on input line 539.
+ [16]
+LaTeX Info: Redefining \. on input line 539.
+LaTeX Info: Redefining \% on input line 539.
+ [17]
+LaTeX Info: Redefining \. on input line 539.
+LaTeX Info: Redefining \% on input line 539.
+ [18
+
+]
+Ap\'{e}ndice E.
+\openout3 = `asy/artbook-35.asy'.
+
+File: asy/artbook-35.eps Graphic file (type eps)
+<asy/artbook-35.eps>
+\openout3 = `asy/artbook-36.asy'.
+
+File: asy/artbook-36.eps Graphic file (type eps)
+ <asy/artbook-36.eps>
+\openout3 = `asy/artbook-37.asy'.
+
+File: asy/artbook-37.eps Graphic file (type eps)
+ <asy/artbook-37.eps>
+\openout3 = `asy/artbook-38.asy'.
+
+File: asy/artbook-38.eps Graphic file (type eps)
+
+<asy/artbook-38.eps>
+\openout3 = `asy/artbook-39.asy'.
+
+File: asy/artbook-39.eps Graphic file (type eps)
+ <asy/artbook-39.eps>) [19]
+LaTeX Info: Redefining \. on input line 284.
+LaTeX Info: Redefining \% on input line 284.
+ [20] [21] (./artbook.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
-)
+
+(./chp/chp1.aux) (./chp/chp2.aux) (./chp/chp3.aux) (./chp/chp4.aux)
+(./chp/chp5.aux) (./chp/chp6.aux) (./chp/chp7.aux) (./chp/chp8.aux))
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1365,12 +1455,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 22584 strings out of 480113
- 450561 string characters out of 5892657
- 1202891 words of memory out of 5000000
- 40108 multiletter control sequences out of 15000+600000
+ 22865 strings out of 480113
+ 457734 string characters out of 5892657
+ 1201827 words of memory out of 5000000
+ 40325 multiletter control sequences out of 15000+600000
  480502 words of font info for 71 fonts, out of 8000000 for 9000
  85 hyphenation exceptions out of 8191
- 92i,10n,92p,1049b,683s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 92i,10n,92p,1068b,683s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on artbook.dvi (83 pages, 1251932 bytes).
+Output written on artbook.dvi (87 pages, 1174868 bytes).

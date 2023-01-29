@@ -1,0 +1,617 @@
+
+\chapter{Superficies}
+
+
+\begin{defn}[Superficie]
+En matemáticas, una superficie es un modelo matemático del concepto común de superficie. Es una generalización de un plano, pero, a diferencia de un plano, puede ser curvo; esto es análogo a una curva que generaliza una línea recta.
+
+Existen varias definiciones más precisas, dependiendo del contexto y de las herramientas matemáticas que se utilicen para su estudio. Las superficies matemáticas más simples son los planos y las esferas en el espacio euclídeo. La definición exacta de una superficie puede depender del contexto. Típicamente, en geometría algebraica, una superficie puede cruzarse a sí misma (y puede tener otros singularidades), mientras que, en topología y geometría diferencial, puede no hacerlo.
+
+Una superficie es un espacio topológico de dimensión dos; esto significa que un punto móvil en una superficie puede moverse en dos direcciones (tiene dos grados de libertad). En otras palabras, alrededor de casi todos los puntos hay una carta local coordenada en la que se define un sistema de coordenadas bidimensional. Por ejemplo, la superficie de la Tierra se asemeja (idealmente) a una esfera bidimensional, y la latitud y la longitud proporcionan coordenadas bidimensionales en ella (excepto en los polos y a lo largo del meridiano 180).
+\end{defn}
+
+
+
+\begin{figure}[!ht]
+	\centering
+	\begin{asy}
+	size(300,0);
+	import graph3;
+	currentprojection =perspective(3,4,2);
+	pair a=(-1.5,-1);
+	pair b=(1,1.5);
+
+	real f(pair xy) {
+	real x = xy.x; real y = xy.y;
+	return (6/5 - x^2/2) * (-y^4/2 + y^3/15 + y^2 + y/5 + 1);
+	}
+	real f1(pair xy) {
+	real x = xy.x; real y = xy.y;
+	return -x * (-y^4/2 + y^3/15 + y^2 + y/5 + 1);
+	}
+	real f2(pair xy) {
+	real x = xy.x; real y = xy.y;
+	return (6/5 - x^2/2) * (-2*y^3 + y^2/5 + 2*y + 1/5);
+	}
+	real w=1.1 ;
+	real x1(real t){return t;}
+	real y1(real t){return w;}
+	real z1(real t){pair z=(t,w); return f(z);}
+	path3 l1=graph(x1,y1,z1,a.x,b.x);
+	real ww=.4;
+	real x2(real t){return ww;}
+	real y2(real t){return t;}
+	real z2(real t){pair z=(ww,t); return f(z);}
+	path3 l2=graph(x2,y2,z2,a.y,b.y);
+	triple Q=(ww,w,f((ww,w)));
+	draw(l1, orange);
+	draw(l2, white);
+	dot(Label("$P$",align=2N),Q);
+
+	pair tww=(Q.x,Q.y);
+	real m1=f1(tww);
+	path3 tgx=Q-unit((Q.x+1,Q.y,Q.z+m1)-Q)--(Q+unit((Q.x+1,Q.y,Q.z+m1)-Q));
+	draw(tgx, orange);
+	pair tww2=(Q.x,Q.y);
+	real m2=f2(tww2);
+	path3 tgy=Q-unit((Q.x,Q.y+1,Q.z+m2)-Q)--(Q+unit((Q.x,Q.y+1,Q.z+m2)-Q));
+	draw(tgy, white);
+	draw(surface(plane(
+	O=Q+unit((Q.x,Q.y+1,Q.z+m2)-Q)+unit((Q.x+1,Q.y,Q.z+m1)-Q),
+	-2*unit((Q.x,Q.y+1,Q.z+m2)-Q),
+	-2*unit((Q.x+1,Q.y,Q.z+m1)-Q)
+	)), blue + opacity(0.5));
+
+	surface s = surface(f, a, b, Spline);
+	draw(s, surfacepen=paleyellow);axes3("$x$","$y$","$z$", Arrow3);
+	\end{asy}
+	\caption{Plano tangente}
+\end{figure}
+
+\section{Superficies de revolucion}
+
+Una superficie de revolución es una superficie en el espacio euclidiano creada al rotar una curva (la generatriz ) alrededor de un eje de rotación . [1]
+
+Ejemplos de superficies de revolución generadas por una línea recta son superficies cilíndricas y cónicas dependiendo de si la línea es o no paralela al eje. Un círculo que se gira alrededor de cualquier diámetro genera una esfera de la que entonces es un gran círculo , y si el círculo se gira alrededor de un eje que no corta el interior de un círculo, entonces genera un toro que no se corta a sí mismo ( un toro anular ).
+\subsection{Propoiedades}
+
+Las secciones de la superficie de revolución formadas por planos que pasan por el eje se denominan secciones meridionales . Cualquier sección meridional puede considerarse generatriz en el plano determinado por ella y el eje. [2]
+
+Las secciones de la superficie de revolución formadas por planos que son perpendiculares al eje son círculos.
+
+Algunos casos especiales de hiperboloides (de una o dos hojas) y paraboloides elípticos son superficies de revolución. Estas pueden identificarse como aquellas superficies cuadráticas cuyas secciones transversales perpendiculares al eje son todas circulares.
+
+\begin{figure}[!ht]\centering
+	\begin{asy}
+	import solids;
+	size(300,0);
+	currentprojection=perspective((45,30,50));
+	viewportmargin=(1mm,1mm);
+
+	draw((4,0,8)--(-4,0,8)^^(0,4,8)--(0,-4,8),dashed+darkgray);
+	draw("$x$",O--X,Arrow3);draw(O--3X);
+	draw("$y$",O--Y,Arrow3);draw(O--3Y);
+	draw("$z$",O--Z,Arrow3);draw(O--13Z);
+
+	path3 gene=(0,2,3)..(0,3,3.5)..(0,4,4.5)..(0,4.5,6)
+	..(0,4,8)..(0,1,10)..(0,2,12);
+	revolution vase=revolution(c=(0,0,0),gene, axis=Z, -70, 270);
+	draw(surface(vase),palegreen+opacity(.4));
+	draw(vase,m=3,frontpen=.8bp+blue,backpen=.6bp+paleblue,longitudinalpen=nullpen);
+	skeleton s;
+	vase.transverse(s,reltime(vase.g,0.5),P=currentprojection);
+	draw(s.transverse.back,1bp+yellow+linetype("8 8",8));
+	draw(s.transverse.front,1bp+yellow);
+
+	draw((0,2,3)--(0,-2,3)^^(2,0,3)--(-2,0,3),dashed+gray);
+	draw((0,2,12)--(0,-2,12)^^(2,0,12)--(-2,0,12),gray);
+
+	draw (gene,1bp+green);
+	draw ((2,0,12)..(0,2,12)..(-2,0,12)..(0,-2,12)..cycle,.4bp+red,Arrow3);
+
+	dot(Label("$a$",align=SE),(0,0,3));
+	dot(Label("$z$",align=SE),(0,0,8),red);
+	dot(Label("$b$",align=NE),(0,0,12));
+	draw("$r(z)$",(0,0,8)--(4,0,8),red,Arrow3);
+
+	\end{asy}
+	\caption{revolution}\end{figure}
+ \section{Superficies de reglada}
+
+ En geometría , se gobierna una superficie S (también llamada pergamino ) si a través de cada punto de S hay una línea recta que se encuentra en S. Los ejemplos incluyen el plano , la superficie lateral de un cilindro o cono , una superficie cónica con directriz elíptica , el conoide recto , el helicoide y la tangente que se desarrolla de una curva suave en el espacio.
+
+ Una superficie reglada se puede describir como el conjunto de puntos barridos por una línea recta en movimiento. Por ejemplo, un cono se forma manteniendo fijo un punto de una línea mientras se mueve otro punto a lo largo de un círculo . Una superficie está doblemente reglada si por cada uno de sus puntos pasan dos rectas distintas que se encuentran sobre la superficie. El paraboloide hiperbólico y el hiperboloide de una hoja son superficies doblemente regladas. El plano es la única superficie que contiene al menos tres líneas distintas a través de cada uno de sus puntos
+
+ Los mapas proyectivos conservan las propiedades de estar reglado o doblemente reglado y, por lo tanto, son conceptos de geometría proyectiva . En geometría algebraica , las superficies regladas a veces se consideran superficies en un espacio afín o proyectivo sobre un campo , pero también a veces se las considera superficies algebraicas abstractas sin una incrustación en un espacio afín o proyectivo, en cuyo caso se entiende que "línea recta" significa una línea afín o proyectiva.
+
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+  // Riemann surface of z^{1/n}
+import graph3;
+import palette;
+
+int n=3;
+
+size(200,300,keepAspect=false);
+
+currentprojection=orthographic(10,10,10);
+currentlight=(10,10,5);
+triple f(pair t) {return (t.x*cos(t.y),t.x*sin(t.y),t.x^(1/n)*sin(t.y/n));}
+
+surface s=surface(f,(0,0),(1,2pi*n),8,16,Spline);
+s.colors(palette(s.map(zpart),Rainbow()));
+
+draw(s,meshpen=black,render(merge=true));
+  \end{asy}
+  \caption{Superficie de Riemann}
+\end{figure}
+
+\section{Superficies orientables}
+
+
+Se dice que una superficie está orientada (cuando esto es posible) si se ha elegido una dirección de flujo positivo. Para elegir una dirección de flujo positivo especificamos un vector normal a la superficie. Cualquier flujo que esté en la dirección general del vector normal se considera positivo y cualquier flujo que se dirija contra el vector normal se considera negativo. Tenga en cuenta que no todas las superficies son orientables (por ejemplo, la banda de Möbius)
+
+\begin{figure}[!ht]
+	\begin{asy}
+import graph3;
+import palette;
+import contour3;
+size(300,0);
+
+real f(real x, real y, real z) {
+return cos(x)*sin(y)+cos(y)*sin(z)+cos(z)*sin(x);
+}
+
+surface sf=surface(contour3(f,(-2pi,-2pi,-2pi),(2pi,2pi,2pi),12));
+sf.colors(palette(sf.map(abs),Gradient(red,yellow)));
+
+currentlight=nolight;
+
+draw(sf,render(merge=true));
+	\end{asy}
+	\caption{Queso}
+\end{figure}
+
+
+\section{Superficies no orientables}
+
+ Una superficie S en el espacio euclidiano R 3 es orientable si una figura bidimensional (por ejemplo, Pequeño pastel.svg) no se puede mover alrededor de la superficie y regresar a donde comenzó para que parezca su propia imagen especular ( Tarta 2.svg). De lo contrario, la superficie no es orientable . Una superficie abstracta (es decir, una variedad bidimensional ) es orientable si se puede definir un concepto consistente de rotación en el sentido de las agujas del reloj en la superficie de manera continua. Es decir, un bucle que gira en un sentido sobre la superficie nunca puede deformarse continuamente (sin superponerse a sí mismo) en un bucle que gira en el sentido opuesto. Esto resulta ser equivalente a la pregunta de si la superficie no contiene ningún subconjunto que sea homeomorfo a la cinta de Möbius . Así, para las superficies, la cinta de Möbius puede considerarse la fuente de toda falta de orientabilidad.
+
+ Para una superficie orientable, una elección consistente de "sentido horario" (en contraposición a sentido contrario a las agujas del reloj) se denomina orientación , y la superficie se denomina orientada . Para las superficies incrustadas en el espacio euclidiano, la orientación se especifica mediante la elección de una superficie normal n que varía continuamente en cada punto. Si tal normal existe, entonces siempre hay dos formas de seleccionarlo: n o -n . Más generalmente, una superficie orientable admite exactamente dos orientaciones, y la distinción entre una superficie orientada y una orientablela superficie es sutil y frecuentemente borrosa. Una superficie orientable es una superficie abstracta que admite una orientación, mientras que una superficie orientada es una superficie abstractamente orientable, y tiene como dato adicional la elección de una de las dos orientaciones posibles.
+
+
+
+
+
+ \begin{figure}[!ht]
+ 	\begin{asy}
+ 	size(300,0);
+ 	import graph3;
+ 	triple F(pair uv) {
+ 	real t = uv.x;
+ 	real r = uv.y;
+ 	return (cos(t) + r*cos(t)*sin(t/2),
+ 	sin(t) + r*sin(t)*sin(t/2),
+ 	r*cos(t/2));
+ 	}
+ 	real r = 0.3;
+ 	surface moeb = surface(F, (0,-r), (2pi,r), Spline);
+ 	draw(moeb, surfacepen=material(blue, emissivepen=0.15 white), meshpen=black+thick());
+ 	\end{asy}
+ 	\caption{Mobius}
+ \end{figure}
+
+
+
+
+\section{Formas Geométricas en el Espacio}
+Se coincidieran a los 5 solidos platónicos como figuras que tienen volumen y dimensiones relacionadas con el numero de oro pues como se demostrarará  las longitudes de las aristas con respecto a otros se relacionan en proporción áurea sus volúmenes se relaciona del mismo modo pero no se tratara en este libro por lo tedioso e casi inútil en el arte.
+
+los gráficos se realizan en perspectiva por lo que no se tomara en cuenta la deducción teniendo en cuenta que el lector conoce de estos temas  para poder recrear las figuras en sus aplicaciones
+
+
+Como en cada cada vertice concurren como minimo tres caras y la suma de los angulos de estas tiene que ser menor de $360^\circ$ se deduce quwe solo puede existir los isguinetes caso
+
+\begin{itemize}
+  \item 3 triangulos equilateros nos genera $3\times 60^\circ=180^\circ < 360^\circ$
+  \item 4 triangulos euilateros nos genera $4\times 60^\circ=240^\circ < 360^\circ$
+  \item 5 triangulos equilateros mos genera $5\times 60^\circ=300^\circ < 360^\circ$
+  \item 6 triangulos equilateros nos genera $6\times 60^\circ=180^\circ < 360^\circ$ pues debe ser menor estrictamante en este caso es igual
+  \item 3 cuadrados nos genera $3\times 90^\circ=270^\circ < 360^\circ$
+  \item 4 cuadrados nos genera $4\times 90^\circ=360^\circ < 360^\circ$ pues debe ser menor estrictamante en este caso es igual
+  \item 3 pentagonos regualares nos genera $3\times 108^\circ=324^\circ < 360^\circ$
+  \item 4 pentagonos regualares nos genera $4\times 108^\circ=432^\circ < 360^\circ$ pues debe ser menor estrictamante en este caso es igual
+\end{itemize}
+
+ Es decir solo pueden existir  5 poliedros regulares o solidos platónicos
+
+\section{El Icosaedro}
+Formado por 20 caras triangulares equiláteros iguales, 12 vertices y 20 aristas
+Se genera a partir de un pentágono inscrito en una circunferencia  clone este pentágono rotelo $36^\circ$ de modo que todos sus vertices coincidan con las medios arcos cuyas cuerdas son los lados del pentágono original y clonado  a partir de los vertices de este pentagon clonado y rotado  tracese líneas ortogonales al plano donde el pentágono esta, de longitudes $\frac{D}{\sqrt{5}}$, donde $D$ es el diámetro del circunferencia que inscribe a los dos pentágonos, luego une los extremos $A'',B'',B'',C'',D''$ y $E''$ para formar nuevamente un pentágono semejante alas anterior finalmente solo nos falta dos puntos.
+
+
+\begin{figure}[!ht]
+\begin{center}
+\begin{asy}
+import three;
+size(300,0);
+real radius=0.5, theta=36, phi=60;
+currentprojection=perspective((0.3,1,0.7));
+currentlight=Headlamp;
+real r=1.1;
+
+triple w1=radius*dir(90,0);
+triple w2=radius*dir(90,360/5);
+triple w3=radius*dir(90,2*(360/5));
+triple w4=radius*dir(90,3*(360/5));
+triple w5=radius*dir(90,4*(360/5));
+triple w6=abs(w1-w2)*Z+radius*dir(90,1*(36));
+triple w7=abs(w1-w2)*Z+radius*dir(90,3*(36));
+triple w8=abs(w1-w2)*Z+radius*dir(90,5*(36));
+triple w9=abs(w1-w2)*Z+radius*dir(90,7*(36));
+triple w10=abs(w1-w2)*Z+radius*dir(90,9*(36));
+triple w11=radius*dir(90,(36));
+triple ww12=abs(w1-w2)*Z;
+triple w12=abs(w1-w2)*Z+abs(w1-w11)*Z;
+triple w=O-abs(w1-w11)*Z;
+dot(Label("$A$"),w1,W);
+dot(Label("$B$"),w2,dir(-90));
+dot(Label("$C$"),w3,E);
+dot(Label("$D$"),w4,3*N);
+dot(Label("$E$"),w5,3*N);
+dot(Label("$F$"),w6,dir(-135));
+dot(Label("$G$"),w7,E);
+dot(Label("$H$"),w8,NE);
+dot(Label("$I$"),w9,NE);
+dot(Label("$J$"),w10,2*W);
+dot(Label("$K$"),w11,dir(-100));
+dot(Label("$L$"),w12,dir(90));
+dot(Label("$M$"),ww12,dir(0));
+dot(Label("$N$"),w,dir(-135));
+dot(Label("$O$"),O,dir(-45));
+dot(w1^^w2^^w3^^w4^^w5^^w6^^w7^^w8^^w9^^w10^^w11^^w12^^w^^O^^ww12);
+draw(surface(w7--w8--w12--cycle^^w10--w6--w12--cycle^^w9--w12--w10--cycle^^w9--w12--w8--cycle^^w1--w6--w10--cycle^^w5--w10--w9--cycle^^w5--w9--w4--cycle^^w9--w4--w8--cycle^^w3--w8--w7--cycle^^w1--w5--w10--cycle^^w--w5--w1--cycle^^w3--w4--w8--cycle^^w5--w4--w--cycle^^w4--w3--w--cycle^^w1--w2--w--cycle^^w2--w3--w--cycle^^w2--w6--w7--cycle^^w7--w6--w12--cycle^^w1--w2--w6--cycle^^w2--w7--w3--cycle), surfacepen=material(blue+opacity(0.5)));
+draw(w1--w6--w2--w7--w3--w8--w4--w9--w5--w10--cycle^^w12--w6^^w12--w7^^w12--w8^^w12--w9^^w--w1^^w--w2^^w--w3^^w--w4^^w--w5^^w1--w2--w3--w4--w5--cycle^^w6--w7--w8--w9--w10--cycle,white);
+draw(w12--w10);
+
+draw("$36^\circ$",arc(O,w1,w11),align=3*dir(90,50),  Arrows3,light=currentlight);
+
+path3 g1 = circle(c=O, r=radius, normal=Z);
+path3 g2 = circle(c=ww12, r=radius, normal=Z);
+path3 g3 = circle(c=w12, r=radius, normal=Z);
+path3 g4 = circle(c=w, r=radius, normal=Z);
+draw(g1^^g2^^g3^^g4, dashed);
+draw(surface(g3^^g4), orange+opacity(0.5));
+pen ww=linewidth(0.2mm);
+draw("$r$",w11--w6,W,dashed+ww);
+draw("$r$",O--w11,dashed+ww,Arrow3);
+draw("$r$",O--ww12,W,dashed);
+draw("$r$",w7--(w7.x,w7.y,0),W,dashed+ww);
+draw("$r$",w8--(w8.x,w8.y,0),W,dashed+ww);
+draw("$r$",w9--(w9.x,w9.y,0),W,dashed+ww);
+draw("$r$",w10--(w10.x,w10.y,0),W,dashed+ww);
+dot((w7.x,w7.y,0)^^(w8.x,w8.y,0)^^(w9.x,w9.y,0)^^(w10.x,w10.y,0));
+
+draw("$w$",ww12--w12,W,dashed+ww);
+draw("$w$",O--w,W,dashed+ww);
+draw("$w$",w11--w2,N,dashed+ww);
+draw("$w$",w10--(w10.x,w10.y,abs(O-w12)),W,dashed+ww,Arrows3);
+draw("$w$",w3--(w3.x,w3.y,-abs(O-w)),E,dashed+ww,Arrows3);
+\end{asy}
+\end{center}
+\caption{Icosaedro}\label{icow}
+\end{figure}
+
+
+
+
+
+
+\section{El Dodecaedro}
+
+
+\begin{figure}[!ht]
+\centering
+\begin{asy}
+import three;
+size(300,0);
+currentprojection=perspective((2,9.5,2));
+currentlight=Headlamp;
+real radius=0.5;
+triple w1=radius*dir(90,0);
+triple w2=radius*dir(90,360/4);
+triple w3=radius*dir(90,2*(360/4));
+triple w4=radius*dir(90,3*(360/4));
+triple w5=w1+abs(w2-w1)*Z;
+triple w6=w2+abs(w2-w1)*Z;
+triple w7=w3+abs(w2-w1)*Z;
+triple w8=w4+abs(w2-w1)*Z;
+
+draw(w1--w2--w3--w4--w1--w5--w6--w7--w8--w5^^w6--w2^^w7--w3^^w8--w4);
+dot(Label("$E$"),w5,W);
+dot(Label("$F$"),w6,SE);
+dot(Label("$G$"),w7,E);
+dot(Label("$H$"),w8,N);
+dot(Label("$A$"),w1,S);
+dot(Label("$B$"),w2,NE);
+dot(Label("$C$"),w3,E);
+dot(Label("$D$"),w4,S);
+
+triple t1=(w5+w6)/2;
+triple t2=(w6+w7)/2;
+triple t3=(w7+w3)/2;
+triple t4=(w8+w5)/2;
+triple t5=(w1+w2)/2;
+triple t6=(w6+w2)/2;
+dot(Label("$M_1$"),t1,S);
+dot(Label("$M_2$"),t2,N);
+dot(Label("$M_3$"),t3,E);
+dot(Label("$M_4$"),t4,N);
+dot(Label("$M_5$"),t5,S);
+
+
+triple w11=(w5+w7)/2;
+triple w11w=t1+(w11-t1)*(1+sqrt(5))/2;
+triple w12w=w11+(w11-t1)*(1-sqrt(5))/2;
+triple n11=w11w+abs(w11w-w12w)*0.5*Z;
+triple n12=w12w+abs(w11w-w12w)*0.5*Z;
+
+dot(Label("$R$"),w11,N);
+dot(Label("$S$"),w11w,S);
+dot(Label("$T$"),w12w,NW);
+dot(Label("$N_1$"),n11,N);
+dot(Label("$N_2$"),n12,N);
+
+/////////////////////////
+triple w12=(w6+w3)/2;
+triple w21w=t2+(w12-t2)*(1+sqrt(5))/2;
+triple w22w=w12+(w12-t2)*(1-sqrt(5))/2;
+triple n21=w21w+abs(w21w-w22w)*0.5*unit(w6-w5);
+triple n22=w22w+abs(w21w-w22w)*0.5*unit(w6-w5);
+//dot(Label("$w12$"),w12);dot(Label("$w21w$"),w21w);dot(Label("$w22w$"),w22w);dot(Label("$n21$"),n21);dot(Label("$n22$"),n22);
+
+/////////////////////////
+triple w13=(w7+w4)/2;
+triple w31w=t3+(w13-t3)*(1+sqrt(5))/2;
+triple w32w=w13+(w13-t3)*(1-sqrt(5))/2;
+triple n31=w31w+abs(w31w-w32w)*0.5*unit(w7-w6);
+triple n32=w32w+abs(w31w-w32w)*0.5*unit(w7-w6);
+//dot(Label("$w13$"),w13);dot(Label("$w31w$"),w31w);dot(Label("$w32w$"),w32w);dot(Label("$n31$"),n31);dot(Label("$n32$"),n32);
+
+/////////////////////////
+triple w14=(w8+w1)/2;
+triple w41w=t4+(w14-t4)*(1+sqrt(5))/2;
+triple w42w=w14+(w14-t4)*(1-sqrt(5))/2;
+triple n41=w41w+abs(w41w-w42w)*0.5*unit(w5-w6);
+triple n42=w42w+abs(w41w-w42w)*0.5*unit(w5-w6);
+//dot(Label("$w14$"),w14);dot(Label("$w41w$"),w41w);dot(Label("$w42w$"),w42w);dot(Label("$n41$"),n41);dot(Label("$n42$"),n42);
+
+
+/////////////////////////
+triple w15=(w5+w2)/2;
+triple w51w=t6+(w15-t6)*(1+sqrt(5))/2;
+triple w52w=w15+(w15-t6)*(1-sqrt(5))/2;
+triple n51=w51w+abs(w51w-w52w)*0.5*unit(w6-w7);
+triple n52=w52w+abs(w51w-w52w)*0.5*unit(w6-w7);
+//dot(Label("$w15$"),w15);dot(Label("$w51w$"),w51w);dot(Label("$w52w$"),w52w);dot(Label("$n51$"),n51);dot(Label("$n52$"),n52);
+
+/////////////////////////
+triple w16=(w2+w4)/2;
+triple w61w=t5+(w16-t5)*(1+sqrt(5))/2;
+triple w62w=w16+(w16-t5)*(1-sqrt(5))/2;
+triple n61=w61w+abs(w61w-w62w)*0.5*-Z;
+triple n62=w62w+abs(w61w-w62w)*0.5*-Z;
+//dot(Label("$w16$"),w16);dot(Label("$61w$"),w61w);dot(Label("$62w$"),w62w);dot(Label("$n61$"),n61);dot(Label("$n62$"),n62);
+
+draw(w61w--n61, blue,Arrows3(size=5bp));
+draw(w62w--n62, blue,Arrows3(size=5bp));
+draw(w52w--n52, blue,Arrows3(size=5bp));
+draw(w51w--n51, blue,Arrows3(size=5bp));
+draw(w42w--n42, blue,Arrows3(size=5bp));
+draw(w41w--n41, blue,Arrows3(size=5bp));
+draw(w32w--n32, blue,Arrows3(size=5bp));
+draw(w31w--n31, blue,Arrows3(size=5bp));
+draw(w22w--n22, blue,Arrows3(size=5bp));
+draw(w21w--n21, blue,Arrows3(size=5bp));
+draw(w11w--n11, blue,Arrows3(size=5bp));
+draw(w12w--n12, blue,Arrows3(size=5bp));
+draw(t1-- w11w);
+draw(t2--w21w);
+draw(t3--w31w);
+draw(t4--w41w);
+draw(t6--w51w);
+draw(t5--w61w);
+
+draw(surface(
+  n11--n12--w5--n42--w8--cycle^^n11--n12--w6--n22--w7--cycle
+    ^^n21--n22--w6--n52--w2--cycle^^n21--n22--w7--n32--w3--cycle
+    ^^n31--n32--w7--n11--w8--cycle^^n31--n32--w3--n61--w4--cycle
+    ^^n41--n42--w8--n31--w4--cycle^^n41--n42--w5--n51--w1--cycle
+    ^^n51--n52--w6--n12--w5--cycle^^n51--n52--w2--n62--w1--cycle
+    ^^n61--n62--w2--n21--w3--cycle^^n61--n62--w1--n41--w4--cycle
+  ), surfacepen=material(palegreen+opacity(0.6)));
+draw(n11--n12--w5--n42--w8--cycle^^n11--n12--w6--n22--w7--cycle
+    ^^n21--n22--w6--n52--w2--cycle^^n21--n22--w7--n32--w3--cycle
+    ^^n31--n32--w7--n11--w8--cycle^^n31--n32--w3--n61--w4--cycle
+    ^^n41--n42--w8--n31--w4--cycle^^n41--n42--w5--n51--w1--cycle
+    ^^n51--n52--w6--n12--w5--cycle^^n51--n52--w2--n62--w1--cycle
+    ^^n61--n62--w2--n21--w3--cycle^^n61--n62--w1--n41--w4--cycle, white);
+	\end{asy}
+\caption{\label{pointsw}Dodecaedro}
+\end{figure}
+
+Solido constituido de 12 caras pentagonales 12 aristas (8 del cubo y 12 generadas en cada una de las caras por el método que se describirá) y 30 aristas cada cada pentágono se constituye de lados que se relación con el numero de oro como  ya se vio anteriormente, veamos como  se relaciona sus diagonales  es decir las líneas que reculatan de unir puntos no contiguas
+
+Se  obtiene un cubo las seis caras se dividen por la mitad de modo de que esas divisiones no se continúen es decir opuestos por ejemplo ($i'j'$ y $a'b'$) cada una de esas líneas  divídalos en dos segmentos iguales, sobre estas a la ves  obtenga las secciones áureas $u$ y $u'$   de los segmentos $i'o$ y $oj'$ con los segmento menores $i'o$ y $u'j'$ cercanos a las aristas del cubo respectivamente, luego de haber obtenido estos 2 secciones áureas (dos en cada unas de las caras del cubo) levántese líneas ortogonales $a'B,$ $uA$ y $iE'$ a las caras desde los puntos $u,$ $u'$ y $i'$ de longitud $ou'$ (el segmento mayor obtenido en el proceso anterior, de hallar la sección áurea) el proceso culmina al unir los vertices consecutivos del cubo con las puntos obtenidos en la proceso anterior, con los extremos de los segmentos tres ortogonales levantados anteriormente por ejemplo una de las caras del dodecaedro emerge al unir los puntos $ABeE'a$ el siguiente será el pentagono $aE'F'bE$
+
+
+Ahora analicemos la longitud de los aristas, observe el plano que pasa por el centro del cubo que tiene por vertices a los puntos $ABCD$ este plano genera una sección sobre el dodecaedro llamada sección principal que es un hexágono irregular que tiene dos lados opuestos que son aristas del dodecaedro y los otro cuatro son medianas de los  de la cuatro caras.
+
+\section{El Octaedro}
+
+
+\begin{figure}[!ht]
+\begin{asy}
+import three;
+import graph3;
+size(300,0);
+currentprojection=perspective((1,2,1.2));
+currentlight=Headlamp;
+real radius=0.5;
+triple w1=radius*dir(90,45);
+triple w2=radius*dir(90,135);
+triple w3=radius*dir(90,180+45);
+triple w4=radius*dir(90,180+135);
+triple w5=O+abs(O-w1)*Z;
+triple w6=O-abs(O-w1)*Z;
+
+dot(Label("$E$"),w5,W+N);
+dot(Label("$F$"),w6,SE);
+dot(Label("$A$"),w1,S);
+dot(Label("$B$"),w2,S);
+dot(Label("$C$"),w3,E);
+dot(Label("$D$"),w4,W);
+draw(surface(
+  w1--w2--w5--cycle
+  ^^w2--w3--w5--cycle
+  ^^w3--w4--w5--cycle
+  ^^w4--w1--w5--cycle
+  ^^w1--w2--w6--cycle
+  ^^w2--w3--w6--cycle
+  ^^w3--w4--w6--cycle
+  ^^w4--w1--w6--cycle
+  ), surfacepen=material(palegreen+opacity(0.9)));
+	draw(
+	  w1--w2--w5--cycle
+	  ^^w2--w3--w5--cycle
+	  ^^w3--w4--w5--cycle
+	  ^^w4--w1--w5--cycle
+	  ^^w1--w2--w6--cycle
+	  ^^w2--w3--w6--cycle
+	  ^^w3--w4--w6--cycle
+	  ^^w4--w1--w6--cycle
+	  , white);
+	draw("$OA$",O--0.5Z,W,Arrows3);
+
+	draw(Label("$x$",position=EndPoint,align=dir(-90)),O--0.1X,Arrow3);draw(O--0.3X);
+	draw(Label("$y$",position=EndPoint,align=N),O--0.1Y,Arrow3);draw(O--0.3Y);
+	draw(Label("$z$",position=EndPoint,align=W),O--0.1Z,Arrow3);draw(O--0.3Z);
+\end{asy}
+ \caption{Octaedro}\label{oc}
+\end{figure}
+
+Generemos el cuadrado  $ABCD$ inscrito en una circunferencia, por el punto medio de esta circunferencia levantemos la linea $OF$ y $OF'$ de longitud $OA$ que es la mitad de la diagonal de cuadrado $ABCD,$ e fácil verificar que este sea la altura del octaedro pues cada lado es un triángulo equilátero tratemos de generar un triángulo rectángulo para poder aplicar el Teorema de Pitágoras, entonces si proyectamos el punto $O$ perpendicularmente al  segmento $AB$ obtenemos el segmento $OP$ este tiene longitud $\frac{AD}{2},$ también proyectemos el punto $F$ al segmento $AB$ así generamos el segmento $FP$ de longitud $AD\frac{\sqrt{3}}{2}$ finalmente aplicaremos el teorema de Pitágoras para obtener $OF^2+OP^2=FP^2\Longleftrightarrow OF^2=\pa{AD\frac{\sqrt{3}}{2}}^2-\pa{\frac{AD}{2}}^2
+=\pa{\frac{AD}{2}}^22$ de donde $OF=\frac{AD}{\sqrt{2}}$ que verifica que $OF=AO$
+
+
+Generemos el cuadrado  $ABCD$ inscrito en una circunferencia, por el punto medio de esta circunferencia levantemos la linea $OF$ y $OF'$ de longitud $OA$ que es la mitad de la diagonal de cuadrado $ABCD,$ e fácil verificar que este sea la altura del octaedro pues cada lado es un triángulo equilátero tratemos de generar un triángulo rectángulo para poder aplicar el Teorema de Pitágoras, entonces si proyectamos el punto $O$ perpendicularmente al  segmento $AB$ obtenemos el segmento $OP$ este tiene longitud $\frac{AD}{2},$ también proyectemos el punto $F$ al segmento $AB$ así generamos el segmento $FP$ de longitud $AD\frac{\sqrt{3}}{2}$ finalmente aplicaremos el teorema de Pitágoras para obtener $OF^2+OP^2=FP^2\Longleftrightarrow OF^2=\pa{AD\frac{\sqrt{3}}{2}}^2-\pa{\frac{AD}{2}}^2
+=\pa{\frac{AD}{2}}^22$ de donde $OF=\frac{AD}{\sqrt{2}}$ que verifica que $OF=AO$
+
+
+
+\section{El Exaedro o Cubo}
+
+\begin{figure}[!ht]
+\centering
+\begin{asy}
+import graph3;
+size(300,0);
+currentprojection=perspective((1,2,1.2));
+currentlight=Headlamp;
+real radius=0.5;
+triple w1=radius*dir(90,45);
+triple w2=radius*dir(90,135);
+triple w3=radius*dir(90,180+45);
+triple w4=radius*dir(90,180+135);
+triple w5=w1+abs(w2-w1)*Z;
+triple w6=w2+abs(w2-w1)*Z;
+triple w7=w3+abs(w2-w1)*Z;
+triple w8=w4+abs(w2-w1)*Z;
+
+dot(Label("$A$"),w1,W);
+dot(Label("$B$"),w2,SE);
+dot(Label("$C$"),w3,E);
+dot(Label("$D$"),w4,W);
+dot(Label("$E$"),w5,dir(-135));
+dot(Label("$F$"),w6,E);
+dot(Label("$G$"),w7,N);
+dot(Label("$H$"),w8,W);
+draw(surface(
+  w1--w2--w3--w4--cycle
+  ^^w5--w6--w7--w8--cycle
+  ^^w1--w2--w6--w5--cycle
+  ^^w2--w3--w7--w6--cycle
+  ^^w3--w4--w8--w7--cycle
+  ^^w1--w4--w8--w5--cycle
+  ), surfacepen=material(palegreen+opacity(0.5)));
+draw(
+  w1--w2--w3--w4--cycle
+  ^^w5--w6--w7--w8--cycle
+  ^^w1--w2--w6--w5--cycle
+  ^^w2--w3--w7--w6--cycle
+  ^^w3--w4--w8--w7--cycle
+  ^^w1--w4--w8--w5--cycle
+  , white);
+draw(Label("$x$",position=EndPoint,align=dir(-90)),O--0.1X,Arrow3);draw(O--0.3X);
+draw(Label("$y$",position=EndPoint,align=N),O--0.1Y,Arrow3);draw(O--0.3Y);
+draw(Label("$z$",position=EndPoint,align=W),O--0.1Z,Arrow3);draw(O--0.3Z);
+\end{asy}
+  \caption{Cubo}\label{cu}
+\end{figure}
+
+Formado por seis caras cuadrados iguales, ocho vertices y doce aristas la sección principal pasa por dos aristas opuestas y hay seis des estas secciones en un cubo tales como, debemos destacar que $\frac{DF}{3}$
+Hay que demostrar como se forma el cubo y cual es la proporción entre su lado y el diámetro de la esfera que lo circumscribe exactamente, tómese el diámetro de la esfera en la que se prepone colocarlo exactamente y sea este la linea $AB,$ sobre la cula se trasa el semicírculo $ADB$ luego divídalas el diámetro en el punto $C$ de manera que $AC=2BC$ tracsece la linea $CD$ perpendicular a la linea $AB$ además tracese las líneas $BC$ y $CA.$ Haga luego un cuadrado cuyos lados iguales a la linea $BD$
+
+luego se verifica que $3BD^2=AB^2\Longleftrightarrow AB=\sqrt{3}BD$
+
+
+\section{El Tetraedro}
+
+
+\begin{figure}[!ht]
+\centering
+\begin{asy}
+import three;
+import graph3;
+size(300,0);
+currentprojection=perspective((0.5,0.5,0.1));
+currentlight=Headlamp;
+real radius=0.5;
+triple w1=radius*dir(90,60);
+triple w2=radius*dir(90,180);
+triple w3=radius*dir(90,360-60);
+triple w4=O+sqrt((abs(w2-w1)*sin(radians(60)))^2-(abs(w2-w1)/2*sin(radians(30)))^2)*Z;
+//write(abs(w2-w1));
+//write(abs(w4-w1));
+
+draw("$\sqrt{(L\sin(60))^2-(\frac{L}{2}\sin(30))^2}$",O--w4,W,Arrows3);
+
+dot(Label("$A$"),w1,S);
+dot(Label("$B$"),w2,E);
+dot(Label("$C$"),w3,W);
+dot(Label("$D$"),w4,W);
+draw(surface(
+  w1--w2--w4--cycle
+  ^^w2--w3--w4--cycle
+  ^^w3--w1--w4--cycle
+  ^^w3--w1--w2--cycle
+  ), surfacepen=material(palegreen+opacity(0.5)));
+
+draw(w1--w2--w4--cycle
+  ^^w2--w3--w4--cycle
+  ^^w3--w1--w4--cycle
+  ^^w3--w1--w2--cycle, white);
+
+draw(Label("$x$",position=EndPoint,align=dir(-90)),O--0.3X,Arrow3);draw(O--0.5X);
+draw(Label("$y$",position=EndPoint,align=N),O--0.4Y,Arrow3);draw(O--0.5Y);
+draw(Label("$z$",position=EndPoint,align=W),O--0.8Z,Arrow3);draw(O--0.2Z);
+\end{asy}
+  \caption{Tetraedro}\label{u}
+\end{figure}
+
+El tetraedro es mu y fácil de construir sea el triángulo equilátero $ABC$ a partir de su centro $O$ se lavanda una  ortogonal $OF=r\sqrt{2}$ donde $r$ es la radio de la circunferencia que circumscribe al triángulo
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%555555555555

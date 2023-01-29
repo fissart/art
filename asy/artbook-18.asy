@@ -10,39 +10,105 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=2;
+settings.render=1;
 
+size(200);
+import palette;
 import three;
-import graph3;
-size(300,0);
-currentprojection=perspective((1,1,0.3));
-currentlight=Headlamp;
-real radius=0.5;
-triple w1=radius*dir(90,60);
-triple w2=radius*dir(90,180);
-triple w3=radius*dir(90,360-60);
-triple w4=O+sqrt((abs(w2-w1)*sin(radians(60)))^2-(abs(w2-w1)/2*sin(radians(30)))^2)*Z;
-//write(abs(w2-w1));
-//write(abs(w4-w1));
 
-draw("$\sqrt{(L\sin(60))^2-(\frac{L}{2}\sin(30))^2}$",O--w4,W,Arrows3);
+currentprojection=perspective(1,1,1);
 
-dot(Label("$A$"),w1,S);
-dot(Label("$B$"),w2,E);
-dot(Label("$C$"),w3,W);
-dot(Label("$D$"),w4,W);
-draw(surface(
-w1--w2--w4--cycle
-^^w2--w3--w4--cycle
-^^w3--w1--w4--cycle
-^^w3--w1--w2--cycle
-), surfacepen=material(palegreen+opacity(0.5)));
+triple[] M=
+{
+(-1,-1,-1),(0,-1,-1),(1,-1,-1),(1,0,-1),
+(1,1,-1),(0,1,-1),(-1,1,-1),(-1,0,-1),
+(-1,-1,0),(1,-1,0),(1,1,0),(-1,1,0),
+(-1,-1,1),(0,-1,1),(1,-1,1),(1,0,1),(1,1,1),(0,1,1),(-1,1,1),(-1,0,1)
+};
 
-draw(w1--w2--w4--cycle
-^^w2--w3--w4--cycle
-^^w3--w1--w4--cycle
-^^w3--w1--w2--cycle, white);
+surface[] Squares=
+{
+surface((1,-1,-1)--(1,1,-1)--(1,1,1)--(1,-1,1)--cycle),
+surface((-1,-1,-1)--(-1,1,-1)--(-1,1,1)--(-1,-1,1)--cycle),
+surface((1,1,-1)--(-1,1,-1)--(-1,1,1)--(1,1,1)--cycle),
+surface((1,-1,-1)--(-1,-1,-1)--(-1,-1,1)--(1,-1,1)--cycle),
+surface((1,-1,1)--(1,1,1)--(-1,1,1)--(-1,-1,1)--cycle),
+surface((1,-1,-1)--(1,1,-1)--(-1,1,-1)--(-1,-1,-1)--cycle),
+};
 
-draw(Label("$x$",position=EndPoint,align=dir(-90)),O--0.3X,Arrow3);draw(O--0.5X);
-draw(Label("$y$",position=EndPoint,align=N),O--0.4Y,Arrow3);draw(O--0.5Y);
-draw(Label("$z$",position=EndPoint,align=W),O--0.8Z,Arrow3);draw(O--0.2Z);
+int[][] SquaresPoints=
+{
+{2,3,4,10,16,15,14,9},
+{0,7,6,11,18,19,12,8},
+{4,5,6,11,18,17,16,10},
+{2,1,0,8,12,13,14,9},
+{12,13,14,15,16,17,18,19},
+{0,1,2,3,4,5,6,7}
+};
+
+int[][] index=
+{
+{0,2,4},{0,1},{1,2,4},{2,3},{1,3,4},{0,1},{0,3,4},{2,3},
+{4,5},{4,5},{4,5},{4,5},
+{0,2,5},{0,1},{1,2,5},{2,3},{1,3,5},{0,1},{0,3,5},{2,3}
+};
+
+int[] Sponge0=array(n=6,value=1);
+
+int[] eraseFaces(int n, int[] Sponge0) {
+int[] temp=copy(Sponge0);
+for(int k : index[n]) {
+temp[k]=0;
+}
+return temp;
+}
+
+int[][] Sponge1=new int[20][];
+for(int n=0; n < 20; ++n) {
+Sponge1[n]=eraseFaces(n,Sponge0);
+}
+
+int[][] eraseFaces(int n, int[][] Sponge1) {
+int[][] temp=copy(Sponge1);
+for(int k : index[n])
+for(int n1 : SquaresPoints[k])
+temp[n1][k]=0;
+return temp;
+}
+
+int[][][] Sponge2=new int[20][][];
+for(int n=0; n < 20; ++n)
+Sponge2[n]=eraseFaces(n,Sponge1);
+
+int[][][] eraseFaces(int n, int[][][] Sponge2) {
+int[][][] temp=copy(Sponge2);
+for(int k : index[n])
+for(int n2: SquaresPoints[k])
+for(int n1: SquaresPoints[k])
+temp[n2][n1][k]=0;
+return temp;
+}
+
+int[][][][] Sponge3=new int[20][][][];
+for(int n=0; n < 20; ++n)
+Sponge3[n]=eraseFaces(n,Sponge2);
+
+surface s3;
+real u=2/3;
+for(int n3=0; n3 < 20; ++n3) {
+surface s2;
+for(int n2=0; n2 < 20; ++n2) {
+surface s1;
+for(int n1=0; n1 < 20; ++n1) {
+for(int k=0; k < 6; ++k) {
+if(Sponge3[n3][n2][n1][k] > 0) {
+s1.append(scale3(u)*shift(M[n1])*scale3(0.5)*Squares[k]);
+}
+}
+}
+s2.append(scale3(u)*shift(M[n2])*scale3(0.5)*s1);
+}
+s3.append(scale3(u)*shift(M[n3])*scale3(0.5)*s2);
+}
+s3.colors(palette(s3.map(abs),Rainbow()));
+draw(s3);
