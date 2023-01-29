@@ -1,180 +1,180 @@
 # Fdb version 3
-["bibtex artbook"] 1674956468 "artbook.aux" "artbook.bbl" "artbook" 1674956474
+["bibtex artbook"] 1675031913 "artbook.aux" "artbook.bbl" "artbook" 1675031934
   "/usr/share/texlive/texmf-dist/bibtex/bst/apacite/apacite.bst" 1374530685 141073 9d7b79dbf9d91133318126032cff8c27 ""
-  "artbook.aux" 1674956473 2592 2db18b7582981410fb8fd279ed13d794 "latex"
+  "artbook.aux" 1675031913 2592 2db18b7582981410fb8fd279ed13d794 "latex"
   "bb.bib" 1674509239 30549 ee093154a10c77e62df5848c84b5130c ""
-  "chp/chp1.aux" 1674956472 7870 1714cce135ad25e39a1b5a73cbd00173 "latex"
-  "chp/chp2.aux" 1674956473 3807 69a9104dae771ff745f5b819b4a2582a "latex"
-  "chp/chp3.aux" 1674956473 1973 df6e01aef9b9b27ca749b2373ee1795b "latex"
-  "chp/chp4.aux" 1674956473 1500 ef96f811e239268479e474823c3f478f "latex"
-  "chp/chp5.aux" 1674956473 3061 02935f9a57d1178a9ccc952ac90f522c "latex"
-  "chp/chp6.aux" 1674956473 2057 4f38ae590044439afd9cd3a549de50db "latex"
-  "chp/chp7.aux" 1674956473 2061 62dc26551f8d87f7ea82793b47f88ab7 "latex"
-  "chp/chp8.aux" 1674956473 6545 b3647a83cc8c539780de65b4fbb75b39 "latex"
+  "chp/chp1.aux" 1675031912 7870 1714cce135ad25e39a1b5a73cbd00173 "latex"
+  "chp/chp2.aux" 1675031912 3807 69a9104dae771ff745f5b819b4a2582a "latex"
+  "chp/chp3.aux" 1675031912 1973 df6e01aef9b9b27ca749b2373ee1795b "latex"
+  "chp/chp4.aux" 1675031912 1500 ef96f811e239268479e474823c3f478f "latex"
+  "chp/chp5.aux" 1675031912 3061 02935f9a57d1178a9ccc952ac90f522c "latex"
+  "chp/chp6.aux" 1675031913 2057 4f38ae590044439afd9cd3a549de50db "latex"
+  "chp/chp7.aux" 1675031913 2061 62dc26551f8d87f7ea82793b47f88ab7 "latex"
+  "chp/chp8.aux" 1675031913 6545 b3647a83cc8c539780de65b4fbb75b39 "latex"
   (generated)
   "artbook.bbl"
   "artbook.blg"
-["cusdep asy eps asy/artbook-1"] 1674956294 "asy/artbook-1.asy" "asy/artbook-1.eps" "asy/artbook-1" 1674956474
-  "asy/artbook-1.asy" 1674956470 1031 5d85bc7db46c8005da2e03fd3435ec63 "latex"
+["cusdep asy eps asy/artbook-1"] 1675031902 "asy/artbook-1.asy" "asy/artbook-1.eps" "asy/artbook-1" 1675031934
+  "asy/artbook-1.asy" 1675031911 1031 5d85bc7db46c8005da2e03fd3435ec63 "latex"
   (generated)
   "asy/artbook-1.eps"
-["cusdep asy eps asy/artbook-10"] 1674956285 "asy/artbook-10.asy" "asy/artbook-10.eps" "asy/artbook-10" 1674956474
-  "asy/artbook-10.asy" 1674956473 3063 95cd24e5b94e1f0edc4eaeddfd3d40ec "latex"
+["cusdep asy eps asy/artbook-10"] 1674956285 "asy/artbook-10.asy" "asy/artbook-10.eps" "asy/artbook-10" 1675031934
+  "asy/artbook-10.asy" 1675031912 3063 95cd24e5b94e1f0edc4eaeddfd3d40ec "latex"
   (generated)
   "asy/artbook-10.eps"
-["cusdep asy eps asy/artbook-11"] 1674956281 "asy/artbook-11.asy" "asy/artbook-11.eps" "asy/artbook-11" 1674956474
-  "asy/artbook-11.asy" 1674956473 4658 37f4f7664e4fd68cd88420b56a8f0d44 "latex"
+["cusdep asy eps asy/artbook-11"] 1674956281 "asy/artbook-11.asy" "asy/artbook-11.eps" "asy/artbook-11" 1675031934
+  "asy/artbook-11.asy" 1675031912 4658 37f4f7664e4fd68cd88420b56a8f0d44 "latex"
   (generated)
   "asy/artbook-11.eps"
-["cusdep asy eps asy/artbook-12"] 1674956279 "asy/artbook-12.asy" "asy/artbook-12.eps" "asy/artbook-12" 1674956474
-  "asy/artbook-12.asy" 1674956473 1451 088941b306833c73ca982aaf837b874c "latex"
+["cusdep asy eps asy/artbook-12"] 1674956279 "asy/artbook-12.asy" "asy/artbook-12.eps" "asy/artbook-12" 1675031934
+  "asy/artbook-12.asy" 1675031912 1451 088941b306833c73ca982aaf837b874c "latex"
   (generated)
   "asy/artbook-12.eps"
-["cusdep asy eps asy/artbook-13"] 1674956276 "asy/artbook-13.asy" "asy/artbook-13.eps" "asy/artbook-13" 1674956474
-  "asy/artbook-13.asy" 1674956473 1484 8114f9d67680e916ab52c8085306681e "latex"
+["cusdep asy eps asy/artbook-13"] 1674956276 "asy/artbook-13.asy" "asy/artbook-13.eps" "asy/artbook-13" 1675031934
+  "asy/artbook-13.asy" 1675031912 1484 8114f9d67680e916ab52c8085306681e "latex"
   (generated)
   "asy/artbook-13.eps"
-["cusdep asy eps asy/artbook-14"] 1674956273 "asy/artbook-14.asy" "asy/artbook-14.eps" "asy/artbook-14" 1674956474
-  "asy/artbook-14.asy" 1674956473 1329 aad1cd41a8da49d18315215a4b3c2758 "latex"
+["cusdep asy eps asy/artbook-14"] 1674956273 "asy/artbook-14.asy" "asy/artbook-14.eps" "asy/artbook-14" 1675031934
+  "asy/artbook-14.asy" 1675031912 1329 aad1cd41a8da49d18315215a4b3c2758 "latex"
   (generated)
   "asy/artbook-14.eps"
-["cusdep asy eps asy/artbook-15"] 1674956273 "asy/artbook-15.asy" "asy/artbook-15.eps" "asy/artbook-15" 1674956474
-  "asy/artbook-15.asy" 1674956473 2296 0ee73ba7c10c3489d8630190fc86c539 "latex"
+["cusdep asy eps asy/artbook-15"] 1674956273 "asy/artbook-15.asy" "asy/artbook-15.eps" "asy/artbook-15" 1675031934
+  "asy/artbook-15.asy" 1675031912 2296 0ee73ba7c10c3489d8630190fc86c539 "latex"
   (generated)
   "asy/artbook-15.eps"
-["cusdep asy eps asy/artbook-16"] 1674956272 "asy/artbook-16.asy" "asy/artbook-16.eps" "asy/artbook-16" 1674956474
-  "asy/artbook-16.asy" 1674956473 3325 30ac8571a6ff1eff43a8733c93ca1b0b "latex"
+["cusdep asy eps asy/artbook-16"] 1674956272 "asy/artbook-16.asy" "asy/artbook-16.eps" "asy/artbook-16" 1675031934
+  "asy/artbook-16.asy" 1675031912 3325 30ac8571a6ff1eff43a8733c93ca1b0b "latex"
   (generated)
   "asy/artbook-16.eps"
-["cusdep asy eps asy/artbook-17"] 1674956271 "asy/artbook-17.asy" "asy/artbook-17.eps" "asy/artbook-17" 1674956474
-  "asy/artbook-17.asy" 1674956473 1872 9c371bd74baa68cad49e456d07908576 "latex"
+["cusdep asy eps asy/artbook-17"] 1674956271 "asy/artbook-17.asy" "asy/artbook-17.eps" "asy/artbook-17" 1675031934
+  "asy/artbook-17.asy" 1675031912 1872 9c371bd74baa68cad49e456d07908576 "latex"
   (generated)
   "asy/artbook-17.eps"
-["cusdep asy eps asy/artbook-18"] 1674956251 "asy/artbook-18.asy" "asy/artbook-18.eps" "asy/artbook-18" 1674956474
-  "asy/artbook-18.asy" 1674956473 2549 e3f8980e4fad1a285307f50838572a2f "latex"
+["cusdep asy eps asy/artbook-18"] 1674956251 "asy/artbook-18.asy" "asy/artbook-18.eps" "asy/artbook-18" 1675031934
+  "asy/artbook-18.asy" 1675031912 2549 e3f8980e4fad1a285307f50838572a2f "latex"
   (generated)
   "asy/artbook-18.eps"
-["cusdep asy eps asy/artbook-19"] 1674956249 "asy/artbook-19.asy" "asy/artbook-19.eps" "asy/artbook-19" 1674956474
-  "asy/artbook-19.asy" 1674956473 670 1846b536563e52d79508952e4198be95 "latex"
+["cusdep asy eps asy/artbook-19"] 1674956249 "asy/artbook-19.asy" "asy/artbook-19.eps" "asy/artbook-19" 1675031934
+  "asy/artbook-19.asy" 1675031912 670 1846b536563e52d79508952e4198be95 "latex"
   (generated)
   "asy/artbook-19.eps"
-["cusdep asy eps asy/artbook-2"] 1674956249 "asy/artbook-2.asy" "asy/artbook-2.eps" "asy/artbook-2" 1674956474
-  "asy/artbook-2.asy" 1674956470 996 aeff3696e95eaa078a9f7e0f26c4cd19 "latex"
+["cusdep asy eps asy/artbook-2"] 1675031902 "asy/artbook-2.asy" "asy/artbook-2.eps" "asy/artbook-2" 1675031934
+  "asy/artbook-2.asy" 1675031911 996 aeff3696e95eaa078a9f7e0f26c4cd19 "latex"
   (generated)
   "asy/artbook-2.eps"
-["cusdep asy eps asy/artbook-20"] 1674956245 "asy/artbook-20.asy" "asy/artbook-20.eps" "asy/artbook-20" 1674956474
-  "asy/artbook-20.asy" 1674956473 1541 5b8fd4cdbf3e753412f90aef5dd1469f "latex"
+["cusdep asy eps asy/artbook-20"] 1674956245 "asy/artbook-20.asy" "asy/artbook-20.eps" "asy/artbook-20" 1675031934
+  "asy/artbook-20.asy" 1675031912 1541 5b8fd4cdbf3e753412f90aef5dd1469f "latex"
   (generated)
   "asy/artbook-20.eps"
-["cusdep asy eps asy/artbook-21"] 1674956243 "asy/artbook-21.asy" "asy/artbook-21.eps" "asy/artbook-21" 1674956474
-  "asy/artbook-21.asy" 1674956473 987 ffbb384445efb78eb87191ae18853354 "latex"
+["cusdep asy eps asy/artbook-21"] 1674956243 "asy/artbook-21.asy" "asy/artbook-21.eps" "asy/artbook-21" 1675031934
+  "asy/artbook-21.asy" 1675031912 987 ffbb384445efb78eb87191ae18853354 "latex"
   (generated)
   "asy/artbook-21.eps"
-["cusdep asy eps asy/artbook-22"] 1674956238 "asy/artbook-22.asy" "asy/artbook-22.eps" "asy/artbook-22" 1674956474
-  "asy/artbook-22.asy" 1674956473 2849 39da2fa4ba13b7b56ee9390d69349a1e "latex"
+["cusdep asy eps asy/artbook-22"] 1674956238 "asy/artbook-22.asy" "asy/artbook-22.eps" "asy/artbook-22" 1675031934
+  "asy/artbook-22.asy" 1675031912 2849 39da2fa4ba13b7b56ee9390d69349a1e "latex"
   (generated)
   "asy/artbook-22.eps"
-["cusdep asy eps asy/artbook-23"] 1674956236 "asy/artbook-23.asy" "asy/artbook-23.eps" "asy/artbook-23" 1674956474
-  "asy/artbook-23.asy" 1674956473 652 c2eaeb4ccaf32a93529e398d82d4be68 "latex"
+["cusdep asy eps asy/artbook-23"] 1674956236 "asy/artbook-23.asy" "asy/artbook-23.eps" "asy/artbook-23" 1675031934
+  "asy/artbook-23.asy" 1675031913 652 c2eaeb4ccaf32a93529e398d82d4be68 "latex"
   (generated)
   "asy/artbook-23.eps"
-["cusdep asy eps asy/artbook-24"] 1674956230 "asy/artbook-24.asy" "asy/artbook-24.eps" "asy/artbook-24" 1674956474
-  "asy/artbook-24.asy" 1674956473 787 1958680f88631d0840953a27ad8a415b "latex"
+["cusdep asy eps asy/artbook-24"] 1674956230 "asy/artbook-24.asy" "asy/artbook-24.eps" "asy/artbook-24" 1675031934
+  "asy/artbook-24.asy" 1675031913 787 1958680f88631d0840953a27ad8a415b "latex"
   (generated)
   "asy/artbook-24.eps"
-["cusdep asy eps asy/artbook-25"] 1674956225 "asy/artbook-25.asy" "asy/artbook-25.eps" "asy/artbook-25" 1674956474
-  "asy/artbook-25.asy" 1674956473 2017 3dd5e396e48e89ed312fa62bcb47fb08 "latex"
+["cusdep asy eps asy/artbook-25"] 1674956225 "asy/artbook-25.asy" "asy/artbook-25.eps" "asy/artbook-25" 1675031934
+  "asy/artbook-25.asy" 1675031913 2017 3dd5e396e48e89ed312fa62bcb47fb08 "latex"
   (generated)
   "asy/artbook-25.eps"
-["cusdep asy eps asy/artbook-26"] 1674956219 "asy/artbook-26.asy" "asy/artbook-26.eps" "asy/artbook-26" 1674956474
-  "asy/artbook-26.asy" 1674956473 1355 43dcc70b4abc2efa5ff2f3e0b88c4d5e "latex"
+["cusdep asy eps asy/artbook-26"] 1674956219 "asy/artbook-26.asy" "asy/artbook-26.eps" "asy/artbook-26" 1675031934
+  "asy/artbook-26.asy" 1675031913 1355 43dcc70b4abc2efa5ff2f3e0b88c4d5e "latex"
   (generated)
   "asy/artbook-26.eps"
-["cusdep asy eps asy/artbook-27"] 1674956214 "asy/artbook-27.asy" "asy/artbook-27.eps" "asy/artbook-27" 1674956474
-  "asy/artbook-27.asy" 1674956473 1319 caef8fba03151c2bfa737e685000d130 "latex"
+["cusdep asy eps asy/artbook-27"] 1674956214 "asy/artbook-27.asy" "asy/artbook-27.eps" "asy/artbook-27" 1675031934
+  "asy/artbook-27.asy" 1675031913 1319 caef8fba03151c2bfa737e685000d130 "latex"
   (generated)
   "asy/artbook-27.eps"
-["cusdep asy eps asy/artbook-28"] 1674956210 "asy/artbook-28.asy" "asy/artbook-28.eps" "asy/artbook-28" 1674956474
-  "asy/artbook-28.asy" 1674956473 1294 66947db2d6f85cb2a3d828c8403fcb3d "latex"
+["cusdep asy eps asy/artbook-28"] 1674956210 "asy/artbook-28.asy" "asy/artbook-28.eps" "asy/artbook-28" 1675031934
+  "asy/artbook-28.asy" 1675031913 1294 66947db2d6f85cb2a3d828c8403fcb3d "latex"
   (generated)
   "asy/artbook-28.eps"
-["cusdep asy eps asy/artbook-29"] 1674956207 "asy/artbook-29.asy" "asy/artbook-29.eps" "asy/artbook-29" 1674956474
-  "asy/artbook-29.asy" 1674956473 1421 a1e1a69821c196cc6a57eb0f6a4661b2 "latex"
+["cusdep asy eps asy/artbook-29"] 1674956207 "asy/artbook-29.asy" "asy/artbook-29.eps" "asy/artbook-29" 1675031934
+  "asy/artbook-29.asy" 1675031913 1421 a1e1a69821c196cc6a57eb0f6a4661b2 "latex"
   (generated)
   "asy/artbook-29.eps"
-["cusdep asy eps asy/artbook-3"] 1674956205 "asy/artbook-3.asy" "asy/artbook-3.eps" "asy/artbook-3" 1674956474
-  "asy/artbook-3.asy" 1674956470 1907 4a08417968b49e72c7692cfafd87e4d1 "latex"
+["cusdep asy eps asy/artbook-3"] 1675031901 "asy/artbook-3.asy" "asy/artbook-3.eps" "asy/artbook-3" 1675031934
+  "asy/artbook-3.asy" 1675031911 1907 4a08417968b49e72c7692cfafd87e4d1 "latex"
   (generated)
   "asy/artbook-3.eps"
-["cusdep asy eps asy/artbook-30"] 1674956203 "asy/artbook-30.asy" "asy/artbook-30.eps" "asy/artbook-30" 1674956474
-  "asy/artbook-30.asy" 1674956473 1389 c9ea4f1d747624b2bba248b9436d8981 "latex"
+["cusdep asy eps asy/artbook-30"] 1674956203 "asy/artbook-30.asy" "asy/artbook-30.eps" "asy/artbook-30" 1675031934
+  "asy/artbook-30.asy" 1675031913 1389 c9ea4f1d747624b2bba248b9436d8981 "latex"
   (generated)
   "asy/artbook-30.eps"
-["cusdep asy eps asy/artbook-31"] 1674956202 "asy/artbook-31.asy" "asy/artbook-31.eps" "asy/artbook-31" 1674956474
-  "asy/artbook-31.asy" 1674956473 816 db329037a586b058310f57c8b29dc79a "latex"
+["cusdep asy eps asy/artbook-31"] 1674956202 "asy/artbook-31.asy" "asy/artbook-31.eps" "asy/artbook-31" 1675031934
+  "asy/artbook-31.asy" 1675031913 816 db329037a586b058310f57c8b29dc79a "latex"
   (generated)
   "asy/artbook-31.eps"
-["cusdep asy eps asy/artbook-32"] 1674956201 "asy/artbook-32.asy" "asy/artbook-32.eps" "asy/artbook-32" 1674956474
-  "asy/artbook-32.asy" 1674956473 712 a051e63cf22e63b328e2a46bbdd1a5ff "latex"
+["cusdep asy eps asy/artbook-32"] 1674956201 "asy/artbook-32.asy" "asy/artbook-32.eps" "asy/artbook-32" 1675031934
+  "asy/artbook-32.asy" 1675031913 712 a051e63cf22e63b328e2a46bbdd1a5ff "latex"
   (generated)
   "asy/artbook-32.eps"
-["cusdep asy eps asy/artbook-33"] 1674956198 "asy/artbook-33.asy" "asy/artbook-33.eps" "asy/artbook-33" 1674956474
-  "asy/artbook-33.asy" 1674956473 1370 60a9a4e8151bf6ca245f62e98a98658a "latex"
+["cusdep asy eps asy/artbook-33"] 1674956198 "asy/artbook-33.asy" "asy/artbook-33.eps" "asy/artbook-33" 1675031934
+  "asy/artbook-33.asy" 1675031913 1370 60a9a4e8151bf6ca245f62e98a98658a "latex"
   (generated)
   "asy/artbook-33.eps"
-["cusdep asy eps asy/artbook-34"] 1674956196 "asy/artbook-34.asy" "asy/artbook-34.eps" "asy/artbook-34" 1674956474
-  "asy/artbook-34.asy" 1674956473 1096 1178aa89d7554db9b9dff708b25b4006 "latex"
+["cusdep asy eps asy/artbook-34"] 1674956196 "asy/artbook-34.asy" "asy/artbook-34.eps" "asy/artbook-34" 1675031934
+  "asy/artbook-34.asy" 1675031913 1096 1178aa89d7554db9b9dff708b25b4006 "latex"
   (generated)
   "asy/artbook-34.eps"
-["cusdep asy eps asy/artbook-35"] 1674956195 "asy/artbook-35.asy" "asy/artbook-35.eps" "asy/artbook-35" 1674956474
-  "asy/artbook-35.asy" 1674956473 1055 1b5874263de6dc740c00e9991383f43e "latex"
+["cusdep asy eps asy/artbook-35"] 1674956195 "asy/artbook-35.asy" "asy/artbook-35.eps" "asy/artbook-35" 1675031934
+  "asy/artbook-35.asy" 1675031913 1055 1b5874263de6dc740c00e9991383f43e "latex"
   (generated)
   "asy/artbook-35.eps"
-["cusdep asy eps asy/artbook-36"] 1674956193 "asy/artbook-36.asy" "asy/artbook-36.eps" "asy/artbook-36" 1674956474
-  "asy/artbook-36.asy" 1674956473 748 a6d268f07835ecde658233ba268d6b3e "latex"
+["cusdep asy eps asy/artbook-36"] 1674956193 "asy/artbook-36.asy" "asy/artbook-36.eps" "asy/artbook-36" 1675031934
+  "asy/artbook-36.asy" 1675031913 748 a6d268f07835ecde658233ba268d6b3e "latex"
   (generated)
   "asy/artbook-36.eps"
-["cusdep asy eps asy/artbook-37"] 1674956191 "asy/artbook-37.asy" "asy/artbook-37.eps" "asy/artbook-37" 1674956474
-  "asy/artbook-37.asy" 1674956473 1197 5aa958d8dd2382283fce41bc8f906f02 "latex"
+["cusdep asy eps asy/artbook-37"] 1674956191 "asy/artbook-37.asy" "asy/artbook-37.eps" "asy/artbook-37" 1675031934
+  "asy/artbook-37.asy" 1675031913 1197 5aa958d8dd2382283fce41bc8f906f02 "latex"
   (generated)
   "asy/artbook-37.eps"
-["cusdep asy eps asy/artbook-38"] 1674956188 "asy/artbook-38.asy" "asy/artbook-38.eps" "asy/artbook-38" 1674956474
-  "asy/artbook-38.asy" 1674956473 1390 8e462dbefcd0d6309408fc54bc782f32 "latex"
+["cusdep asy eps asy/artbook-38"] 1674956188 "asy/artbook-38.asy" "asy/artbook-38.eps" "asy/artbook-38" 1675031934
+  "asy/artbook-38.asy" 1675031913 1390 8e462dbefcd0d6309408fc54bc782f32 "latex"
   (generated)
   "asy/artbook-38.eps"
-["cusdep asy eps asy/artbook-39"] 1674956188 "asy/artbook-39.asy" "asy/artbook-39.eps" "asy/artbook-39" 1674956474
-  "asy/artbook-39.asy" 1674956473 908 a9dcb374f7cce0a09a99dabdd81ded46 "latex"
+["cusdep asy eps asy/artbook-39"] 1674956188 "asy/artbook-39.asy" "asy/artbook-39.eps" "asy/artbook-39" 1675031934
+  "asy/artbook-39.asy" 1675031913 908 a9dcb374f7cce0a09a99dabdd81ded46 "latex"
   (generated)
   "asy/artbook-39.eps"
-["cusdep asy eps asy/artbook-4"] 1674956187 "asy/artbook-4.asy" "asy/artbook-4.eps" "asy/artbook-4" 1674956474
-  "asy/artbook-4.asy" 1674956470 1198 8e2c5cc5b19d634496839e4637501d22 "latex"
+["cusdep asy eps asy/artbook-4"] 1675031900 "asy/artbook-4.asy" "asy/artbook-4.eps" "asy/artbook-4" 1675031934
+  "asy/artbook-4.asy" 1675031911 1198 8e2c5cc5b19d634496839e4637501d22 "latex"
   (generated)
   "asy/artbook-4.eps"
-["cusdep asy eps asy/artbook-5"] 1674956185 "asy/artbook-5.asy" "asy/artbook-5.eps" "asy/artbook-5" 1674956474
-  "asy/artbook-5.asy" 1674956472 1665 115674500c82df0a5945cbd382ec4dac "latex"
+["cusdep asy eps asy/artbook-5"] 1674956185 "asy/artbook-5.asy" "asy/artbook-5.eps" "asy/artbook-5" 1675031934
+  "asy/artbook-5.asy" 1675031912 1665 115674500c82df0a5945cbd382ec4dac "latex"
   (generated)
   "asy/artbook-5.eps"
-["cusdep asy eps asy/artbook-6"] 1674956182 "asy/artbook-6.asy" "asy/artbook-6.eps" "asy/artbook-6" 1674956474
-  "asy/artbook-6.asy" 1674956473 1410 2f2f1c7367b6997e74547cb218eae098 "latex"
+["cusdep asy eps asy/artbook-6"] 1674956182 "asy/artbook-6.asy" "asy/artbook-6.eps" "asy/artbook-6" 1675031934
+  "asy/artbook-6.asy" 1675031912 1410 2f2f1c7367b6997e74547cb218eae098 "latex"
   (generated)
   "asy/artbook-6.eps"
-["cusdep asy eps asy/artbook-7"] 1674956181 "asy/artbook-7.asy" "asy/artbook-7.eps" "asy/artbook-7" 1674956474
-  "asy/artbook-7.asy" 1674956473 726 54d23aebc14ae5394fe15ff30f961ebf "latex"
+["cusdep asy eps asy/artbook-7"] 1674956181 "asy/artbook-7.asy" "asy/artbook-7.eps" "asy/artbook-7" 1675031934
+  "asy/artbook-7.asy" 1675031912 726 54d23aebc14ae5394fe15ff30f961ebf "latex"
   (generated)
   "asy/artbook-7.eps"
-["cusdep asy eps asy/artbook-8"] 1674956160 "asy/artbook-8.asy" "asy/artbook-8.eps" "asy/artbook-8" 1674956474
-  "asy/artbook-8.asy" 1674956473 664 1d3fdd458dc50995ce4eeec8af2929d1 "latex"
+["cusdep asy eps asy/artbook-8"] 1674956160 "asy/artbook-8.asy" "asy/artbook-8.eps" "asy/artbook-8" 1675031934
+  "asy/artbook-8.asy" 1675031912 664 1d3fdd458dc50995ce4eeec8af2929d1 "latex"
   (generated)
   "asy/artbook-8.eps"
-["cusdep asy eps asy/artbook-9"] 1674956158 "asy/artbook-9.asy" "asy/artbook-9.eps" "asy/artbook-9" 1674956474
-  "asy/artbook-9.asy" 1674956473 651 50f5cf80d0a12f74f11cf1855428e1cc "latex"
+["cusdep asy eps asy/artbook-9"] 1674956158 "asy/artbook-9.asy" "asy/artbook-9.eps" "asy/artbook-9" 1675031934
+  "asy/artbook-9.asy" 1675031912 651 50f5cf80d0a12f74f11cf1855428e1cc "latex"
   (generated)
   "asy/artbook-9.eps"
-["dvips"] 1674956474 "artbook.dvi" "artbook.ps" "artbook" 1674956474
-  "artbook.dvi" 1674956473 1174868 c76122c0d2cca5d20e95b43c5e69691e "latex"
+["dvips"] 1675031923 "artbook.dvi" "artbook.ps" "artbook" 1675031934
+  "artbook.dvi" 1675031913 1174868 3bf067858263bfb5ceb31720fcd9c46f "latex"
   (generated)
   "artbook.ps"
-["latex"] 1674956468 "artbook.tex" "artbook.dvi" "artbook" 1674956474
+["latex"] 1675031909 "artbook.tex" "artbook.dvi" "artbook" 1675031934
   "/etc/texmf/web2c/texmf.cnf" 1674161562 498 20555721818605192524bca5e630d95a ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -336,15 +336,15 @@
   "/usr/share/texmf/tex/latex/asymptote/asymptote.sty" 1644416058 9805 9d37510eec7028350e77f1cf8a7c4ca7 ""
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/web2c/pdftex/latex.fmt" 1674161580 1456594 9bf029ebfec7af81e7cda1c41f0a95ea ""
-  "artbook.aux" 1674956473 2592 2db18b7582981410fb8fd279ed13d794 "latex"
-  "artbook.bbl" 1674956468 4910 9323d74fdd055ad27f68d1f59a300afa "bibtex artbook"
-  "artbook.ind" 1674956468 158 1304d5e3a60ff075e4253e1079cfc47e "makeindex artbook.idx"
-  "artbook.lof" 1674956473 5498 c267061987429ec5b789f7d31ddfe6da "latex"
-  "artbook.lot" 1674956473 659 3500a1c388913373c0b831b8140a4be7 "latex"
-  "artbook.pre" 1674956473 1785 8fb048848dd2c355885d541255809c41 "latex"
+  "artbook.aux" 1675031913 2592 2db18b7582981410fb8fd279ed13d794 "latex"
+  "artbook.bbl" 1675031913 4910 9323d74fdd055ad27f68d1f59a300afa "bibtex artbook"
+  "artbook.ind" 1675031909 158 1304d5e3a60ff075e4253e1079cfc47e "makeindex artbook.idx"
+  "artbook.lof" 1675031913 5498 c267061987429ec5b789f7d31ddfe6da "latex"
+  "artbook.lot" 1675031913 659 3500a1c388913373c0b831b8140a4be7 "latex"
+  "artbook.pre" 1675031913 1785 8fb048848dd2c355885d541255809c41 "latex"
   "artbook.tex" 1674955838 9650 ad0a8d47fe4483dfa26cf0f4c050f2dd ""
-  "artbook.toc" 1674956473 6180 d6b19b5c72bad7ec56b953eb71458f21 "latex"
-  "asy/artbook-1.eps" 1674956297 163467 dc9cb1dba3680d4126a91e502b917711 "cusdep asy eps asy/artbook-1"
+  "artbook.toc" 1675031913 6180 d6b19b5c72bad7ec56b953eb71458f21 "latex"
+  "asy/artbook-1.eps" 1675031905 163467 7480dfad6af22f423a8d033601988d5d "cusdep asy eps asy/artbook-1"
   "asy/artbook-10.eps" 1674956294 49512 be9304bef05db27827618068b975bedd "cusdep asy eps asy/artbook-10"
   "asy/artbook-11.eps" 1674956285 35125 d41fe1bd3f86192ab89f5ed3196094db "cusdep asy eps asy/artbook-11"
   "asy/artbook-12.eps" 1674956281 28887 021447489c62abdca0b64936e5f30810 "cusdep asy eps asy/artbook-12"
@@ -355,7 +355,7 @@
   "asy/artbook-17.eps" 1674956272 69551 932a54495eae043ed372f57e0e25a77c "cusdep asy eps asy/artbook-17"
   "asy/artbook-18.eps" 1674956271 119981 6636e8664ff913f276167e50588fe7d7 "cusdep asy eps asy/artbook-18"
   "asy/artbook-19.eps" 1674956251 62620 0d6ad0d9b52a8ad1c9d92c2c64570f60 "cusdep asy eps asy/artbook-19"
-  "asy/artbook-2.eps" 1674956249 131807 874e81c517e98a0aac0cda8d6e46e4af "cusdep asy eps asy/artbook-2"
+  "asy/artbook-2.eps" 1675031902 131807 94ffdd0024a582e9ea3113cab7faecd1 "cusdep asy eps asy/artbook-2"
   "asy/artbook-20.eps" 1674956249 61109 286b202de3d32b6ec99a7ce9dc1b6e65 "cusdep asy eps asy/artbook-20"
   "asy/artbook-21.eps" 1674956245 57271 42059d92fdebd02a3498bc1723603836 "cusdep asy eps asy/artbook-21"
   "asy/artbook-22.eps" 1674956243 55058 e640f00be2d2709c3b4cb78cdff392cf "cusdep asy eps asy/artbook-22"
@@ -366,7 +366,7 @@
   "asy/artbook-27.eps" 1674956219 28689 2978b35b67de9921c477a00ea0f6d42a "cusdep asy eps asy/artbook-27"
   "asy/artbook-28.eps" 1674956214 326962 e1e41ceffa6c73d4d48a39a15b157f69 "cusdep asy eps asy/artbook-28"
   "asy/artbook-29.eps" 1674956210 20972 3a090e67b6de6ebf3e1fe617d356ba79 "cusdep asy eps asy/artbook-29"
-  "asy/artbook-3.eps" 1674956207 18426 7b09ec1f33c40e0f7a3f3c9df627e710 "cusdep asy eps asy/artbook-3"
+  "asy/artbook-3.eps" 1675031902 18426 c5ff9bf1e234ebaa33ab6b222160e477 "cusdep asy eps asy/artbook-3"
   "asy/artbook-30.eps" 1674956205 183430 2aaf3ffad84a33b2b6481a2341bf0aad "cusdep asy eps asy/artbook-30"
   "asy/artbook-31.eps" 1674956203 74900 539e17f0dc27be43161df436550acc06 "cusdep asy eps asy/artbook-31"
   "asy/artbook-32.eps" 1674956202 78436 713c5c195ac6266a3b2dd4ed58d0467e "cusdep asy eps asy/artbook-32"
@@ -377,28 +377,28 @@
   "asy/artbook-37.eps" 1674956193 5392 5a1699a0e2520c3ac17a9146ecad71d2 "cusdep asy eps asy/artbook-37"
   "asy/artbook-38.eps" 1674956191 29514 8c56f1b5bf6380bc0d1b09f316d02370 "cusdep asy eps asy/artbook-38"
   "asy/artbook-39.eps" 1674956188 40432 cb6fd57baf0d0b734106874386eb0f43 "cusdep asy eps asy/artbook-39"
-  "asy/artbook-4.eps" 1674956188 55898 98a121015ec6a69c616bc4640cee7748 "cusdep asy eps asy/artbook-4"
+  "asy/artbook-4.eps" 1675031901 55898 876e1332b5a37afbe0eca0be220b5f36 "cusdep asy eps asy/artbook-4"
   "asy/artbook-5.eps" 1674956187 70558 31caec5a37a5a55cdbb765e1076dacab "cusdep asy eps asy/artbook-5"
   "asy/artbook-6.eps" 1674956185 164643 0459500014fe4c37d2fe4f55e4ac7ac5 "cusdep asy eps asy/artbook-6"
   "asy/artbook-7.eps" 1674956182 303965 d1c665491bce4a6e1d2e6f723965ae75 "cusdep asy eps asy/artbook-7"
   "asy/artbook-8.eps" 1674956180 85878 69c95a82336774a0b454b01a86b087c9 "cusdep asy eps asy/artbook-8"
   "asy/artbook-9.eps" 1674956160 41997 798f45660a88f037c0867d8538fa0bb8 "cusdep asy eps asy/artbook-9"
   "bb.bib" 1674509239 30549 ee093154a10c77e62df5848c84b5130c ""
-  "chp/chp1.aux" 1674956472 7870 1714cce135ad25e39a1b5a73cbd00173 "latex"
+  "chp/chp1.aux" 1675031912 7870 1714cce135ad25e39a1b5a73cbd00173 "latex"
   "chp/chp1.tex" 1674954741 62779 f7978f84c7e11e593191f05f2d62273b ""
-  "chp/chp2.aux" 1674956473 3807 69a9104dae771ff745f5b819b4a2582a "latex"
+  "chp/chp2.aux" 1675031912 3807 69a9104dae771ff745f5b819b4a2582a "latex"
   "chp/chp2.tex" 1674955486 28585 e0380b8572c93fef9443a3bd482c83fc ""
-  "chp/chp3.aux" 1674956473 1973 df6e01aef9b9b27ca749b2373ee1795b "latex"
+  "chp/chp3.aux" 1675031912 1973 df6e01aef9b9b27ca749b2373ee1795b "latex"
   "chp/chp3.tex" 1674954979 7208 34d49f0b231e5f29ecb4418254ac4322 ""
-  "chp/chp4.aux" 1674956473 1500 ef96f811e239268479e474823c3f478f "latex"
+  "chp/chp4.aux" 1675031912 1500 ef96f811e239268479e474823c3f478f "latex"
   "chp/chp4.tex" 1674955062 62 22e0b9782535e2e28e1258f0e70dad07 ""
-  "chp/chp5.aux" 1674956473 3061 02935f9a57d1178a9ccc952ac90f522c "latex"
+  "chp/chp5.aux" 1675031912 3061 02935f9a57d1178a9ccc952ac90f522c "latex"
   "chp/chp5.tex" 1674956266 7724 43efc4a18db39f4aa45260b6b4b84246 ""
-  "chp/chp6.aux" 1674956473 2057 4f38ae590044439afd9cd3a549de50db "latex"
+  "chp/chp6.aux" 1675031913 2057 4f38ae590044439afd9cd3a549de50db "latex"
   "chp/chp6.tex" 1674956462 11945 f2b47998fd5a5afa07690d81d322e636 ""
-  "chp/chp7.aux" 1674956473 2061 62dc26551f8d87f7ea82793b47f88ab7 "latex"
+  "chp/chp7.aux" 1675031913 2061 62dc26551f8d87f7ea82793b47f88ab7 "latex"
   "chp/chp7.tex" 1674955627 912 4f13047a94ea3f1590ccf7a638824088 ""
-  "chp/chp8.aux" 1674956473 6545 b3647a83cc8c539780de65b4fbb75b39 "latex"
+  "chp/chp8.aux" 1675031913 6545 b3647a83cc8c539780de65b4fbb75b39 "latex"
   "chp/chp8.tex" 1674955678 23758 0789b39b36f585aebf93c27725538e8e ""
   (generated)
   "artbook.aux"
@@ -456,8 +456,12 @@
   "chp/chp6.aux"
   "chp/chp7.aux"
   "chp/chp8.aux"
-["makeindex artbook.idx"] 1674956468 "artbook.idx" "artbook.ind" "artbook" 1674956474
-  "artbook.idx" 1674956473 174 7757cdb2c63e34e6a51e8cdb5d5e8b07 "latex"
+["makeindex artbook.idx"] 1675031909 "artbook.idx" "artbook.ind" "artbook" 1675031934
+  "artbook.idx" 1675031913 174 7757cdb2c63e34e6a51e8cdb5d5e8b07 "latex"
   (generated)
   "artbook.ilg"
   "artbook.ind"
+["ps2pdf"] 1675031924 "artbook.ps" "artbook.pdf" "artbook" 1675031934
+  "artbook.ps" 1675031924 6048938 74ac5ca8bfd910d15ca0dd2f219ef6d2 "dvips"
+  (generated)
+  "artbook.pdf"

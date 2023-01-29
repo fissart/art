@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=latex 2023.1.19)  28 JAN 2023 20:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=latex 2023.1.19)  29 JAN 2023 17:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -998,12 +998,24 @@ LaTeX Info: Redefining \% on input line 152.
 LaTeX Info: Redefining \. on input line 279.
 LaTeX Info: Redefining \% on input line 279.
  [4]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 1.1 on input line 279.
+
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 1.2 on input line 305.
+
 LaTeX Info: Redefining \. on input line 322.
 LaTeX Info: Redefining \% on input line 322.
- [5]
+[5]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 1.3 on input line 378.
+
 LaTeX Info: Redefining \. on input line 389.
 LaTeX Info: Redefining \% on input line 389.
- [6]
+[6]
 LaTeX Info: Redefining \. on input line 482.
 LaTeX Info: Redefining \% on input line 482.
  [7]
@@ -1012,8 +1024,7 @@ LaTeX Info: Redefining \% on input line 638.
  [8]
 LaTeX Info: Redefining \. on input line 638.
 LaTeX Info: Redefining \% on input line 638.
-
-[9]
+ [9]
 Overfull \hbox (9.52225pt too wide) in paragraph at lines 695--696
  [] 
  []
@@ -1441,12 +1452,16 @@ File: asy/artbook-39.eps Graphic file (type eps)
  <asy/artbook-39.eps>) [19]
 LaTeX Info: Redefining \. on input line 284.
 LaTeX Info: Redefining \% on input line 284.
- [20] [21] (./artbook.aux
+ [20] [21]
+
+Package longtable Warning: Table widths have changed. Rerun LaTeX.
+
+(./artbook.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
-
-(./chp/chp1.aux) (./chp/chp2.aux) (./chp/chp3.aux) (./chp/chp4.aux)
-(./chp/chp5.aux) (./chp/chp6.aux) (./chp/chp7.aux) (./chp/chp8.aux))
+ (./chp/chp1.aux) (./chp/chp2.aux) (./chp/chp3.aux)
+(./chp/chp4.aux) (./chp/chp5.aux) (./chp/chp6.aux) (./chp/chp7.aux)
+(./chp/chp8.aux))
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1457,7 +1472,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  22865 strings out of 480113
  457734 string characters out of 5892657
- 1201827 words of memory out of 5000000
+ 1201814 words of memory out of 5000000
  40325 multiletter control sequences out of 15000+600000
  480502 words of font info for 71 fonts, out of 8000000 for 9000
  85 hyphenation exceptions out of 8191
