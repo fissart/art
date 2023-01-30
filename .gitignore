@@ -1,5 +1,6 @@
 /*
 !.gitignore
+!latexmkrc
 !artbook.tex
 !asy
 !bb.bib
