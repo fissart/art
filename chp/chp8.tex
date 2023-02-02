@@ -7,10 +7,7 @@
   \begin{asy}
   import graph3;
   import three;
-
-  //size(300,0);
-  size3(300,IgnoreAspect);
-
+  size3(200,0);
   currentprojection=perspective(2,1,1);
   triple P=(1,1,1);
   scale(Linear,Linear,Linear);
@@ -22,11 +19,71 @@
   xaxis3("$x$",0,1.5,red,OutTicks(2,2));
   yaxis3("$y$",0,1.5,red,OutTicks(2,5));
   zaxis3("$z$",0,1.5,red,OutTicks(2,2));
-
   \end{asy}
-  \caption{}
+  \caption{Coordenas cartesianas}
 \end{figure}
+
+Un sistema de coordenadas cartesianas está formado por dos rectas perpendiculares graduadas a las que llamamos ejes de coordenadas. Se suele nombrar como X el eje horizontal e Y al eje vertical. Estos dos ejes se cortan en un punto al que se le denomina origen de coordenadas, O.
+
+
 \section{Coordenas esfericas}
+
+
+
+\begin{figure}[!ht]
+  \begin{asy}
+    import three;
+    import math;
+    import solids;
+    size(300,0);
+    pen thickp=linewidth(0.5mm);
+    real radius=1, lambda=37, aux=60;
+    currentprojection=perspective(1,1,0.5);
+    revolution sphere=sphere(1);
+    draw(surface(sphere),green+opacity(0.2));
+    draw(sphere,m=5,blue+linewidth(0.1mm));
+    real r=1.1;
+    pen p=rgb(0,0.7,0);
+    draw(Label("$x$",1),O--r*X,p,Arrow3);
+    draw(Label("$y$",1),O--r*Y,p,Arrow3);
+    draw(Label("$z$",1),O--r*Z,p,Arrow3);
+    label("$O$",(0,0,0),W);
+    //draw(unitsphere, orange+opacity(0.5));
+    // Point Q
+    triple pQ=radius*dir(lambda,aux);
+    draw(O--radius*dir(90,aux),dashed);
+    label("$ Q$",pQ,N+3*W);
+    draw("$\lambda$",arc(O,0.15pQ,0.15*Z),N+0.3E);
+
+    // Particle
+    triple m=pQ-(0.26,-0.4,0.28);
+    real width=5;
+    dot("$m$",m,SE,linewidth(width));
+    draw("${\rho}$",(0,0,0)--m,Arrow3,PenMargin3(0,width));
+    draw("${r}$",pQ--m,Arrow3,PenMargin3(0,width));
+
+    // Spherical octant
+    real r=sqrt(pQ.x^2+pQ.y^2);
+    draw(arc((0,0,pQ.z),(r,0,pQ.z),(0,r,pQ.z)),dashed);
+    draw(arc(O,radius*Z,radius*dir(90,aux)),dashed);
+    draw(arc(O,radius*Z,radius*X),thickp);
+    draw(arc(O,radius*Z,radius*Y),thickp);
+    draw(arc(O,radius*X,radius*Y),thickp);
+
+    // Moving axes
+    triple i=dir(90+lambda,aux);
+    triple k=unit(pQ);
+    triple j=cross(k,i);
+
+    draw(Label("$x$",1),pQ--pQ+0.2*i,2W,red,Arrow3);
+    draw(Label("$y$",1),pQ--pQ+0.32*j,red,Arrow3);
+    draw(Label("$z$",1),pQ--pQ+0.26*k,red,Arrow3);
+
+    draw("${R}$",O--pQ,Arrow3,PenMargin3);
+    draw("$\omega{K}$",arc(0.9Z,0.2,90,-120,90,160,CW),1.2N,Arrow3);
+  \end{asy}
+  \caption{Coordenadas esféricas}
+\end{figure}
 
 
 El sistema de coordenadas esféricas se basa en la misma idea que las coordenadas\index{coordenadas} index{coordenadas!polares} polares y se utiliza para determinar la posición espacial de un punto mediante una distancia y dos ángulos. En consecuencia, un punto P queda representado por un conjunto de tres magnitudes: el radio r, el ángulo polar o colatitud $\theta$  y el azimutal $\varphi$.
@@ -44,79 +101,38 @@ $0\leq r<\infty \qquad 0\leq \theta \leq \pi \qquad 0\leq \varphi <2\pi$
 
 La coordenada radial es siempre positiva. Si reduciendo el valor de $r$ llega a alcanzarse el valor 0, a partir de ahí, $r$; vuelve a aumentar, pero $\theta$  pasa a valer $\pi-\theta$  y $\varphi$  aumenta o disminuye en $\pi$ radianes.
 
+
+\section{Coordenas cilindricas}
+
 \begin{figure}[!ht]
-	\begin{asy}
+\centering
+\begin{asy}
 import three;
 import math;
 import solids;
-
-
-size(300,0);
-
-pen thickp=linewidth(0.5mm);
-real radius=1, lambda=37, aux=60;
-
-currentprojection=perspective(1,1,0.5);
-
-
-revolution sphere=sphere(1);
-draw(surface(sphere),green+opacity(0.2));
-draw(sphere,m=7,blue);
-
-// Planes
-//pen bg=gray(0.9)+opacity(0.5);
-//draw(surface((1.2,0,0)--(1.2,0,1.2)--(0,0,1.2)--(0,0,0)--cycle),bg);
-//draw(surface((0,1.2,0)--(0,1.2,1.2)--(0,0,1.2)--(0,0,0)--cycle),bg);
-//draw(surface((1.2,0,0)--(1.2,1.2,0)--(0,1.2,0)--(0,0,0)--cycle),bg);
-
+currentprojection=perspective(1,1,1);
+size(200,0);
+real rho=1, phi=60, z=1.5/2;
 real r=1.1;
-pen p=rgb(0,0.7,0);
+pen p=black;
 draw(Label("$x$",1),O--r*X,p,Arrow3);
 draw(Label("$y$",1),O--r*Y,p,Arrow3);
 draw(Label("$z$",1),O--r*Z,p,Arrow3);
-label("$O$",(0,0,0),W);
-draw(unitsphere, orange+opacity(0.5));
-// Point Q
-triple pQ=radius*dir(lambda,aux);
-draw(O--radius*dir(90,aux),dashed);
-label("$ Q$",pQ,N+3*W);
-draw("$\lambda$",arc(O,0.15pQ,0.15*Z),N+0.3E);
-
-
-// Particle
-triple m=pQ-(0.26,-0.4,0.28);
-real width=5;
-dot("$m$",m,SE,linewidth(width));
-draw("${\rho}$",(0,0,0)--m,Arrow3,PenMargin3(0,width));
-draw("${r}$",pQ--m,Arrow3,PenMargin3(0,width));
-
-// Spherical octant
-real r=sqrt(pQ.x^2+pQ.y^2);
-draw(arc((0,0,pQ.z),(r,0,pQ.z),(0,r,pQ.z)),dashed);
-draw(arc(O,radius*Z,radius*dir(90,aux)),dashed);
-draw(arc(O,radius*Z,radius*X),thickp);
-draw(arc(O,radius*Z,radius*Y),thickp);
-draw(arc(O,radius*X,radius*Y),thickp);
-
-// Moving axes
-triple i=dir(90+lambda,aux);
-triple k=unit(pQ);
-triple j=cross(k,i);
-
-draw(Label("$x$",1),pQ--pQ+0.2*i,2W,red,Arrow3);
-draw(Label("$y$",1),pQ--pQ+0.32*j,red,Arrow3);
-draw(Label("$z$",1),pQ--pQ+0.26*k,red,Arrow3);
-
-draw("${R}$",O--pQ,Arrow3,PenMargin3);
-draw("$\omega{K}$",arc(0.9Z,0.2,90,-120,90,160,CW),1.2N,Arrow3);
-	\end{asy}
-	\caption{Coordenadas esféricas}
+label("$\rm O$",(0,0,0),-1.5Y-X);
+triple Q=(rho*Cos(phi),rho*Sin(phi),z);
+dot("$(x,y,z)$",Q);
+draw(Q--(Q.x,Q.y,0),dashed+blue);
+draw(O--rho*dir(90,phi),dashed+blue);
+draw((0,0,Q.z)--Q,dashed+blue);
+draw("$\varphi$",arc(O,0.15*X,0.15*dir(90,phi)),align=6*dir(90,phi/3)+Z,Arrow3);
+draw("$\rho$",(0,0,0)--(Q.x,Q.y,0),align=-Y+2X,DotMargin3);
+draw("$r$",O--Q,align=2*dir(90,phi),Arrow3,DotMargin3);
+revolution hyperboloid=revolution(graph(new triple(real z) {return (1,0,z);},0,1.5,20,operator ..),axis=Z);
+draw(surface(hyperboloid),yellow+opacity(0.3),render(compression=Low,merge=true));
+draw(hyperboloid,3,orange+0.15mm,longitudinalpen=nullpen);
+\end{asy}
+\caption{Coordenadas cilíndricas}
 \end{figure}
-
-
-
-
-\section{Coordenas cilindricas}
 
 El sistema de coordenadas cilíndricas es muy conveniente en aquellos casos en que se tratan problemas que tienen simetría de tipo cilíndrico o azimutal. Se trata de una versión en tres dimensiones de las coordenadas polares de la geometría analítica plana.
 
@@ -133,43 +149,6 @@ La coordenada azimutal $\varphi$  se hace variar en ocasiones desde $-\phi$ a $\
 
 Teniendo en cuenta la definición del ángulo $\varphi$ , obtenemos las siguientes relaciones entre las coordenadas cilíndricas y las cartesianas: $x=\rho \cos \varphi , y=\rho \sin \varphi ,z=z$
 
-
-\begin{figure}[!ht]
-\begin{asy}
-import three;
-import math;
-import solids;
-
-currentprojection=perspective(2,1,1);
-size(300,0);
-
-//pen thickp=linewidth(0.5mm);
-real rho=1, phi=60, z=1.5/2;
-//draw(unitcylinder,material(palegray+opacity(0.25),shininess=0.5));
-
-real r=1.1;
-pen p=black;
-draw(Label("$x$",1),O--r*X,p,Arrow3);
-draw(Label("$y$",1),O--r*Y,p,Arrow3);
-draw(Label("$z$",1),O--r*Z,p,Arrow3);
-label("$\rm O$",(0,0,0),-1.5Y-X);
-
-triple Q=(rho*Cos(phi),rho*Sin(phi),z);
-dot("$(x,y,z)$",Q);
-draw(Q--(Q.x,Q.y,0),dashed+blue);
-draw(O--rho*dir(90,phi),dashed+blue);
-draw((0,0,Q.z)--Q,dashed+blue);
-draw("$\varphi$",arc(O,0.15*X,0.15*dir(90,phi)),align=6*dir(90,phi/3)+Z,Arrow3);
-draw("$\rho$",(0,0,0)--(Q.x,Q.y,0),align=-Y+2X,DotMargin3);
-draw("$r$",O--Q,align=2*dir(90,phi),Arrow3,DotMargin3);
-
-revolution hyperboloid=revolution(graph(new triple(real z) {
-      return (1,0,z);},0,1.5,20,operator ..),axis=Z);
-draw(surface(hyperboloid),yellow+opacity(0.3),render(compression=Low,merge=true));
-draw(hyperboloid,3,white+0.15mm,longitudinalpen=nullpen);
-
-\end{asy}
-\end{figure}
 
 \section{Transformacion de coordenas}
 
@@ -539,38 +518,31 @@ axes3("$x$","$y$","$z$", Arrow3);
 \chapter{Proyecciones}
 \subsection{Ortogonal }
 
-\begin{asy}
-import three;
-size(8cm,0);
-currentprojection=obliqueX;
-currentlight=(0,2,1);
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+  import three;
+  size(8cm,0);
+  currentprojection=perspective(1,1,1);
+  currentlight=(0,2,1);
+  triple v1=(10,0,0),
+  v2=(0,10,0),
+  pO=(-2,-3,0);
+  path3 pl1=plane(v1,v2,pO);
+  path3 ch=(5,3,4)..(5,4,8)..(1,4,4)..(4,-2,3)..cycle;
 
-//~~~~~~~~~ DEFINITIONS ~~~~~~~~~
-// On définit le plan.
-triple v1=(10,0,0),
-v2=(0,10,0),
-pO=(-2,-3,0);
-path3 pl1=plane(v1,v2,pO);
-// On définit un chemin
-path3 ch=(5,3,4)..(5,4,8)..(1,4,4)..(4,-2,3)..cycle;
+  transform3 proj=planeproject(pl1);
+  path3 chproj=proj*ch;
 
-// On définit la projection orthogonale sur pl1 :
-transform3 proj=planeproject(pl1);
-// et on définit le projetté de ch :
-path3 chproj=proj*ch;
+  draw(surface(pl1),paleblue+opacity(.5),blue);
+  draw(ch,blue);
+  draw(chproj,red);
 
-//~~~~~~~~~ CONSTRUCTIONS ~~~~~~~~~
-// On trace le plan.
-draw(surface(pl1),paleblue+opacity(.5),blue);
-// On trace le chemin défini
-draw(ch,blue);
-// et son projeté
-draw(chproj,red);
-
-for (int i=0; i < length(ch); ++i)
-draw(point(ch,i)--point(chproj,i), .5bp+blue+dotted);
-\end{asy}
-
+  for (int i=0; i < length(ch); ++i)
+  draw(point(ch,i)--point(chproj,i), .5bp+blue+dotted);
+  \end{asy}
+\caption{Proyección ortogonal}
+\end{figure}
 
 \begin{figure}[!ht]
 	\centering
@@ -599,41 +571,46 @@ draw(point(ch,i)--point(chproj,i), .5bp+blue+dotted);
 
 \subsection{Oblicua}
 
-\begin{asy}
-import three;
-size(8cm,0);
-currentprojection=obliqueX;
-currentlight=(0,2,1);
+\begin{figure}[!ht]
+  \centering
+  \begin{asy}
+  import three;
+  size(8cm,0);
+  currentprojection=perspective(1,1,1);
+  currentlight=(0,2,1);
 
-//~~~~~~~~~ DEFINITIONS ~~~~~~~~~
-// On définit le plan.
-triple v1=(10,0,0),
-v2=(0,10,0),
-pO=(-2,-3,0);
-path3 pl1=plane(v1,v2,pO);
-// On définit un vecteur donnant la direction de projection
-triple V=(1,-1,4);
-// On définit un chemin
-path3 ch=(5,3,4)--(5,4,8)--(1,4,4)--(4,-2,3)--cycle;
+  //~~~~~~~~~ DEFINITIONS ~~~~~~~~~
+  // On définit le plan.
+  triple v1=(10,0,0),
+  v2=(0,10,0),
+  pO=(-2,-3,0);
+  path3 pl1=plane(v1,v2,pO);
+  // On définit un vecteur donnant la direction de projection
+  triple V=(1,-1,4);
+  // On définit un chemin
+  path3 ch=(5,3,4)--(5,4,8)--(1,4,4)--(4,-2,3)--cycle;
 
-// projection sur le plan pl1 suivant la direction de V
-transform3 proj=planeproject(pl1,V);
-// et on définit le projetté de ch :
-path3 chproj=proj*ch;
+  // projection sur le plan pl1 suivant la direction de V
+  transform3 proj=planeproject(pl1,V);
+  // et on définit le projetté de ch :
+  path3 chproj=proj*ch;
 
-//~~~~~~~~~ CONSTRUCTIONS ~~~~~~~~~
-// On trace le plan.
-draw(surface(pl1),paleblue+opacity(.5),blue);
-// On représente le vecteur.
-draw((0,0,0)--V,Arrow3);
-// On trace le chemin défini
-draw(ch,blue);
-// et son projeté
-draw(chproj,red);
+  //~~~~~~~~~ CONSTRUCTIONS ~~~~~~~~~
+  // On trace le plan.
+  draw(surface(pl1),paleblue+opacity(.5),blue);
+  // On représente le vecteur.
+  draw((0,0,0)--V,Arrow3);
+  // On trace le chemin défini
+  draw(ch,blue);
+  // et son projeté
+  draw(chproj,red);
 
-for (int i=0; i < length(ch); ++i)
-draw(point(ch,i)--point(chproj,i), .5bp+blue+dotted);
-\end{asy}
+  for (int i=0; i < length(ch); ++i)
+  draw(point(ch,i)--point(chproj,i), .5bp+blue+dotted);
+  \end{asy}
+  \caption{Oblicua}
+\end{figure}
+
 
 \subsection{Estereografica}
 \begin{figure}[!ht]
@@ -641,81 +618,39 @@ draw(point(ch,i)--point(chproj,i), .5bp+blue+dotted);
 	\begin{asy}
 import graph3;
 import solids;
-
-currentlight=White;
+currentprojection=perspective(1,1,1);
+currentlight=(0,2,1);
 defaultrender.merge=true;
-
-size(10cm,0);
-
+size(12cm,0);
 pair k=(1,0.2);
 real r=abs(k);
 real theta=angle(k);
-
 real x(real t) { return 1-r^t*cos(t*theta); }
 real y(real t) { return r^t*sin(t*theta); }
 real z(real t) { return 0; }
-
 real u(real t) { return x(t)/(x(t)^2+y(t)^2+1); }
 real v(real t) { return y(t)/(x(t)^2+y(t)^2+1); }
 real w(real t) { return (x(t)^2+y(t)^2)/(x(t)^2+y(t)^2+1); }
-
 real nb=2;
 //for (int i=0; i<12; ++i) draw((0,0,0)--nb*(Cos(i*30),Sin(i*30),0),yellow);
 for (int i=0; i<=nb; ++i) draw(circle((0,0,0),i),lightgreen+white);
-
-
 path3 p=graph(x,y,z,-200,40,operator ..);
 path3 q=graph(u,v,w,-200,40,operator ..);
-
 revolution sph=sphere((0,0,0.5),0.5);
 draw(surface(sph),green+white+opacity(0.2));
-
 draw(p,blue);
 draw(q,white);
-
 triple
 A=(0,0,1),
 B=(u(40),v(40),w(40)),
 C=(x(40),y(40),z(40));
-
 path3 L=A--C;
 draw(L);
-
 pen p=orange;
-
 dot("$(0,0,1)$",A,N);
 dot("$(u,v,w)$",B,NE,orange);
 dot("$(x,y,0)$",C,dir(-90));
 axes3("$x$","$y$","$z$", extend=true, min=(0,0,0),max=(2,1,0.5), p, Arrow3);
 	\end{asy}
 	\caption{Estereografica}
-\end{figure}
-
-\begin{figure}[!ht]
-
-\begin{asy}
-size(7cm,7cm,IgnoreAspect);
-
-// Un premier tableau d'entiers de taille (3,4) rempli "manuellement"
-int[][] x={{2,3,5,7},
-{11,13,17,19},
-{23,29,31,37}};
-// Un second tableau d'entiers de taille (7,5) rempli avec une boucle
-int[][] y=new int[7][5];
-for (int i=0; i<7; ++i)
-for (int j=0; j<5; ++j)
-y[i][j]=i+j;
-
-// Affichage du tableau x
-for (int i=0; i<3; ++i)
-for (int j=0; j<4; ++j)
-label(format("%i",x[i][j]),(j,-i));
-// Affichage du tableau y
-for (int i=0; i<7; ++i)
-for (int j=0; j<5; ++j)
-label(format("%i",y[i][j]),(j,-i-4));
-
-shipout(bbox(.5cm,Fill(white)));
-\end{asy}
-\caption{www}
 \end{figure}

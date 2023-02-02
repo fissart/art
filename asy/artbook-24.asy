@@ -10,14 +10,11 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=1;
+//settings.render=1;
 
 import graph3;
 import three;
-
-//size(300,0);
-size3(300,IgnoreAspect);
-
+size3(200,0);
 currentprojection=perspective(2,1,1);
 triple P=(1,1,1);
 scale(Linear,Linear,Linear);
@@ -29,4 +26,3 @@ draw(box(O,P),dashed);
 xaxis3("$x$",0,1.5,red,OutTicks(2,2));
 yaxis3("$y$",0,1.5,red,OutTicks(2,5));
 zaxis3("$z$",0,1.5,red,OutTicks(2,2));
-

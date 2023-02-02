@@ -10,11 +10,11 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=1;
+//settings.render=1;
 
 import three;
 size(8cm,0);
-currentprojection=obliqueX;
+currentprojection=perspective(1,1,1);
 currentlight=(0,2,1);
 
 //~~~~~~~~~ DEFINITIONS ~~~~~~~~~

@@ -10,7 +10,7 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=1;
+//settings.render=1;
 
 import graph3;
 import palette;

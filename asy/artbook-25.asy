@@ -10,44 +10,30 @@ viewportmargin=(2,2);
 settings.prc=false;
 defaultpen(fontsize(11 pt));
 defaultpen(linewidth(0.7pt));
-settings.render=1;
+//settings.render=1;
 
 import three;
 import math;
 import solids;
-
-
 size(300,0);
-
 pen thickp=linewidth(0.5mm);
 real radius=1, lambda=37, aux=60;
-
 currentprojection=perspective(1,1,0.5);
-
-
 revolution sphere=sphere(1);
 draw(surface(sphere),green+opacity(0.2));
-draw(sphere,m=7,blue);
-
-// Planes
-//pen bg=gray(0.9)+opacity(0.5);
-//draw(surface((1.2,0,0)--(1.2,0,1.2)--(0,0,1.2)--(0,0,0)--cycle),bg);
-//draw(surface((0,1.2,0)--(0,1.2,1.2)--(0,0,1.2)--(0,0,0)--cycle),bg);
-//draw(surface((1.2,0,0)--(1.2,1.2,0)--(0,1.2,0)--(0,0,0)--cycle),bg);
-
+draw(sphere,m=5,blue+linewidth(0.1mm));
 real r=1.1;
 pen p=rgb(0,0.7,0);
 draw(Label("$x$",1),O--r*X,p,Arrow3);
 draw(Label("$y$",1),O--r*Y,p,Arrow3);
 draw(Label("$z$",1),O--r*Z,p,Arrow3);
 label("$O$",(0,0,0),W);
-draw(unitsphere, orange+opacity(0.5));
+//draw(unitsphere, orange+opacity(0.5));
 // Point Q
 triple pQ=radius*dir(lambda,aux);
 draw(O--radius*dir(90,aux),dashed);
 label("$ Q$",pQ,N+3*W);
 draw("$\lambda$",arc(O,0.15pQ,0.15*Z),N+0.3E);
-
 
 // Particle
 triple m=pQ-(0.26,-0.4,0.28);
