@@ -13,19 +13,13 @@ defaultpen(linewidth(0.7pt));
 //settings.render=1;
 
 import three;
+import math;
 import graph3;
-
 size(300,0);
-//create segment
-path3 g = (0,1.2,0) ..
-(0,0.6,1.2)..
-(0,3,1.5)..
-(0,0.8,2.1);
-surface lampshade =
-surface(g, c=O, n=100, axis=Z);
-draw(lampshade, white);
-//draw revolved segment for reference
-draw(g, black);
+path3 g =(0,1.1,0) -- (0,1.1,0.1) .. tension 1.1 .. (0,2,0.8) .. (0,1,3) ..tension 1 and 5 .. (0,0.8,4.5) ..tension 50 and 50 .. (0,0.5,5) -- (0,0.5,7)-- (0,0.8,9)-- (0,0.8,10);
+surface lampshade=surface(g, c=O, n=100, axis=Z);
+draw(lampshade, white+opacity(0.5));
 dot(g, black);
-//draw axes for reference
+draw(rotate(98,Y)*shift((-1.5,3,0))*scale3(.5)*lampshade, orange+opacity(0.5));
 axes3("$x$","$y$","$z$", Arrow3);
+draw(surface((-2,-2,0)--(2,-2,0)--(2,2,0)--(-2,2,0)--cycle), white+opacity(0.5));

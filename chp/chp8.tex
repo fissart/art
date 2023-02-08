@@ -208,10 +208,15 @@ draw(shift(circleCenter)*(O -- Y+Z), green, arrow=Arrow3());
 
 \chapter{La forma y elementos}
 
-\section{Centro de masa}
+\section{Centro de masa}%https://engcourses-uofa.ca/books/statics/centres-of-bodies/centroid/
+Los centros de gravedad y masa de un cuerpo representan las ubicaciones del peso y la masa concentrados (es decir, el peso total y la masa total), que equivalen al peso y la masa originales distribuidos de un cuerpo. Ahora, se da otro paso para definir el centro geométrico (o baricentro ) de un cuerpo denotado por $C$. Utilizamos $G$ para el centro de gravedad y $C_m$ para el centro de masa. El centroide de un cuerpo (un volumen, una superficie o una línea) representa la ubicación promedio de los puntos que constituyen el cuerpo. Comenzamos con la definición del centroide de un volumen. Luego, definimos los centroides de superficies y líneas. Tenga en cuenta que las superficies pueden ser bidimensionales (planas) o tridimensionales (curvadas), y las líneas también pueden ser bidimensionales (rectas) o tridimensionales (curvadas).
 
+$$\overline{x}=\frac{\int_V\overline{x}dV}{\int_VdV}=\frac{\int_V\overline{x}dV}{V}$$
+$$\overline{y}=\frac{\int_V\overline{y}dV}{\int_VdV}=\frac{\int_V\overline{y}dV}{V}$$
+$$\overline{z}=\frac{\int_V\overline{z}dV}{\int_VdV}=\frac{\int_V\overline{z}dV}{V}$$
 \section{Eje de una forma}
-
+\subsection{Métodos convencionales - Plomada en la pared}
+\subsection{Métodos convencionales - Borde de la mesa}
 \section{Volumen}
 
 \section{Simplicaciones de la forma}
@@ -399,24 +404,34 @@ Un chiste habitual entre los topólogos (los matemáticos que se dedican a la to
 \begin{figure}[!ht]
 	\centering
 \begin{asy}
+import palette;
 import tube;
 import graph3;
 size(300,0);
-currentprojection = orthographic(4,4,14);
+currentprojection = perspective(1,1,1);
 triple f(real x){
-  return (x, x*x, 0);
+  return (x, cos(x)*x, 0);
 }
-path3 p = graph(f, -1, 1, operator ..);
+//path3 p = graph(f, -1, 1, operator ..);
+path3 p = (0,0,0)..tension 1 and 1 ..(0,1,1)..tension 1 and 1 ..(0,1,2)..tension 1 and 1 ..(0,3,2)..tension 1 and 1 ..(0,5,3);
 
 transform T(real t){
-    return scale(t*(1-t)/500);
+    return scale(t*(1-t^2));
 }
-draw(tube(p, unitcircle, T), purple);
+//tube W=tube(p,unitcircle);
+surface s=tube(p, unitcircle, T);
+s.colors(palette(s.map(ypart),BWRainbow()+opacity(.5)));
 
-draw(shift(relpoint(p,0))*scale3(0.1)*unitsphere, black);
+draw(s, purple);
+//draw(tube(p, unitcircle, T), purple);
+draw(p,orange);
+
+
+draw(shift(relpoint(p,0))*scale3(0.1)*unitsphere, orange);
 draw(shift(relpoint(p,1))*scale3(0.1)*unitsphere, green);
+axes3("$x$","$y$","$z$", Arrow3);
 \end{asy}
-\caption{Secciones y rebanadas}
+\caption{linewidth}
 \end{figure}
 
 
@@ -518,6 +533,12 @@ axes3("$x$","$y$","$z$", Arrow3);
 \chapter{Proyecciones}
 \subsection{Ortogonal }
 
+
+En geometría euclidiana, la proyección ortogonal es aquella cuyas rectas proyectantes auxiliares son perpendiculares al plano de proyección (o a la recta de proyección), estableciéndose una relación entre todos los puntos del elemento proyectante con los proyectados
+
+El concepto de proyección ortogonal se generaliza a espacios euclidianos de dimensión arbitraria, inclusive de dimensión infinita. Esta generalización tiene un papel importante en muchas ramas de matemática y física.
+
+
 \begin{figure}[!ht]
   \centering
   \begin{asy}
@@ -570,6 +591,7 @@ axes3("$x$","$y$","$z$", Arrow3);
 \end{figure}
 
 \subsection{Oblicua}
+El concepto de proyección ortogonal se generaliza a espacios euclidianos de dimensión arbitraria, inclusive de dimensión infinita. Esta generalización tiene un papel importante en muchas ramas de matemática y física.
 
 \begin{figure}[!ht]
   \centering
@@ -613,6 +635,11 @@ axes3("$x$","$y$","$z$", Arrow3);
 
 
 \subsection{Estereografica}
+La proyección estereográfica es un sistema de representación gráfico en el cual se proyecta la superficie de una esfera sobre un plano mediante un conjunto de rectas que pasan por un punto, o foco. El plano de proyección es tangente a la esfera, o paralelo a este, y el foco es el punto de la esfera diametralmente opuesto al punto de tangencia del plano con la esfera.
+
+La superficie que puede representar es mayor que un hemisferio. El rasgo más característico es que la escala aumenta a medida que nos alejamos del centro.
+
+En su proyección polar los meridianos son líneas rectas, y los paralelos son círculos concéntricos. En la proyección ecuatorial solo son líneas rectas el ecuador y el meridiano central.
 \begin{figure}[!ht]
 	\centering
 	\begin{asy}
