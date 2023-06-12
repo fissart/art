@@ -1,4 +1,5 @@
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 call plug#begin()
 Plug 'https://github.com/neoclide/vim-jsx-improve'
 Plug 'https://github.com/907th/vim-auto-save'
