@@ -1,4 +1,5 @@
 if(!settings.multipleView) settings.batchView=false;
+settings.tex="pdflatex";
 defaultfilename="artbook-4";
 if(settings.render < 0) settings.render=4;
 settings.outformat="";
