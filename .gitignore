@@ -1,8 +1,10 @@
 /*
 !.gitignore
 !latexmkrc
-!artbook.tex
+!credenciales
+!stdbook.tex
 !bb.bib
-!chp
-!artbook.pdf
-!www.obj
+!.vimrc
+!excel
+!stdbook.pdf
+
