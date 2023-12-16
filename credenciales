@@ -1,5 +1,7 @@
 g h p_GEjTslvP9nFD5W1Q90eSqwaCFWLKaf3uW1b1
 
+https://www.simplified.guide/linux/disk-mount
+
 Plug 'vim-autoformat/vim-autoformat' ”:Autoformat
 Plug 'lervag/vimtex'
 Plug 'https://github.com/vim-latex/vim-latex'
@@ -21,7 +23,7 @@ Hit ESC when done.
 	let g:auto_save = 1  " enable AutoSave on Vim startup
 
 	call plug#begin()
-	Plug 'junegunn/vim-easy-align' 
+	Plug 'junegunn/vim-easy-align'
 	Plug 'tyru/open-browser.vim' " opens url in browser
 	Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 	Plug 'https://github.com/preservim/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -65,7 +67,7 @@ git guarda contraseña token:
 https://stackoverflow.com/questions/68775869/message-support-for-password-authentication-was-removed-please-use-a-personal
 certbot:
 https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-20-04
-—------------------------rufus same in linux: 
+—------------------------rufus same in linux:
 sudo dd if=origen-de-iso of=ruta-del-dispositivo
 la rut	a se obtiene : sudo fdisk -l
 —----------------------------------------------------------------------------
@@ -87,7 +89,7 @@ nmcli device wifi show-password
 [15:30, 10/11/2022] Nancy Viza: Primary IP	169.197.183.212
 
 In the files:
-sudo mousepad /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml 
+sudo mousepad /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
 
 sudo mousepad  /etc/xdg/xdg-xubuntu/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
 Reemplazar xfwm4 con compiz
@@ -99,14 +101,14 @@ email:ayacucho.bellasartes@gmail.com
 pass:esfapa.edu.pe22
 User: bellasartes@esfapa.edu.pe
 Pass: @2Sl00sJ
-pass root: 
+pass root:
 0yMoKwHvG5Eu
 —---------------------------
 
 sudo certbot --apache
 sudo service mongod stop
 sudo service apache2 stop
-pm2 stop all 
+pm2 stop all
 sudo service mongod start
 sudo service apache2 start
 pm2 start /var/www/new/index.js
@@ -155,4 +157,3 @@ sudo nano /etc/apache2/apache2.conf
 AllowOverride All
 sudo a2enmod rewrite
 sudo systemctl apache2 restart
-
