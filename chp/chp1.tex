@@ -2,24 +2,17 @@
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-
-
-
-
-
 En este capítulo se observara la definición y las características de las curvas (lineas).
 
 
 \begin{defn}[Curva]
-Es una coleccion de puntos en el espacio. En matemática (inicialmente estudiado en geometría elemental y, de forma más rigurosa, en geometría diferencial), la curva (o línea curva) es una línea continua de una dimensión, que varía de dirección paulatinamente. \cite{hilbert2020geometry}. ``\usebibentry{hilbert2020geometry}{title}''
+Es una colección de puntos en el espacio. En matemática (inicialmente estudiado en geometría elemental y, de forma más rigurosa, en geometría diferencial), la curva (o línea curva) es una línea continua de una dimensión, que varía de dirección paulatinamente. \cite{hilbert2020geometry}. ``\usebibentry{hilbert2020geometry}{title}''
 \end{defn}
 
 Ejemplos sencillos de curvas cerradas simples son la elipse o la circunferencia o el óvalo, el cicloide; ejemplos de curvas abiertas, la parábola, la hipérbola y la catenaria y una infinidad de curvas estudiadas en la \textbf{geometría analítica plana}. La recta asume el caso límite de una circunferencia de radio de curvatura infinito y de curvatura 0; además, una recta es la imagen homeomorfa de un intervalo abierto. Todas las curvas tienen dimensión topológica igual a 1. La noción curva, conjuntamente con la de superficie, es uno de los objetos primordiales de la geometría diferencial, ciertamente con profusa aplicación de las herramientas del cálculo diferencial
 
 \section{Tangente en un punto de una curva}
 \begin{defn}[Tangente] In the definition of defn you need to use the first optional argument of  newtheorem to indicate that \cite{hilbert2020geometry}. ``\usebibentry{hilbert2020geometry}{title}''  this environment shares the counter of the previously defined thm environment.\end{defn}
-\cite{reyes} \index{wwwww}\cite{www}
-
 
 \begin{figure}[!ht]
 	\centering
@@ -65,10 +58,10 @@ Ejemplos sencillos de curvas cerradas simples son la elipse o la circunferencia 
 	\caption{Curva 3D con las rectas: tangente normal y binormal (Triedro de Frenet-Serret) además los planos: osculador, rectificante y normal}
 \end{figure}
 
-Curva 3D con las rectas: tangente normal y binormal además los planos: osculador, rectificante y normal
+De acuerdo a \cite{reyes} y \index{wwwww}\cite{www} Curva 3D con las rectas: tangente normal y binormal además los planos: osculador, rectificante y normal.
 
 
-\begin{prop}[wwwwwwwwwwwwwwwwwwwwwwww] In the definition of defn you need to use the first optional argument of  newtheorem to indicate that this environment shares the counter of the previously defined thm environment.\end{prop}
+\begin{prop}[www] In the definition of defn you need to use the first optional argument of  newtheorem to indicate that this environment shares the counter of the previously defined thm environment.\end{prop}
 
 
 
@@ -83,9 +76,7 @@ size(300,0);
 import markers;
 import geometry;
 import math;
-
 pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
-
 draw(A--B);
 draw(A--C);
 pen p=linewidth(1mm);
@@ -129,7 +120,44 @@ Sea el segmento $AB$ dividamoslo de la siguiente manera, tomemos $\frac{AB}{2}$ 
 
 \begin{figure}[!ht]
 	\begin{center}
-	\end{center}
+\begin{asy}
+import geometry;
+size(10cm,0);
+currentcoordsys=cartesiansystem((0,0),i=(1,0),j=(0,1));
+show(currentcoordsys);
+pair a=(.2,.4), b=a+3*(1,0), c=rotate(90)*(b-a)/2+b;
+point A=a, B=b, C=c;
+
+dot("$A$",A,W,orange);
+dot("$B$",B,(1,-1),magenta);
+dot("$C$",C,NE,cyan);
+
+circle c1=circle(C,length(A-B)/2);
+draw(A--B--C--cycle,dashed+blue);
+draw(A--B,black+2pt);
+arc arc=arc(c1,208,-90);
+draw(reverse(arc),Arrow);
+line l=line(A, C);
+
+point[] inter=intersectionpoints(c1,l);
+dot("$T$", inter[0], 2(-.3,-1));
+
+circle c2=circle(A,length(A-inter[0]));
+arc arc2=arc(c2,-0,29);
+draw(reverse(arc2),blue,Arrow);
+
+point[] inter2=intersectionpoints(c2,line(A,B));
+dot("$\phi$", inter2[1], (1,1));
+
+distance(Label("$1$"),A,inter2[1],3mm);
+distance(Label("$\frac{1}{\phi}$"),inter2[1],B,4mm);
+distance(Label("$\frac{\phi}{2}$"),B,C,4mm);
+distance(Label("$\frac{\phi}{2}$"),inter[0],C,-4mm);
+distance(Label("$1$",align=I*dir(A--C)),A,inter[0],-3mm);
+
+dotfactor*=1;
+\end{asy}
+\end{center}
 	\caption{Sección áurea de un segmento}
 	\label{Hw}
 \end{figure}
@@ -144,6 +172,34 @@ Tomando la figura \ref{ec1} y recordando que si se tiene la ecuaion $$ax^2+bx+c=
 
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 	\end{center}
 	\caption{La Parabola $x^2-kx-k^2=y$ y los puntos $S$ y $S'$}\label{ec1}
@@ -171,10 +227,10 @@ Cuando todo el segmento permanece constante y el segmento menor es \index{consta
 	\bottomrule
 	\endlastfoot
 	$\frac{x}{x-1}=\frac{x-1}{1}$&$ x^2-3x+1=0 $ & $x=\frac{3\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\\midrule
-	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((-1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\\midrule
-	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((3+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\\midrule
-	$\frac{1}{x}  =\frac{x}{1-x}$&$ x^2+x-1=0 $  &  $x=\frac{-1\pm\sqrt{5}}{2}$& $x_1=\fpeval{round((-3+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\\midrule
-	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\\midrule
+	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((-1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\
+	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((3+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\
+	$\frac{1}{x}  =\frac{x}{1-x}$&$ x^2+x-1=0 $  &  $x=\frac{-1\pm\sqrt{5}}{2}$& $x_1=\fpeval{round((-3+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\
+	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\
 	$\frac{x+1}{x}=\frac{x}{1}$&$ x^2-x-1=0$     & $x=\frac{1\pm\sqrt{5}}{2}$  & $x_1=\fpeval{round((1+sqrt(5))/2,3)}$ & $x_2=\fpeval{round((1-sqrt(5))/2,3)}$\\
 \end{longtable}
 
@@ -394,6 +450,35 @@ El principio aplica siempre e un de un designio la presencia de una proporción 
 
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
+
 	\end{center}
 	\caption{Construcción del segmento menor $BC$ a partir del segmento mayor $AB$}\label{KK}
 \end{figure}
@@ -402,6 +487,34 @@ Concentrándonos en el triángulo  $A'BA,$   al rotar esta figura obtenemos la s
 
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 	\end{center}
 	\caption{Construcción del segmento menor $BY$ a partir del segmento mayor $AB,$ $AY=UB$; $\frac{OA}{AS}=\frac{OS}{OA}=\frac{AU}{UB}=\frac{\sqrt{5}+1}{2}$}\label{H}
@@ -413,6 +526,35 @@ Concentrándonos en el triángulo  $A'BA,$   al rotar esta figura obtenemos la s
 
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
+
 	\end{center}
 	\caption{$\frac{AB}{YB}=\frac{A''R'}{R'O}=\phi.$ Se unió los procedimientos anteriores}\label{j}
 \end{figure}
@@ -422,6 +564,34 @@ En la figura \ref{sed} se prueba que $\frac{AB}{BC}=\frac{BC}{CD}=\frac{AC}{AB}=
 
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 	\end{center}
 	\caption{$\frac{AB}{BC}=\frac{BC}{CD}=\frac{AC}{AB}=\phi$}\label{sed}
@@ -440,6 +610,34 @@ La principal aplicación esta siempre en el diseño y la presencia en el arte pl
 
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 	\end{center}
 	\caption{Rectángulos Dinámicos $\sqrt{2},$ $\phi,$ $\sqrt{3},$ $\sqrt{5},$ ...}
@@ -457,6 +655,34 @@ Se descompondrá armónicamente cada uno de estos rectángulos, saber el procedi
 	Por ejemplo en la Figura \ref{Up} el rectángulo $A'B'C'D'$ tiene las mismas proporciones que $ABCD$ pues la pendiente de $A'C'$ es la misma que la pendiente de $AC,$ este principio nos ayudara a demostrar algunas propiedades de los rectángulos dinámicos.
 	\begin{figure}[!ht]
 		\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 		\end{center}
 		\caption{Tipo de rectángulo}\label{Op}
@@ -472,6 +698,35 @@ Se descompondrá armónicamente cada uno de estos rectángulos, saber el procedi
 
 	\begin{figure}[!ht]
 		\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
+
 		\end{center}
 		\caption{Cuadrado}\label{Up}
 	\end{figure}
@@ -485,6 +740,34 @@ Se descompondrá armónicamente cada uno de estos rectángulos, saber el procedi
 
 	\begin{figure}[!ht]
 		\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 		\end{center}
 		\caption{Un rectángulo arbitrario}\label{Upu}
@@ -499,6 +782,34 @@ Para poder particionarlo es necesario hallar la sección áurea en uno de los la
 
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 	\end{center}
 	\caption{Cuadrado}\label{Uk}
@@ -517,6 +828,34 @@ Finalmente se pueden obtener de manera indefinida rectángulos $\sqrt{2}$ tales 
 
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 	\end{center}
 	\caption{Rectángulo $\sqrt{2}$}\label{de}
@@ -530,6 +869,34 @@ La propiedad de este triángulo es que si lo dividimos en tres franjas verticale
 
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 	\end{center}
 	\caption{Rectángulo $\sqrt{3}$}\label{3}
@@ -544,7 +911,35 @@ En este rectángulo se incluye los rectángulos $\phi$ y $\sqrt{5}$  como se mue
 Se empieza construyendo un cuadrado $A'B'C'D'$ al tomemos uno de sus lados $A'B'$ divisándolo en dos segmentos iguales $A'M=MB'$ el arco generado por $MC'$ interseca a la proyección de lado $A'B'$ en los dos puntos $A$ y $B$ observe que se utilizo el mismo procedimiento para obtener el rectángulo áureo pero en este caso se obtiene dos rectángulos áureos intersecando que comparten el mismo cuadrado, observe que $A'C\perp BC'$ entonces el arco $CB$ pasa por la intersecion de esta lineas, la diagonal $AC$ pasa por la interseccion de los arcos $AB$ y $CB$
 
 \begin{figure}[!ht]
-	\begin{center}\psset{unit=1.2cm}
+	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 \end{center}
 	\caption{Rectángulo $\sqrt{5}$}\label{Uw}
@@ -558,6 +953,34 @@ pues como se puede verificar se tiene que ${AE'}^2=\phi^2-1=2\phi+1-1=\phi\Longl
 %https://asy.marris.fr/#section3
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 	\end{center}
 
@@ -576,6 +999,35 @@ El rectángulo de la siguiente figura tiene la única propiedad que si nosotros 
 
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
+
 	\end{center}
 	\caption{Rectángulo $\phi$}\label{Uww}
 \end{figure}
@@ -592,6 +1044,34 @@ Lo mismo ocurre con $\frac{DI'}{I'I}=\phi$ pues solo basta probar que los segmen
 
 \begin{figure}[!ht]
 	\begin{center}
+\begin{asy}
+size(300,0);
+import markers;
+import geometry;
+import math;
+pair A=0, B=(1,0), C=(0.7,1), D=(-0.5,0), F=rotate(-90)*(C-B)/2+B;
+draw(A--B);
+draw(A--C);
+pen p=linewidth(1mm);
+draw(B--C,p);
+draw(A--D);
+draw(B--F,p);
+label("$A$",A,SW);
+label("$B$",B,S);
+label("$C$",C,N);
+dot(Label("$D$",D,S));
+dot(Label("$F$",F,N+NW));
+markangle(A,C,B);
+markangle(scale(1.5)*"$\theta$",radius=40,C,B,A,ArcArrow(2mm),1mm+red);
+markangle(scale(1.5)*"$-\theta$",radius=-70,A,B,C,ArcArrow,green);
+markangle(Label("$\gamma$",Relative(0.25)),n=2,radius=-30,A,C,B,p=0.7blue+2);
+markangle(n=3,B,A,C,marker(markinterval(stickframe(n=2),true)));
+pen RedPen=0.7red+1bp;
+markangle(C,A,D,RedPen,marker(markinterval(2,stickframe(3,4mm,RedPen),true)));
+drawline(A,A+dir(A--D,A--C),dotted);
+perpendicular(B,NE,F-B,size=10mm,1mm+red,
+TrueMargin(linewidth(p)/2,linewidth(p)/2),Fill(yellow));
+\end{asy}
 
 	\end{center}
 

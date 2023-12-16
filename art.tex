@@ -19,15 +19,9 @@
 \usepackage[spanish]{babel}
 \usepackage[centertags]{amsmath}
 \usepackage{amsfonts}
-\usepackage{pst-solides3d}
-\usepackage{pst-3dplot}
-\usepackage{pst-eucl}
-\usepackage{pst-node}
-\usepackage{pstricks}
-\usepackage{pst-fractal}
-\usepackage{pst-fun}
 \usepackage{pstricks-add}
-\usepackage{graphicx}\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{longtable}
 \usepackage{booktabs}
 %\usepackage{ulem}
 %\usepackage{textcomp}
@@ -68,8 +62,6 @@ defaultpen(linewidth(0.7pt));
 //settings.render=1;
 \end{asydef}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\psset{dotscale=0.9}
-\psset{RightAngleSize=0.18}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \thispagestyle{empty}
 {
@@ -258,16 +250,11 @@ defaultpen(linewidth(0.7pt));
   \include{chp/chp6}
   \include{chp/chp7}
 
-
-
-
   %\renewcommand{\bibname}{REFERENCIAS BIBLIOGRÁFICAS}
   \bibliographystyle{apacite}
   \bibliography{bb}
   \addcontentsline{toc}{chapter}{Indices}
   \printindex
-
-
 
   \appendix
   \pagenumbering{roman}
