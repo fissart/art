@@ -205,34 +205,7 @@ En la siguiente figura se observa cuatro series, la primera es aquella generada 
 
 \begin{figure}
 \begin{center}
-\psset{unit=0.5}
-\begin{pspicture}[showgrid=false](-.5,-9)(22.5,9)
-\pstGeonode[CurveType=polygon,unit=1,PosAngle={-110,-90,135,45,135,45,135,0}](0,0)
-{A}(1,0){B}(2,0){C}(4,0){D}(6,0){E}(10,0){F}(13,0){G}(21,0){H}
-\psccurve[linewidth=.25pt](0,0)(0.5,-0.14)(1,0)(0.5,0.14)
-\psccurve[showpoints=true,linewidth=0.5pt](2,0)(3,-0.625)(4,0)(3,0.625)
-\psccurve[showpoints=true,linewidth=1pt](6,0)(7,-0.5)(8,-1.5)(10,0)(8,1.5)(7,0.5)
-\psccurve[showpoints=true,linewidth=2pt](13,0)(15,-1)(17,-3)(21,0)(17,3)(15,1)
-\pcline[offset=-35pt]{|<*->|*}(E)(F)\ncput*{$\beta$}
-\pcline[offset=-30pt]{|<*->|*}(D)(E)\ncput*{$\alpha$}
-\pcline[offset=-125pt]{|<*->|*}(G)(H)\ncput*{$2\beta$}
-\pcline[offset=-30pt]{|<*->|*}(F)(G)\ncput*{$\alpha+1$}
-%\psbrace*[,ref=rC](A)(E){$\beta$}
-\pstGeonode[PointNameSep={1,1,1,1,1,1},PosAngle={-110,-90,0,0,90,110}](10,-3){P}(13,-5){Q}(21,-3){R}(21,3){S}(13,5){T}(10,3){U}
-\pstGeonode[PointNameSep={1,1,1,1,1,1},unit=1,PosAngle={-110,-90,0,0,90,110}](4,-4){P'}(6,-6){Q'}(21,-4){R'}(21,4){S'}(6,6){T'}(4,4){U'}
-\pstGeonode[PointNameSep={1,1,1,1,1,1},unit=1,PosAngle={-110,-90,0,0,90,110}](1,-5){P''}(3,-7){Q''}(21,-5){R''}(21,5){S''}(3,7){T''}(1,5){U''}
-\pcline{<->}(17,-3)(17,3)\mput*{$2\theta$}
-\pcline{<->}(8,-1.5)(8,1.5)\mput*{$\theta$}
-\pscurve[variableLW,startLW=.5pt,endLW=5pt](H)(R)(Q)(P)\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(S)(T)(U)
-\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(R')(Q')(P')\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(S')(T')(U')
-\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(R'')(Q'')(P'')\pscurve[variableLW,startLW=0.5pt,endLW=5pt](H)(S'')(T'')(U'')
-%\pstLineAB{A}{C}
-%\pstMarkAngle[]{B}{A}{C}{$\alpha^\circ$}
-%\pstTranslation[DistCoef=0.4,PointSymbol=none,PosAngle=180]{A}{B}{B}[x]
-%\pstTranslation[DistCoef=0.4,PointSymbol=none,PosAngle=180]{A}{D}{D}[y]
-%\pstLineAB[nodesepA=-.4, nodesepB=-1,arrows=->]{A}{B}
-%\pstLineAB[nodesepA=-.4, nodesepB=-1,arrows=->]{A}{D}
- \end{pspicture}
+
 \end{center}
 \caption{Series en una Composición}\label{Ogw}
 \end{figure}
@@ -242,38 +215,7 @@ En el siguiente ejemplo  se ganara el ritmo partir de dos series de circunferenc
 \begin{figure}
 \begin{center}
 \psset{unit=0.9}
-\begin{pspicture}(-4,-4)(8,9)
-%\psframe(-4,-4)(7,8)\psgrid[subgriddiv=1,griddots=10]
-\pstGeonode[PosAngle=180](0,0){O}
-\pstGeonode[PosAngle={180,0,90}](1;0){A}(2;30){B}(4;60){C}(5,6){D}
-\pstGeonode[PointSymbol=none, PointName=none](4,4){E}(4,5){F}
-(5,5){G}
-\pstCircleOA[linestyle=dashed]{O}{A}
-\pstCircleOA[linestyle=dashed]{O}{B}
-\pstCircleOA[linestyle=dashed]{O}{C}
-\pstCircleOA[linestyle=dashed]{D}{E}
-\pstCircleOA[linestyle=dashed]{D}{F}
-\pstCircleOA[linestyle=dashed]{D}{G}
-\pstRotation[PosAngle=-90, RotAngle=90, CodeFig=true,
-CodeFigColor=black,DistCoef=4]{A}{O}[P]
-\pstRotation[PosAngle=-90, RotAngle=90, CodeFig=true,
-CodeFigColor=black,DistCoef=4,PointNameSep=.5]{B}{O}[Q]
-\pstRotation[PosAngle=90, RotAngle=90, CodeFig=true,
-CodeFigColor=black,DistCoef=4]{C}{O}[R]
-\pstMiddleAB[PointSymbol=none, PointName=none]{R}{D}{A'}
-\pstInterCC[PosAngleA=180,PosAngleB=0]{A'}{D}{D}{E}{G'}{G''}\pstLineAB[linestyle=dashed]{R}{G'}\pstLineAB[linestyle=dashed]{R}{G''}
-\pstMiddleAB[PointSymbol=none, PointName=none]{Q}{D}{B'}
-\pstInterCC[PosAngleA=180,PosAngleB=-5]{B'}{D}{D}{F}{H'}{H''}\psline[linestyle=dashed](Q)(H')\psline[linestyle=dashed](Q)(H'')
-\pstMiddleAB[PointSymbol=none, PointName=none]{P}{D}{B'}
-\pstInterCC[PosAngleA=90,PosAngleB=-90]{B'}{D}{D}{G}{I'}{I''}\psline[linestyle=dashed](P)(I')\psline[linestyle=dashed](P)(I'')
-%\nccurve[angleA=-135,angleB=90,variableLW,startLW=1pt,endLW=20pt,]{O}{I'}
-\pscurve[,variableLW,startLW=0.5pt,endLW=3pt](G')(G'')(P)(A)
-\pscurve[,variableLW,startLW=0.5pt,endLW=4pt](H')(H'')(Q)(B)%showpoints=true
-\pscurve[,variableLW,startLW=0.5pt,endLW=5pt](I')(I'')(R)(C)
-%\pstCircleOA[Diameter=\pstDistAB{A}{O}]{C}{}
-%\pstCircleOA[linewidth=2\pslinewidth,Diameter=\pstDistAB{B}{O}]{B}{}
-%\pstCircleOA[linewidth=4\pslinewidth,Diameter=\pstDistAB{C}{O}]{A}{}
-\end{pspicture}
+
 \end{center}
 \caption{series en una composición}\label{Og}
 \end{figure}

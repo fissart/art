@@ -128,23 +128,6 @@ Sea el segmento $AB$ dividamoslo de la siguiente manera, tomemos $\frac{AB}{2}$ 
 
 \begin{figure}[!ht]
 	\begin{center}
-		\begin{pspicture}[showgrid=false](-1,-0.5)(5,3.9)
-			\pstGeonode[PosAngle={-180,-35},unit=1cm,CurveType=polyline](-1,0){A}(5,0){B}
-			\pstGoldenMean[PosAngle=45,PointSymbol=*]{A}{B}{C}
-			\pstMiddleAB[PosAngle=90]{A}{B}{M}
-			\pstRotation[RotAngle=-90,PosAngle=90]{B}{M}[N]
-			\pstLineAB[linestyle=dashed,linecolor=gray!100]{A}{N}
-			\pstLineAB[linestyle=dashed,linecolor=gray!100]{B}{N}
-			\pstInterLC[PointNameA=,PointSymbolA=none,PosAngleB=80]{N}{A}{N}{B}{F}{E}
-			\pstArcnOAB[arrows=->>]{N}{B}{E}
-			\pstArcnOAB[arrows=->>]{A}{E}{C}
-			%\pstCircleOA[linecolor=green!60,linestyle=dashed]{N}{B}[200][270]
-			%\pstCircleOA[linecolor=orange!100,arrows=|<->|,linestyle=dashed]{A}{E}[0][30]
-			\pstLineAB[]{A}{B}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=20pt,linecolor=	blue!50]{A}{N}{$\frac{AB}{2}$}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{A}{C}{$\frac{\sqrt{5}-1}{2}$}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{C}{B}{$\frac{3-\sqrt{5}}{2}$}
-		\end{pspicture}
 	\end{center}
 	\caption{Sección áurea de un segmento}
 	\label{Hw}
@@ -160,97 +143,7 @@ Tomando la figura \ref{ec1} y recordando que si se tiene la ecuaion $$ax^2+bx+c=
 
 \begin{figure}[!ht]
 	\begin{center}
-		\psset{unit=2}
-		\begin{pspicture}[showgrid=false](-1,-1.5)(2,1.4)%\psframe(-1,-1.5)(2,1.4)
-			\psaxes[labels=none]{->}(0,0)(-1,-1.5)(2,1.4)
-			\psset{PointSymbol=*}
-			% \psaxes[labelFontSize=\scriptstyle, dx=2,Dx=2,dy=2,Dy=2]{->}(0,0)(-1,-1)(8,5)
-			\pstGeonode[PosAngle={-135,-90,45,135,-90}](0,0){O}(1,0){A}(1,1){B}(0,1){C}
-			(0.5,-1.25){V}
-			\psline[linestyle=dashed](V|0,0)(V)(0,0|V)
-			%\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
-			\pstMiddleAB[PosAngle=-70,PointName=none]{ O}{A}{A'}\uput*[d](A'){E}
-			\pstInterLC[PosAngle=-70,PointSymbolA=none, PointNameA=]{O}{A}{A'}{B}{s'}{S}
-			\pstInterLC[PosAngle=-120,PointSymbolB=none, PointNameB=]{O}{A}{A'}{B}{S'}{s}
-			\pstProjection{C}{B}{S}[I']%%%%% M
-			\pstArcnOAB[arrows=->>]{A'}{B}{S}
-			\pstArcOAB[arrows=->>]{A'}{C}{S'}
-			\pstLineAB[arrows=->>]{A'}{B}
-			\pstLineAB[arrows=->>]{A'}{C}
-			\pstLineAB[linestyle=dashed]{A}{B}
-			\pstProjection{C}{B}{S'}[I]
-			\pspolygon[linestyle=dashed](S')(S)(I')(I)%=vlines
-			\pcline[offset=10pt]{|<*->|*}(C)(B)
-			\ncput*{$k$}
-			\pcline[offset=15pt]{|<*->|*}(O)(C)
-			\ncput*{ $k$}
-			\pcline[offset=-30pt]{|<*->|*}(O)(A')
-			\ncput*{ $\frac{k}{2}$}
-			\pcline[offset=20pt]{|<*->|*}(A')(V)
-			\ncput*{ $\frac{5}{4}k$}
-			\def\F{ x 2 exp x sub 1 sub}
-			\psplot[linewidth=1\pslinewidth, linecolor=black]{-1}{2}{\F}
-		\end{pspicture}\,\,\,
-		\begin{pspicture}[showgrid=false](-1,-1.5)(2,1.4)%\psframe(-1,-1.5)(2,1.4)
-			\psaxes[labels=none]{->}(-1,0)(-1,-1.5)(2,1.4)
-			% \psaxes[labelFontSize=\scriptstyle, dx=2,Dx=2,dy=2,Dy=2]{->}(0,0)(-1,-1)(8,5)
-			\pstGeonode[PosAngle={-135,-90,45,135,-90}](0,0){O}(1,0){A}(1,1){B}(0,1){C}
-			(0.5,-1.25){V}\pstGeonode[PosAngle=45,PointNameA=none](-1,0){O'}
-			\psline[linestyle=dashed](V|0,0)(V)(-1,0|V)
-			%\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
-			\pstMiddleAB[PosAngle=-70,PointName=none, PointSymbol=none]{ O}{A}{A'}\uput*[d](A'){A'}
-			\pstInterLC[PosAngle=-70,PointSymbolA=none, PointNameA=]{O}{A}{A'}{B}{s'}{S}
-			\pstInterLC[PosAngle=-120,PointSymbolB=none, PointNameB=]{O}{A}{A'}{B}{S'}{s}
-			\pstProjection{C}{B}{S}[I']%%%%% M
-			\pstArcnOAB[linecolor=black,arrows=->> ]{A'}{B}{S}
-			\pstArcOAB[linecolor=black,arrows=->>]{A'}{C}{S'}
-			\pstLineAB[linecolor=black,arrows=->>]{A'}{B}
-			\pstLineAB[linecolor=black,arrows=->>]{A'}{C}
-			\pstLineAB[linestyle=dashed]{A}{B}\pstLineAB[linestyle=dashed]{O}{C}
-			\pstProjection{C}{B}{S'}[I]
-			\pspolygon[linestyle=dashed](S')(S)(I')(I)%=vlines
-			\pcline[offset=10pt]{|<*->|*}(C)(B)
-			\ncput*{$k$}
-			\pcline[offset=15pt]{|<*->|*}(O)(C)
-			\ncput*{ $k$}
-			\pcline[offset=20pt]{|<*->|*}(A')(V)
-			\ncput*{ $\frac{5}{4}k$}
-			\def\F{ x 2 exp x sub 1 sub}
-			\psplot[linewidth=1\pslinewidth, linecolor=black]{-1}{2}{\F}
-			\pcline[offset=-30pt]{|<*->|*}(O')(A')
-			\ncput*{ $3\frac{k}{2}$}
-			%\rput(0,-3.5){{$x^2-kx-k^2=y$}}
-		\end{pspicture}
-		\begin{pspicture}[showgrid=false](-1,-1.5)(2,1.4)%\psframe(-1,-1.5)(2,1.4)
-			\psaxes[labels=none]{->}(1,0)(-1,-1.5)(2,1.4)
-			\psset{PointSymbol=*}
 
-			\pstGeonode[PosAngle={-135,-45,45,135,-90}](0,0){O}(1,0){A}(1,1){B}(0,1){C}
-			(0.5,-1.25){V}
-			\psline[linestyle=dashed](V|1,0)(V)(1,0|V)
-			\pstMiddleAB[PosAngle=-70,PointName=none]{ O}{A}{A'}\uput*[d](A'){E}
-			\pstInterLC[PosAngle=-70,PointSymbolA=none, PointNameA=]{O}{A}{A'}{B}{s'}{S}
-			\pstInterLC[PosAngle=-120,PointSymbolB=none, PointNameB=]{O}{A}{A'}{B}{S'}{s}
-			\pstProjection{C}{B}{S}[I']%%%%% M
-			\pstArcnOAB[linecolor=black,arrows=->>]{A'}{B}{S}
-			\pstArcOAB[linecolor=black,arrows=->>]{A'}{C}{S'}
-			\pstLineAB[linecolor=black,arrows=->>]{A'}{B}
-			\pstLineAB[linecolor=black,arrows=->>]{A'}{C}
-			\pstLineAB[linestyle=dashed]{A}{B}
-			\pstProjection{C}{B}{S'}[I]
-			\pspolygon[linestyle=dashed](S')(S)(I')(I)%=vlines
-			\pcline[offset=10pt]{|<*->|*}(C)(B)
-			\ncput*{$k$}
-			\pcline[offset=15pt]{|<*->|*}(O)(C)
-			\ncput*{ $k$}
-			\pcline[offset=-30pt]{|<*->|*}(A')(A)
-			\ncput*{ $\frac{k}{2}$}
-			\pcline[offset=-20pt]{|<*->|*}(A')(V)
-			\ncput*{ $\frac{5}{4}k$}
-			\def\F{ x 2 exp x sub 1 sub}
-			\psplot[]{-1}{2}{\F}
-			\pstLineAB{O}{C}
-		\end{pspicture}
 	\end{center}
 	\caption{La Parabola $x^2-kx-k^2=y$ y los puntos $S$ y $S'$}\label{ec1}
 \end{figure}
@@ -500,23 +393,6 @@ El principio aplica siempre e un de un designio la presencia de una proporción 
 
 \begin{figure}[!ht]
 	\begin{center}
-		\begin{pspicture}(-0.6,-0.6)(5.1,3.5)
-			%\psframe(-0.5,-0.5)(5.1,3.5)\psgrid[subgriddiv=1,griddots=10]
-			\pstGeonode[unit=1.5cm,PosAngle={-135,-45,90,135}](0,0){O}(2,0){A}(2,2){B}(0,2){C}
-			%\pspolygon[](O)(A)(B)(C)%=vlines
-			\pstMiddleAB[PosAngle=135]{ O}{A}{A'}
-			\pstMiddleAB[PosAngle=90]{C}{B}{B'}
-			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{O}{A}{A'}{B}{S'}{S}
-			\pstProjection{C}{B}{S}[S']%%%%% M
-			\pstArcnOAB[linestyle=dashed,linecolor=black,arrows=->>]{A'}{B}{S}
-			\pstLineAB[linestyle=dashed,linecolor=black]{A}{B}
-			\pstLineAB[linestyle=dashed,linecolor=black,arrows=->>]{A'}{B}
-			\ncput*{$\sqrt{2}$}
-			\pspolygon[](O)(S)(S')(C)%=vlines
-
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{O}{A}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{C}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{A'}{$\frac{\alpha}{2}$}
-
-		\end{pspicture}
 	\end{center}
 	\caption{Construcción del segmento menor $BC$ a partir del segmento mayor $AB$}\label{KK}
 \end{figure}
@@ -525,28 +401,7 @@ Concentrándonos en el triángulo  $A'BA,$   al rotar esta figura obtenemos la s
 
 \begin{figure}[!ht]
 	\begin{center}
-		\begin{pspicture}(-0.6,-0.6)(7.5,5)
-			%\psframe(-0.6,-0.6)(7.5,5)\psgrid[subgriddiv=1,griddots=10]
-			\pstGeonode[unit=1.5cm,PosAngle={-135,-45,90,135}](0,0){O}(3,0){A}(3,3){B}(0,3){C}
-			\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
-			\pstMiddleAB[PosAngle=135]{ O}{A}{A'}
-			%\pstMiddleAB[PosAngle=-45]{C}{B}{B'}
-			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{O}{A}{A'}{B}{S'}{S}
-			\pstProjection{C}{B}{S}[S']%%%%% M
-			\pstArcnOAB[linestyle=dashed,arrows=->>]{A'}{B}{S}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{A'}{B}{$\alpha\frac{\sqrt{5}-1}{2}$}
-			\pstLineAB[linestyle=dashed,arrows=->>]{A'}{B}
-			\pspolygon[linecolor=orange!100,linestyle=dashed](O)(S)(S')(C)
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{O}{A}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{C}{$\alpha$}
-			\pstInterLC[PosAngle=-85,PointNameA=,PointSymbolA=none]{A'}{B}{A'}{A}{D'}{D}
-			\pstArcnOAB[linestyle=dashed,arrows=->>]{A'}{D}{A}
-			\pstInterLC[PosAngle=0,PointNameB=,PointSymbolB=none]{A}{B}{B}{D}{Y}{Y'}
-			\pstInterLC[PosAngle=180,PointNameA=,PointSymbolA=none]{A}{B}{A}{S}{U'}{U}
-			\pstArcOAB[linestyle=dashed,arrows=->>]{B}{D}{Y}
-			\pstArcOAB[linestyle=dashed,arrows=->>]{A}{S}{B}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-15pt,linecolor=	blue!50]{A}{Y}{$\alpha\frac{\sqrt{5}-1}{2}$}
 
-		\end{pspicture}
 	\end{center}
 	\caption{Construcción del segmento menor $BY$ a partir del segmento mayor $AB,$ $AY=UB$; $\frac{OA}{AS}=\frac{OS}{OA}=\frac{AU}{UB}=\frac{\sqrt{5}+1}{2}$}\label{H}
 \end{figure}
@@ -557,51 +412,6 @@ Concentrándonos en el triángulo  $A'BA,$   al rotar esta figura obtenemos la s
 
 \begin{figure}[!ht]
 	\begin{center}
-		\psset{unit=.9}
-		\begin{pspicture}*(-5.9,-9.7)(5.8,0.8)
-			%\psframe(-5.9,-9.6)(5.8,0.8)\psgrid[subgriddiv=1,griddots=10]
-			\rput{-90}{%
-				\pstGeonode[unit=1.5,PosAngle={-135,-45,90,90,0,0,180,0}](0,0){O}(3,0){A}(3,3){B}
-				(0,3){C}(6,3){B''}(6,0){A''}(0,-3){F}(6,-3){E}
-				\pspolygon[linestyle=dashed](O)(A'')(B'')(C)%=vlines
-				\pstMiddleAB[PosAngle=270]{ O}{A}{A'}
-				\pstMiddleAB[PosAngle=90]{C}{B}{B'}
-				\pstInterLC[PosAngle=-90]{O}{A}{A'}{B}{S'}{S}
-				\pstProjection{C}{B}{S}[S']%%%%% M
-				\pstArcnOAB[linecolor=black,arrows=->>]{A'}{B}{S}
-			}
-			\pstLineAB[arrows=-> ]{B}{A'}
-			\psbrace[bracePos=0.55,nodesepB=-2pt
-			,rot=0,ref=lC,braceWidthInner=26pt](B)(A'){$\alpha\frac{\sqrt{5}}{2}$}
-			%\pspolygon[linestyle=dashed](O)(S)(S')(C)%=vlines
-			%\pspolygon[linestyle=dashed](O)(A)(B)(C)%=vlines
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=25pt,linecolor=	blue!50]{C}{B}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=15pt,linecolor=	blue!50]{O}{C}{$\alpha$}	\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=25pt,linecolor=	blue!50]{B}{B''}{$\alpha$}
-
-			\pstInterLC[PosAngle=90,PointNameA=,PointSymbolA=none]{A'}{B}{A'}{A}{D'}{D}
-			\pstArcnOAB[linestyle=dashed,linestyle=dashed,arrows=<-]{A'}{D}{A}
-			\pstInterLC[PosAngle=-70]{A}{B}{B}{D}{Y}{Y'}
-			\pstArcOAB[linestyle=dashed,linecolor=black,arrows=->>]{B}{D}{Y}
-			\pstInterLC[PosAngle=-90]{B''}{A''}{B''}{O}{P}{P'}
-			\pstInterLC[PosAngle=-10]{C}{A''}{C}{O}{Q'}{Q}
-			\pstInterLC[PosAngle=45]{O}{A''}{A''}{Q}{R'}{R}
-			\pstArcOAB[linestyle=dashed,ArrowInside=->,linecolor=black,arrows=->, arrowscale=2]{B''}{O}{P'}
-			\pstArcOAB[linestyle=dashed,arrows=->]{A''}{Q}{P'}
-			\pstArcOAB[linestyle=dashed,arrows=->]{C}{O}{Q}
-			\pstLineAB[linestyle=dashed]{A''}{C}
-			\pstLineAB[linestyle=dashed]{O}{B''}
-			\pstLineAB[linestyle=dashed]{P'}{A''}
-			\pstLineAB[linestyle=dashed]{A}{B}
-			\psbrace[bracePos=0.5,nodesepB=-2pt
-			,rot=0,ref=lC,braceWidthInner=6pt](A)(Y){ $\alpha\frac{\sqrt{5}-1}{2}$}
-			\pstProjection{F}{E}{R'}[E']
-			\pstLineAB[linestyle=dashed]{O}{F}
-			\pstLineAB[linestyle=dashed]{F}{E}
-			\pstLineAB[linestyle=dashed]{E}{A''}
-			\pstLineAB[linestyle=dashed,nodesepB=-3,]{E'}{R'}
-			\pstInterLL[]{E'}{R'}{C}{B}{E''}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=35pt,linecolor=	blue!50]{A'}{O}{$\frac{\alpha}{2}$}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=35pt,linecolor=	blue!50]{A}{A'}{$\frac{\alpha}{2}$}
-		\end{pspicture}
 	\end{center}
 	\caption{$\frac{AB}{YB}=\frac{A''R'}{R'O}=\phi.$ Se unió los procedimientos anteriores}\label{j}
 \end{figure}
@@ -611,26 +421,7 @@ En la figura \ref{sed} se prueba que $\frac{AB}{BC}=\frac{BC}{CD}=\frac{AC}{AB}=
 
 \begin{figure}[!ht]
 	\begin{center}
-		\psset{unit=1.1}
-		\begin{pspicture}(-0.3,-1.8)(8,3.1)
-			\pstGeonode[PosAngle={-180,-90,135}](0,0){A}(3,0){B}(6,0){D}
-			\pstGeonode[PosAngle={0}](6,-1.5){f}
-			\pstArcOAB[linestyle=dashed]{B}{D}{A}
-			\pstInterLC[PosAngle=-135,PointNameA=,PointSymbolA=none]{f}{B}{f}{D}{P'}{d}
-			\pstInterLC[PosAngle=135,PointNameA=,PointSymbolA=none]{B}{D}{B}{d}{EG}{C}
-			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{B}{D}{C}{B}{DG}{E}
-			\pstArcOAB[linestyle=dashed]{C}{E}{B}
-			\pspolygon[linestyle=dashed](B)(f)(D)%=vlines
-			\pstArcOAB[arrows=->>]{B}{d}{C}
-			\pstArcOAB[arrows=->>]{f}{D}{d}
-			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{B}{D}{D}{C}{DGF}{F}
-			\pstArcOAB[linestyle=dashed]{D}{F}{C}
-			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{B}{D}{E}{D}{DGF}{G}
-			\pstArcOAB[linestyle=dashed]{E}{G}{D}
-			\pstInterLC[PosAngle=0,PointNameA=,PointSymbolA=none]{B}{D}{F}{E}{DGF}{H}
-			\pstArcOAB[linestyle=dashed]{F}{H}{E}
-			\pstLineAB[]{A}{H}
-		\end{pspicture}
+
 	\end{center}
 	\caption{$\frac{AB}{BC}=\frac{BC}{CD}=\frac{AC}{AB}=\phi$}\label{sed}
 \end{figure}
@@ -648,57 +439,7 @@ La principal aplicación esta siempre en el diseño y la presencia en el arte pl
 
 \begin{figure}[!ht]
 	\begin{center}
-		\psset{unit=1.2}
-		\begin{pspicture}(-0.5,-1.5)(9.2,5.5)
-			%\psgrid[subgriddiv=1,griddots=10]\psframe(-0.5,-1.5)(9.2,5.5)
-			\rput{0}{\pstGeonode[PosAngle={-135,-45,90,135}](0,0){O}(4,0){A}(4,4){B}(0,4){C}}
-			\pstInterLC[PosAngle=-135]{O}{A}{O}{B}{R'}{R}
-			\pstProjection{C}{B}{R}[K]%%%%% K
-			\pstInterLC[PosAngle=-90]{A}{R}{O}{K}{S'}{S}
-			\pstProjection{C}{B}{S}[L]%%%%% L
-			\pstInterLC[PosAngle=-90]{O}{A}{O}{L}{T'}{T}
-			\pstProjection{C}{B}{T}[M]%%%%% M
-			\pstInterLC[PosAngle=-90]{O}{A}{O}{M}{U'}{U}
-			\pstMiddleAB[PosAngle=135]{O}{A}{D}
-			\pstInterLC[PosAngle=-90,PointSymbolA=none, PointNameA=]{O}{A}{D}{B}{P''}{P}\pstProjection{C}{B}{P}[P']%%%%%
-			\pstInterLC[PosAngle=-90,PointSymbolA=none, PointNameA=]{O}{A}{O}{P'}{r''}{r}
-			\pstProjection{C}{B}{r}[r']%%%%% M
 
-			\pstProjection{C}{B}{U}[N]%%%%% M
-			\pspolygon[](O)(R)(K)(C)%=vlines
-			\pspolygon[](O)(A)(B)(C)%=vlines
-			\pspolygon[](O)(S)(L)(C)%=vlines
-			\pspolygon[](O)(T)(M)(C)%=vlines
-			\pspolygon[](O)(U)(N)(C)%=vlines
-			\pspolygon[](O)(P)(P')(C)%=vlines
-			\pcline[]{}(r)(r')
-			\pcline[linecolor=blue!100,linestyle=dashed]{->}(D)(B)
-			\pcline[linecolor=blue!100,linestyle=dashed]{->}(O)(r')
-			\pcline[linecolor=blue!100,linestyle=dashed,offset=0pt]{->}(O)(B)
-			\ncput*[nrot=:U]{$\sqrt{2}$}
-			\pcline[linecolor=blue!100,linestyle=dashed,offset=0pt]{->}(O)(K)
-			\ncput*[nrot=:U]{$\sqrt{3}$}
-			\pcline[linecolor=blue!100,linestyle=dashed,offset=0pt]{->}(O)(L)
-			\ncput*[nrot=:U]{$\sqrt{4}$}
-			\pcline[linecolor=blue!100,linestyle=dashed,offset=0pt]{->}(O)(M)
-			\pcline[linecolor=blue!100,linestyle=dashed,offset=0pt]{->}(O)(N)
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-12pt,linecolor=orange!100]{O}{A}{$1$}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-36pt,linecolor=orange!100]{O}{R}{$\phi$}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=12pt, linecolor=orange!100]{O}{C}{$1$}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-24pt,linecolor=orange!100]{O}{U}{$\sqrt{5}$}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=20pt, linecolor=orange!100]{C}{P'}{$\sqrt{2}$}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=35pt, linecolor=orange!100]{C}{L}{$\sqrt{3}$}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=50pt, linecolor=orange!100]{C}{r'}{$\sqrt{\phi}$}
-			\pstLabelAB*[linestyle=dashed,arrows=|<->|,offset=-50pt,linecolor=orange!100]{O}{T}{$2$}
-			\pstSegmentMark[SegmentSymbol=MarkHashh]{O}{D}
-			\pstSegmentMark[SegmentSymbol=MarkHashh]{A}{D}
-			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{O}{B}{R}
-			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{O}{K}{S}
-			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{O}{L}{T}
-			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{O}{M}{U}
-			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{D}{B}{P}
-			\pstArcnOAB[linecolor=blue!100,arrows=->,linestyle=dashed]{O}{P'}{r}
-		\end{pspicture}
 	\end{center}
 	\caption{Rectángulos Dinámicos $\sqrt{2},$ $\phi,$ $\sqrt{3},$ $\sqrt{5},$ ...}
 	\label{dynamics}
@@ -715,16 +456,7 @@ Se descompondrá armónicamente cada uno de estos rectángulos, saber el procedi
 	Por ejemplo en la Figura \ref{Up} el rectángulo $A'B'C'D'$ tiene las mismas proporciones que $ABCD$ pues la pendiente de $A'C'$ es la misma que la pendiente de $AC,$ este principio nos ayudara a demostrar algunas propiedades de los rectángulos dinámicos.
 	\begin{figure}[!ht]
 		\begin{center}
-			\begin{pspicture}(-1.5,-0.4)(5,4.4)
-				%\psframe(-1.4,-0.4)(5,4.4)\psgrid[subgriddiv=1,griddots=10]
-				\pstGeonode[CurveType=polygon,unit=1,PosAngle={-110,-90,90,-115}](0,0){A}(4,2){B}(3,4){C}(-1,2){D}
-				\pstLineAB{A}{C}
-				\pstMarkAngle[]{B}{A}{C}{$\alpha^\circ$}
-				\pstTranslation[DistCoef=0.4,PointSymbol=none,PosAngle=180]{A}{B}{B}[x]
-				\pstTranslation[DistCoef=0.4,PointSymbol=none,PosAngle=180]{A}{D}{D}[y]
-				\pstLineAB[nodesepA=-.4, nodesepB=-1,arrows=->]{A}{B}
-				\pstLineAB[nodesepA=-.4, nodesepB=-1,arrows=->]{A}{D}
-			\end{pspicture}
+
 		\end{center}
 		\caption{Tipo de rectángulo}\label{Op}
 	\end{figure}
@@ -739,14 +471,6 @@ Se descompondrá armónicamente cada uno de estos rectángulos, saber el procedi
 
 	\begin{figure}[!ht]
 		\begin{center}
-			\begin{pspicture}(-0.4,-0.4)(6.4,3.5)
-				%\psframe(-0.4,-0.4)(6.4,3.4)\psgrid[subgriddiv=1,griddots=10]
-				\pstGeonode[CurveType=polygon,unit=1,PosAngle={-90,-90,90,90}](0,0){A}(6,0){B}(6,3){C}(0,3){D}
-				\pstGeonode[CurveType=polygon,unit=1,PosAngle={-90,-90,-45,-135}](2,1){A'}(5,1){B'}(5,2.5){C'}(2,2.5){D'}
-				\pspolygon[](A)(B)(C)(D)%=vlines
-				\pspolygon[](A')(B')(C')(D')%=
-				\pstLineAB{A}{C}
-			\end{pspicture}
 		\end{center}
 		\caption{Cuadrado}\label{Up}
 	\end{figure}
@@ -760,23 +484,7 @@ Se descompondrá armónicamente cada uno de estos rectángulos, saber el procedi
 
 	\begin{figure}[!ht]
 		\begin{center}
-			\begin{pspicture}(-0.4,-0.4)(6.4,3.4)
-				%\psframe(-0.4,-0.4)(6.4,3.4)\psgrid[subgriddiv=1,griddots=10]
-				\pstGeonode[CurveType=polygon,unit=1,PosAngle={-90,-90,90,90}](0,0){A}(6,0){B}(6,3){C}(0,3){D}
-				\pstMiddleAB[PosAngle=0]{B}{C}{M}
-				\pstInterLC[,PointSymbolB=none, PointNameB=]{A}{C}{M}{C}{P}{P''}
-				\pstInterLL[PosAngle=90]{P}{B}{D}{C}{Q}
-				\pstProjection[CodeFig=true,CodeFigColor=black]{B}{A}{Q}[P']
-				\pstArcOAB[linestyle=dashed,arrows=->]{M}{C}{B}
-				\pstLineAB{B}{Q}
-				\pstLineAB{A}{C}
-				\pstRightAngle{C}{P}{Q}
-				\psset{LabelRefPt=c,arrows=->,MarkAngleRadius=0.6,LabelAngleOffset=0,
-					LabelSep=1.3}
-				\pstLineAB[linestyle=dashed,arrows=->]{M}{P}
-				\pstMarkAngle[]{B}{A}{C}{$\alpha^\circ$}
-				\pstMarkAngle[]{C}{B}{Q}{$\alpha^\circ$}
-			\end{pspicture}
+
 		\end{center}
 		\caption{Un rectángulo arbitrario}\label{Upu}
 	\end{figure}
@@ -790,28 +498,7 @@ Para poder particionarlo es necesario hallar la sección áurea en uno de los la
 
 \begin{figure}[!ht]
 	\begin{center}
-		\begin{pspicture}(-0.4,-0.4)(4.4,4.4)
-			%\psframe(-0.4,-0.4)(4.4,4.4)\psgrid[subgriddiv=1,griddots=10]
-			\pstGeonode[CurveType=polygon,unit=1,PosAngle={-135,-45,90,135}](0,0){O}(4,0){A}(4,4){B}(0,4){C}
-			\pstMiddleAB[PosAngle=135]{O}{A}{D}
-			\pstInterLC[PosAngle=135,,PointSymbolA=none, PointNameA=]{D}{B}{D}{A}{E'}{E}
-			\pstInterLC[,PointSymbolB=none, PointNameB=]{A}{B}{B}{E}{P}{P''}
-			\pstProjection[CodeFig=true,CodeFigColor=black]{C}{O}{P}[P']
-			\pstInterLL[PosAngle=-90]{O}{B}{P}{P'}{Q}
-			\pstLineAB{O}{B}
-			\pstArcOAB[linestyle=dashed,arrows=->]{D}{A}{E}
-			\pstArcnOAB[linestyle=dashed,arrows=<-]{B}{P}{E}
-			\pstLineAB[linestyle=dashed]{D}{B}
-			%\pstInterLC[PosAngle=-90,PointSymbolA=none, PointNameA=none]{O}{A}{D}{B}{P''}{P}
-			%\pstProjection{C}{B}{P}[P']%%%%% M
-			%\pspolygon[](O)(A)(B)(C)%=vlines
-			%\pcline[offset=0pt]{|<*->|*}(O)(B)
-			%\ncput*[nrot=:U]{ $\sqrt{2}$}
-			%\pstArcnOAB[arrows=->, arrowscale=2]{O}{B}{R}
 
-
-
-		\end{pspicture}
 	\end{center}
 	\caption{Cuadrado}\label{Uk}
 \end{figure}
@@ -829,50 +516,7 @@ Finalmente se pueden obtener de manera indefinida rectángulos $\sqrt{2}$ tales 
 
 \begin{figure}[!ht]
 	\begin{center}
-		\begin{pspicture}(-0.3,-0.5)(8.1,6.1)
-			%\psframe(-0.3,-0.5)(8.1,6.1)\psgrid[subgriddiv=1,griddots=10]
-			\pstGeonode[unit=5.5,PosAngle={-90,90,90,90},PointSymbol={*,none,none,*,none},PointName={default,none,none,default,none}](0,0){A}(1,0){Bb}(1,1){Cc}(0,1){D}(0.5,0){M}
-			\pstInterLC[PointSymbolA=none,PointNameA=none,PosAngleB=-90]{A}{Bb}{A}{Cc}{FF}{B}
-			\pstProjection[]{D}{Cc}{B}[C]
-			\pstMiddleAB[PosAngle=-90]{A}{B}{M}
-			\pstMiddleAB[PosAngle=90]{D}{C}{M'}
-			\pstMiddleAB[PosAngle=0]{B}{C}{N}
-			\pstMiddleAB[PosAngle=-90]{M}{B}{N'}
-			\pstMiddleAB[PosAngle=0]{B}{N}{P}
-			\pspolygon(A)(B)(C)(D)
-			\pstLineAB{D}{M}
-			\pstLineAB{M}{C}
-			\pstLineAB{A}{C}
-			\pstLineAB{D}{B}
-			\pstLineAB{B}{M'}\pstLineAB{M}{N}
-			\pstLineAB{N'}{N}
-			\pstInterLL[PosAngle=-90]{D}{B}{M}{C}{H}
-			\pstInterLL[PosAngle=0]{A}{C}{M}{D}{H'}
-			\pstInterLL[PosAngle=70]{M}{N}{B}{M'}{H''}
-			\pstInterLL[PosAngle=0]{N'}{N}{B}{D}{I}
-			\pstInterLL[PosAngle=90]{A}{C}{B}{D}{O}
-			\pstInterLL[PosAngle=-96,PointName=none,PointSymbol=none]{N}{M}{B}{D}{Hhh}
-			\pstRightAngle{D}{H}{C}
-			\pstRightAngle{D}{H'}{C}
-			\pstRightAngle{M}{H''}{M'}
-			\pstRightAngle{N'}{I}{D}
-			\pstHomO[HomCoef=0.8,PosAngle=0,PointSymbol=none,PointName=none]{N'}{P}[K]
-			\pstLineAB[arrows=->]{N'}{K}
-			\pstSegmentMark[]{M}{N'}
-			\pstSegmentMark[]{B}{N'}
-			\pstInterLL[PosAngle=0]{A}{C}{B}{M'}{O'}
-			\pstSegmentMark[SegmentSymbol=MarkHash]{P}{B}
-			\pstSegmentMark[SegmentSymbol=MarkHash]{P}{N}
-			\pspolygon(M)(O)(N)(B)\pspolygon(N')(Hhh)(P)(B)
-			\pstMiddleAB[PosAngle=0]{A}{D}{E}
-			\pstArcOAB[linestyle=dashed,arrows=->]{E}{A}{D}
-			\pstRotation[RotAngle=90,PosAngle=90]{D}{A}[N'']
-			\pstRotation[RotAngle=-180,PosAngle=90]{M'}{N''}[R]
-			\pstArcOAB[linestyle=dashed,arrows=->]{D}{A}{N''}
-			\pstArcOAB[linestyle=dashed,arrows=->]{M'}{R}{N''}
-			\pstProjection[CodeFig=true, CodeFigColor=black]{A}{B}{R}[R']
-			\pstLineAB{R'}{C}
-		\end{pspicture}
+
 	\end{center}
 	\caption{Rectángulo $\sqrt{2}$}\label{de}
 \end{figure}
@@ -885,37 +529,7 @@ La propiedad de este triángulo es que si lo dividimos en tres franjas verticale
 
 \begin{figure}[!ht]
 	\begin{center}
-		\begin{pspicture}(-0.2,-0.6)(9.2,5.6)
-			%\psframe(-0.2,-0.6)(9.2,5.6)\psgrid[subgriddiv=1,griddots=10]
-			\pstGeonode[unit=5,PosAngle={-90,135,-45,90},PointSymbol={*,none,none,*},PointName={default,none,none,default}](0,0){A}(1,0){Bb}(1,1){Cc}(0,1){D}
-			\pstInterLC[PointSymbolA=none,PointNameA=,PointSymbolB=none,PointNameB=]{A}{Bb}{A}{Cc}{G'}{G}
-			\pstInterLC[PointSymbolA=none,PointNameA=,PosAngle=90]{D}{Cc}{D}{G}{h'}{C}
-			\pstProjection[]{A}{Bb}{C}[B]
-			\pspolygon(A)(B)(C)(D)
-			\pstLineAB{A}{C}\pstLineAB{B}{D}
-			\pstProjection[PosAngle=-90,CodeFig=true,CodeFigColor=black]{D}{B}{C}[G]
-			\pstInterLL[PosAngle=-90]{A}{B}{C}{G}{M}
-			\pstProjection[PosAngle=180,CodeFig=true,CodeFigColor=black]{A}{C}{D}[H]
-			\pstInterLL[PosAngle=-90]{A}{B}{D}{H}{N}
-			\pstProjection[CodeFig=true,CodeFigColor=black]{D}{C}{N}[O]
-			\pstProjection[CodeFig=true,CodeFigColor=black]{D}{C}{M}[P]
-			\pstLineAB{O}{N}\pstLineAB{P}{M}
-			\pstHomO[HomCoef=0.2,PointName=none,PointSymbol=none]{N}{D}[s]
-			\pstLineAB{C}{M}
-			\pstLineAB[arrows=-D>]{N}{s}
-			\pstInterLL[PosAngle=-135]{M}{P}{D}{B}{I}
-			\pstProjection[]{B}{C}{I}[I']
-			\pstLineAB{I}{I'}
-			\pstSegmentMark[SegmentSymbol=MarkHashh]{D}{O}
-			\pstSegmentMark[SegmentSymbol=MarkHashh]{O}{P}
-			\pstSegmentMark[SegmentSymbol=MarkHashh]{P}{C}
-			\pstHomO[HomCoef=0.7,PointName=none,PointSymbol=none]{M}{I'}[f]
-			\pstLineAB[arrows=->]{M}{f}
-			\pstProjection[PosAngle=90,CodeFig=true,CodeFigColor=black]{D}{B}{I'}[G']
-			\pstInterLL[PosAngle=-90]{A}{B}{I'}{G'}{J}
-			\pstHomO[HomCoef=0.4,PointName=none,PointSymbol=none]{I'}{J}[j]
-			\pstLineAB[arrows=-D>]{I'}{j}
-		\end{pspicture}
+
 	\end{center}
 	\caption{Rectángulo $\sqrt{3}$}\label{3}
 \end{figure}
@@ -930,40 +544,8 @@ Se empieza construyendo un cuadrado $A'B'C'D'$ al tomemos uno de sus lados $A'B'
 
 \begin{figure}[!ht]
 	\begin{center}\psset{unit=1.2cm}
-		\begin{pspicture}(-2.5,-0.5)(7,4.7)%\psgrid
-			%\psgrid[subgriddiv=1,griddots=10]%\psframe(-0.6,-0.5)(9.2,4.7)
-			\rput{0}{\pstGeonode[PosAngle={-90,-90,90,90}](0,0){A'}(4,0){B'}(4,4){C'}(0,4){D'}}
-			\pstMiddleAB[PosAngle=-90]{A'}{B'}{M}
-			\pstInterLC[PosAngle=-90]{A'}{B'}{M}{C'}{A}{B}
-			\pstProjection{D'}{C'}{B}[C]%%%%% K
-			\pstProjection{D'}{C'}{A}[D]
-			\pspolygon[](A)(B)(C)(D)%=vlines
-			\pstLineAB{D}{A'}\pstLineAB{A'}{C}\pstLineAB{A}{C'}\pstLineAB{C'}{B}
-			\pstLineAB{A'}{D'}\pstLineAB{C'}{B'}\pstLineAB{A}{C}
-			\pstInterLL[PosAngle=180]{A'}{C}{B'}{C'}{O}
-			\pstProjection[]{B}{C}{O}[O']
-			\pstLineAB{O}{O'}
-			\pstMiddleAB[PosAngle=0]{B}{C}{N}
-			\pstArcOAB[linestyle=dashed,arrows=->]{N}{C}{B}
-			\pstInterLC[PosAngle=82,PointNameB=,PointSymbolB=none]{A}{C}{N}{B}{G}{G'}
-			\pstInterLL[PosAngle=90]{B}{G}{D}{C}{H}
-			\pstProjection[CodeFig=true,CodeFigColor=black]{B}{A}{H}[H']
-			\pstLineAB{B}{H}
-			\pstInterLL[PosAngle=185]{A'}{C}{H}{H'}{I}
-			\pstInterLL[PosAngle=125]{A}{C}{H}{H'}{E}
-			\pstProjection[PosAngle=0]{B}{C}{I}[H'']
-			\pstProjection[PosAngle=0]{B}{C}{E}[H''']
-			\pstLineAB{E}{H'''}\pstLineAB{I}{H''}
-			%\pcline[offset=0pt,]{->}(O)(B)
-			\pstInterLL[PosAngle=-55]{O'}{O}{H}{H'}{J}\pstLineAB{B}{O}
-			\pstInterLL[PosAngle=180]{O}{B}{H}{H'}{J'}
-			\pstLineAB{J'}{H''}
-			%\ncput*[nrot=:U]{ $\sqrt{2}$}
-			%
-			\pstArcOAB[linestyle=dashed,arrows=->]{M}{B}{A}
-			\pstProjection[PosAngle=-45]{B}{C}{J'}[Q]\pstLineAB{J'}{Q}
-		\end{pspicture}
-	\end{center}
+
+\end{center}
 	\caption{Rectángulo $\sqrt{5}$}\label{Uw}
 \end{figure}
 se obtiene $G$ intersecar el arco $BC$ con la diagonal $AC,$ $H$ al intersecar el lado $DC$ con la proyección de $BG$ finalmente $H'$ e $I$ al proyectar $H$ perpendicularmente sobre el lado $AB;$  sabe que el rectángulo $OO'CC'$ es un rectángulo $\qw$ por lo tanto $IH''CC'$ lo es, pues la diagonal $IC$ coincide con la del rectángulo $OO'CC'$ (Se demostró al principio de este capitulo que un rectángulo esta definido por el valor de la pendiente de su diagonal) se verifica que $HC=\frac{1}{5}DC$ entonces $H'BCH$ es un rectángulo $\sqrt{5},$ entonces como $H'BQJ'=1,$ y $IH''CH=\qw$  se deduce que $J'QH''I=\qw.$ También $EH'''CC'$ es un $\sqrt{5}$ pues comparten la diagonal del generador $ABCD,$ $BJ'$ es un cuadrado pues comparten la diagonal del cuadrado $B'BO'O$
@@ -975,18 +557,7 @@ pues como se puede verificar se tiene que ${AE'}^2=\phi^2-1=2\phi+1-1=\phi\Longl
 %https://asy.marris.fr/#section3
 \begin{figure}[!ht]
 	\begin{center}
-		\begin{pspicture}(-0.1,-0.5)(8.3,5.5)%\psgrid[subgriddiv=1,griddots=10]
-			\pstGeonode[unit=5,PosAngle={-135,34,34,135},PointSymbol={*,none,none,*},PointName={default,none,none,default}]
-			(0,0){A}(1,0){Bb}(1,1){Cc}(0,1){D}
-			\pstMiddleAB[PosAngle=-90,PointName=,PointSymbol=none]{A}{Bb}{M}
-			\pstInterLC[PosAngle=-90,PointNameA=,PointSymbolA=none]{A}{Bb}{M}{Cc}{M''}{B}
-			\pstProjection[]{D}{Cc}{B}[C]
-			\pstInterLC[CodeFig=true,PosAngle=90,PointNameA=,PointSymbolA=none]{D}{C}{A}{B}{E''}{E}
-			\pstProjection[]{A}{B}{E}[E']
-			\pspolygon(A)(E')(E)(D)
-			\pspolygon(A)(B)(C)(D)
-			\pstArcOAB[arrows=->]{A}{B}{E}
-		\end{pspicture}
+
 	\end{center}
 
 	\caption{Rectángulo $\sqrt{\phi}$}\label{p}
@@ -1004,26 +575,6 @@ El rectángulo de la siguiente figura tiene la única propiedad que si nosotros 
 
 \begin{figure}[!ht]
 	\begin{center}
-		\psset{unit=1.2}
-		\begin{pspicture}(-0.6,-0.5)(7,4.7)
-			%\psframe(-0.6,-0.5)(7,4.7)\psgrid[subgriddiv=1,griddots=10]
-			\rput{0}{\pstGeonode[PosAngle={-135,-45,90,135}](0,0){O}(4,0){A}(4,4){B}(0,4){C}}
-			\pstMiddleAB[PosAngle=135]{O}{A}{D}
-			\pstInterLC[PosAngle=-90,PointSymbolA=none, PointNameA=]{O}{A}{D}{B}{P''}{P}\pstProjection{C}{B}{P}[P']%%%%%
-
-			\pspolygon[](O)(P)(P')(C)%=vlines
-			\pstInterLL[PosAngle=80]{O}{P'}{P}{B}{O'}\pstInterLL[PosAngle=135]{A}{B}{O}{P'}{H}
-			\pstProjection[PosAngle=0]{P}{P'}{H}[J]
-			\pstInterLL[PosAngle=-90,CodeFig=true,CodeFigColor=black]{H}{J}{P}{B}{I}
-			\pstProjection[CodeFig=true,CodeFigColor=black]{B}{P'}{I}[K]
-			\pstLineAB{A}{B}\pstLineAB{O}{P'}\pstLineAB{P}{B}\pstLineAB{H}{J}
-			\pstRightAngle{O}{O'}{B}
-			\pstSegmentMark[SegmentSymbol=MarkHashh]{O}{D}
-			\pstSegmentMark[SegmentSymbol=MarkHashh]{A}{D}
-
-			\pstArcOAB{B}{C}{A}\pstArcOAB{H}{A}{J}\pstArcOAB{I}{J}{K}
-			\pstLineAB{D}{B}
-		\end{pspicture}
 	\end{center}
 	\caption{Rectángulo $\phi$}\label{Uww}
 \end{figure}
@@ -1040,36 +591,7 @@ Lo mismo ocurre con $\frac{DI'}{I'I}=\phi$ pues solo basta probar que los segmen
 
 \begin{figure}[!ht]
 	\begin{center}
-		\begin{pspicture}(-4,-5)(5,4.8)
-			%\psframe(-4,-4.5)(4.5,4.5)\psgrid[subgriddiv=1,griddots=10]
-			\rput(0,0){\pstGeonode[CurveType=polygon,PosAngle={0,90,180,120,-90}](4,0){A}(4;72){B}(4;144){C}
-				(4;-144){D}(4;-72){E}}
-			%\pstRotation[linecolor=red, RotAngle=180, CurveType=polygon]{D}{A, B, C, D, E}
-			\ncline[]{-}{C}{A}
-			\ncline[]{-}{B}{E}
-			\ncline[]{-}{D}{A}
-			\ncline[]{-}{B}{D}
-			\ncline[]{-}{E}{C}
-			\psset{LabelRefPt=c,arrows=->,MarkAngleRadius=0.6,LabelAngleOffset=0,
-				LabelSep=1.3}
-			\pstMarkAngle[]{D}{B}{E}{$36^\circ$}
-			\pstMarkAngle[]{C}{E}{D}{$36^\circ$}
-			\pstMarkAngle[]{A}{D}{B}{$36^\circ$}
-			\pstMarkAngle[]{D}{C}{E}{$36^\circ$}
-			\pstMarkAngle[]{E}{B}{A}{$36^\circ$}
 
-			\pstInterLL[PosAngle=135]{E}{B}{A}{D}{I}% PointSymbol=square
-			\pstInterLL[PosAngle=55]{D}{A}{E}{C}{I'}% PointSymbol=square
-			\pstInterLL[PosAngle=0]{C}{E}{D}{B}{I''}% PointSymbol=square
-			\pstMarkAngle[]{C}{I'}{D}{$72^\circ$}
-			\pstMarkAngle[]{B}{I''}{C}{$72^\circ$}
-
-			\ncline[arrowscale=1]{-}{E}{C}
-			\ncline[offset=-14pt]{|<->|}{D}{A}
-			\ncput*[]{$a$}
-			\ncline[offset=14pt]{|<->|}{B}{A}
-			\ncput*[]{$b$}
-		\end{pspicture}
 	\end{center}
 
 	\caption{El Pentágono y el Triángulo Áureo y la Relación de sus Lados}\label{R}
